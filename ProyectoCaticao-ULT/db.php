@@ -6,7 +6,7 @@
     //Conexión a la base de datos
     $conn = mysqli_connect('localhost', 'root','','caticao');
     
-    //Prueba X2 
+    //Prueba X3
 
 
     ?>
