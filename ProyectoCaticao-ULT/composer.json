@@ -1,0 +1,17 @@
+{
+    "name": "richard/proyecto-caticao-ult",
+    "description": "proyecto con POO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Richard Ronny Arias Marreros",
+            "email": "richard.arias3899@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "psr-4":{
+            "App\\":"./classes"
+        }
+    }
+}
