@@ -10,7 +10,7 @@ if(isset($_GET['idInsumo'])) {
     die("Query Failed.");
   }
 
-  $_SESSION['message'] = 'Materia prima eliminada';
+  $_SESSION['message'] = 'Insumo eliminado';
   $_SESSION['message_type'] = 'danger';
   header('Location: stock_insumo.php');
 }
