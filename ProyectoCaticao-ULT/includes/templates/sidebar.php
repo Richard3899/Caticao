@@ -33,14 +33,14 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="requisiciones.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-clipboard-list"></i>
                     <span>Requisiciones</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-box-open"></i>
                     <span>Stock</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -53,7 +53,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="costos.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Costos</span></a>
             </li>
 
