@@ -1,10 +1,10 @@
 
 <?php
 
-include 'db.php';
+include 'includes/config/db.php';
 
-
-include 'includes/templates/head.php'
+require 'includes/funciones.php';
+incluirTemplate('head');
 
 ?>
 
@@ -14,7 +14,7 @@ include 'includes/templates/head.php'
     <div id="wrapper">
 
             <?php
-            include 'includes/templates/sidebar.php'
+            incluirTemplate('sidebar');
             ?>
 
         <!-- Content Wrapper -->
@@ -26,7 +26,7 @@ include 'includes/templates/head.php'
 
                 <!-- Topbar -->
                 <?php
-                include 'includes/templates/nav.php'
+                incluirTemplate('nav');
                 ?>
             
 
@@ -34,11 +34,10 @@ include 'includes/templates/head.php'
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Productos</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Materia prima</h1>
 
                     <?php
-                    include 'includes/templates/nav_stock.php';
-                   
+                    incluirTemplate('nav_stock');
                     ?>
 
                         
@@ -53,44 +52,54 @@ include 'includes/templates/head.php'
 
 
                         
-                        <form  method="POST" action="save_producto.php" enctype="multipart/form-data">
+                        <form  method="POST" action="save_materiaprima.php" enctype="multipart/form-data">
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" value="" name="nombre" placeholder="Nombre">
                             </div>
+                            <div class="form-group col-md-4">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
+                            </div>
                             
-                            <div class="form-group col-md-6">
-                            <label for="categoria">Categoría</label>
-                            <select name="idCategoria" class='form-control'>
+                            <div class="form-group col-md-4">
+                            <label for="tipodeunidad">Tipo de Unidad</label>
+                            <select name="tipodeunidad" class='form-control'>
                                     <option value="Seleccione">Seleccione</option>
-                                    <option value="Dulce"> Dulce </option>
-                                    <option value="Semidulce">  Semidulce </option>
+                                    <option value="Kg"> Kg </option>
+                                    <option value="Lt"> Lt </option>
                             </select>
                             </div>
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
-                        </div>
+                        
 
                         <div class="form-row">
+                            <div class="form-group col-md-4">
 
-                            <div class="form-group col-md-6">
+                            <label for="descripcion">Marca</label>
+                            <input type="text" class="form-control" id="marca" value="" name="marca" placeholder="Marca">
+
+                            </div>
+                            
+
+                            <div class="form-group col-md-4">
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
                             </div>
-                            <div class="form-group col-md-6">
-                            <label for="precio">Precio</label>
-                            <input type="text" class="form-control" id="precio" value="" name="precio" placeholder="Precio">
+
+                            <div class="form-group col-md-4">
+                            <label for="tipomateria">Tipo de Materia</label>
+                            <input type="number" min="0" class="form-control" id="tipomateria" value="" name="tipomateria" placeholder="Tipo de Materia">
                             </div>
+                        
                             
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="save_producto">Crear</button>
+                        <button type="submit" class="btn btn-primary" name="save_materiaprima">Crear</button>
                         </form>
 
                         <br>
@@ -99,17 +108,18 @@ include 'includes/templates/head.php'
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tabla de Productos
+                                Tabla de Materia Prima
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-hover  table-bordered ">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Categoria</th>
+                                            <th>Descripción>
+                                            <th>Marca</th>
+                                            <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>
-                                            <th>Precio</th>
+                                            <th>Tipo Materia</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -119,9 +129,9 @@ include 'includes/templates/head.php'
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Descripción</th>
-                                            <th>Categoria</th>
+                                            <th>Marca</th>
+                                            <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>
-                                            <th>Precio</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -130,11 +140,11 @@ include 'includes/templates/head.php'
                                     <tbody>
                                          <?php
 
-                                         $query = "SELECT * FROM producto";
-                                         $resultado_producto = mysqli_query($conn,$query);
+                                         $query = "SELECT * FROM materiaprima";
+                                         $resultado_materiaprima = mysqli_query($conn,$query);
 
 
-                                        while($row = mysqli_fetch_array($resultado_producto)){ ?>
+                                        while($row = mysqli_fetch_array($resultado_materiaprima)){ ?>
                                          
                                          <tr>
    
@@ -143,29 +153,32 @@ include 'includes/templates/head.php'
                                              </td>
 
                                              <td>
-                                                <?php echo $row['descripcion'] ?>
+                                                <?php echo $row['marca'] ?>
                                              </td>
 
                                              <td>
-                                             <?php echo $row['idCategoria'] ?>
+
+                                             <?php echo $row['tipodeunidad'] ?>
+                                               
                                              </td>
+
                                              
+
                                              <td>
                                                 <?php echo $row['cantidad'] ?>
                                              </td>
-                                             <td>
-                                                <?php echo $row['precio'] ?>
-                                             </td>
+                                             
+
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="edit_producto.php?idProducto=<?php echo $row['idProducto'] ?>" >
+                                             <a class="btn btn-warning" href="edit_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima'] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="delete_producto.php?idProducto=<?php echo $row['idProducto']?>" >
+                                             <a class="btn btn-danger" href="delete_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima']?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>
@@ -188,15 +201,9 @@ include 'includes/templates/head.php'
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+            <?php
+                    incluirTemplate('footer');
+            ?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -205,13 +212,12 @@ include 'includes/templates/head.php'
     <!-- End of Page Wrapper -->
 
 
-
     <?php
-    include 'includes/templates/logout_modal.php'
+        incluirTemplate('logout_modal');
     ?>
 
     <?php
-    include 'includes/templates/scripts.php'
+        incluirTemplate('scripts');
     ?>
 
 </body>

@@ -1,7 +1,7 @@
 
 <?php
 
-include 'db.php';
+include 'includes/config/db.php';
 
 
 include 'includes/templates/head.php'
@@ -34,7 +34,7 @@ include 'includes/templates/head.php'
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Insumo</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Productos</h1>
 
                     <?php
                     include 'includes/templates/nav_stock.php';
@@ -53,7 +53,7 @@ include 'includes/templates/head.php'
 
 
                         
-                        <form  method="POST" action="save_insumo.php" enctype="multipart/form-data">
+                        <form  method="POST" action="save_producto.php" enctype="multipart/form-data">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -62,36 +62,35 @@ include 'includes/templates/head.php'
                             </div>
                             
                             <div class="form-group col-md-6">
-                            <label for="tipodeunidad">Tipo de Unidad</label>
-                            <select name="tipodeunidad" class='form-control'>
+                            <label for="categoria">Categoría</label>
+                            <select name="idCategoria" class='form-control'>
                                     <option value="Seleccione">Seleccione</option>
-                                    <option value="Kg"> Kg </option>
-                                    <option value="Lt"> Lt </option>
+                                    <option value="Dulce"> Dulce </option>
+                                    <option value="Semidulce">  Semidulce </option>
                             </select>
                             </div>
 
                         </div>
 
-                        
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
+                        </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-
-                            <label for="descripcion">Marca</label>
-                            <input type="text" class="form-control" id="marca" value="" name="marca" placeholder="Marca">
-
-                            </div>
-                            
 
                             <div class="form-group col-md-6">
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
                             </div>
-                        
+                            <div class="form-group col-md-6">
+                            <label for="precio">Precio</label>
+                            <input type="text" class="form-control" id="precio" value="" name="precio" placeholder="Precio">
+                            </div>
                             
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="save_insumo">Crear</button>
+                        <button type="submit" class="btn btn-primary" name="save_producto">Crear</button>
                         </form>
 
                         <br>
@@ -100,16 +99,17 @@ include 'includes/templates/head.php'
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tabla de Insumos
+                                Tabla de Productos
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-hover  table-bordered ">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Marca</th>
-                                            <th>Tipo de Unidad</th>
+                                            <th>Descripción</th>
+                                            <th>Categoria</th>
                                             <th>Cantidad</th>
+                                            <th>Precio</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -118,9 +118,10 @@ include 'includes/templates/head.php'
                                     <tfoot>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Marca</th>
-                                            <th>Tipo de Unidad</th>
+                                            <th>Descripción</th>
+                                            <th>Categoria</th>
                                             <th>Cantidad</th>
+                                            <th>Precio</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -129,11 +130,11 @@ include 'includes/templates/head.php'
                                     <tbody>
                                          <?php
 
-                                         $query = "SELECT * FROM insumo";
-                                         $resultado_insumo = mysqli_query($conn,$query);
+                                         $query = "SELECT * FROM producto";
+                                         $resultado_producto = mysqli_query($conn,$query);
 
 
-                                        while($row = mysqli_fetch_array($resultado_insumo)){ ?>
+                                        while($row = mysqli_fetch_array($resultado_producto)){ ?>
                                          
                                          <tr>
    
@@ -142,32 +143,29 @@ include 'includes/templates/head.php'
                                              </td>
 
                                              <td>
-                                                <?php echo $row['marca'] ?>
+                                                <?php echo $row['descripcion'] ?>
                                              </td>
 
                                              <td>
-
-                                             <?php echo $row['tipodeunidad'] ?>
-                                               
+                                             <?php echo $row['idCategoria'] ?>
                                              </td>
-
                                              
-
                                              <td>
                                                 <?php echo $row['cantidad'] ?>
                                              </td>
-                                             
-
+                                             <td>
+                                                <?php echo $row['precio'] ?>
+                                             </td>
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="edit_insumo.php?idInsumo=<?php echo $row['idInsumo'] ?>" >
+                                             <a class="btn btn-warning" href="edit_producto.php?idProducto=<?php echo $row['idProducto'] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="delete_insumo.php?idInsumo=<?php echo $row['idInsumo']?>" >
+                                             <a class="btn btn-danger" href="delete_producto.php?idProducto=<?php echo $row['idProducto']?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>

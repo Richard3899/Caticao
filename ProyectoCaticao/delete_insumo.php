@@ -1,6 +1,6 @@
 <?php
 
-include("db.php");
+include 'includes/config/db.php';
 
 if(isset($_GET['idInsumo'])) {
   $id = $_GET['idInsumo'];

@@ -1,5 +1,6 @@
 <?php
-include 'includes/templates/head.php'
+require 'includes/funciones.php';
+incluirTemplate('head');
 ?>
 
 
@@ -10,7 +11,7 @@ include 'includes/templates/head.php'
 
 
         <?php
-        include 'includes/templates/sidebar.php'
+        incluirTemplate('sidebar');
         ?>
 
 
@@ -23,7 +24,7 @@ include 'includes/templates/head.php'
 
                 <!-- Topbar -->
                 <?php
-                include 'includes/templates/nav.php'
+                incluirTemplate('nav');
                 ?>
             
 
@@ -363,7 +364,7 @@ include 'includes/templates/head.php'
 
    
             <?php
-            include 'includes/templates/footer.php'
+            incluirTemplate('footer');
             ?>
 
         </div>
@@ -375,11 +376,11 @@ include 'includes/templates/head.php'
 
 
     <?php
-    include 'includes/templates/logout_modal.php'
+    incluirTemplate('logout_modal');
     ?>
 
     <?php
-    include 'includes/templates/scripts.php'
+    incluirTemplate('scripts');
     ?>
 
 

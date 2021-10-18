@@ -2,46 +2,49 @@
 <?php
 
 
-include("db.php");
-                    $nombre = '';
-                    $tipodeunidad='';
-                    $marca= '';
-                    $cantidad= '';
+include 'includes/config/db.php';
 
+                        $nombre = '';
+                        $tipodeunidad='';
+                        $marca= '';
+                        $cantidad= '';
+                       
+                        
 
+                        if  (isset($_GET['idMateriaprima'])) {
+                        $id = $_GET['idMateriaprima'];
+                        $query = "SELECT * FROM materiaprima WHERE idMateriaprima=$id";
+                        $result = mysqli_query($conn, $query);
+                        if (mysqli_num_rows($result) == 1) {
+                            $row = mysqli_fetch_array($result);
+                            $nombre = $row['nombre'];
+                            $marca = $row['marca'];
+                            $tipodeunidad = $row['tipodeunidad'];
+                            $cantidad = $row['cantidad'];
 
-                    if  (isset($_GET['idInsumo'])) {
-                    $id = $_GET['idInsumo'];
-                    $query = "SELECT * FROM insumo WHERE idInsumo=$id";
-                    $result = mysqli_query($conn, $query);
-                    if (mysqli_num_rows($result) == 1) {
-                        $row = mysqli_fetch_array($result);
-                        $nombre = $row['nombre'];
-                        $tipodeunidad = $row['tipodeunidad'];
-                        $marca = $row['marca'];
-                        $cantidad = $row['cantidad'];
-                    
-                    }
-                    }
+                            
+                           
+                        }
+                        }
 
-                    if (isset($_POST['update_insumo'])) {
+                        if (isset($_POST['update_materiaprima'])) {
 
-                        $id = $_GET['idInsumo'];
-                        $nombre = $_POST['nombre'];
-                        $tipodeunidad = $_POST['tipodeunidad'];
-                        $marca = $_POST['marca'];
-                        $cantidad = $_POST['cantidad'];
+                            $id = $_GET['idMateriaprima'];
+                            $nombre = $_POST['nombre'];
+                            $marca = $_POST['marca'];
+                            $tipodeunidad = $_POST['tipodeunidad'];
+                            $cantidad = $_POST['cantidad'];
+                        
 
+                        $query = "UPDATE materiaprima set nombre = '$nombre', marca = '$marca', tipodeunidad = '$tipodeunidad'
+                        
+                        , cantidad = '$cantidad' WHERE idMateriaprima=$id";
 
-                    $query = "UPDATE insumo set nombre = '$nombre', tipodeunidad = '$tipodeunidad'
-
-                    , marca = '$marca', cantidad = '$cantidad' WHERE idInsumo=$id";
-
-                    mysqli_query($conn, $query);
-                    $_SESSION['message'] = 'Actualización exitosa';
-                    $_SESSION['message_type'] = 'warning';
-                    header('Location: stock_insumo.php');
-                    }
+                        mysqli_query($conn, $query);
+                        $_SESSION['message'] = 'Actualización exitosa';
+                        $_SESSION['message_type'] = 'warning';
+                        header('Location: stock_materiaprima.php');
+                        }
 
 
                         include 'includes/templates/head.php'
@@ -74,7 +77,7 @@ include("db.php");
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Insumos</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Materia prima</h1>
 
 
 
@@ -89,7 +92,7 @@ include("db.php");
                         ?>
 
                         
-                        <form action="edit_insumo.php?idInsumo=<?php echo $_GET['idInsumo']; ?>" method="POST">
+                        <form action="edit_materiaprima.php?idMateriaprima=<?php echo $_GET['idMateriaprima']; ?>" method="POST">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -98,12 +101,11 @@ include("db.php");
                             </div>
                             
                             <div class="form-group col-md-6">
-                            <label for="tipodeunidad">Tipo de unidad</label>
+                            <label for="tipodeunidad">Tipo de Unidad</label>
                             <select name="tipodeunidad" class='form-control'>
-             
-                                    <option value="Seleccione"> Seleccione </option>
+                                    <option value="Seleccione">Seleccione</option>
                                     <option value="Kg"> Kg </option>
-                                    <option value="Lt"> Lt  </option>
+                                    <option value="Lt"> Lt </option>
                             </select>
                             </div>
 
@@ -125,7 +127,7 @@ include("db.php");
                             
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="update_insumo">Actualizar</button>
+                        <button type="submit" class="btn btn-primary" name="update_materiaprima">Actualizar</button>
                         </form>
 
                   
