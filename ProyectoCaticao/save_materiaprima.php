@@ -1,7 +1,7 @@
 
 <?php
 
-include('db.php');
+include 'includes/config/db.php';
 
 if (isset($_POST['save_materiaprima'])) {
 

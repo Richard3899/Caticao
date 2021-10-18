@@ -1,7 +1,7 @@
 
 <?php
 
-include 'db.php';
+include 'includes/config/db.php';
 
 
 include 'includes/templates/head.php'
@@ -34,7 +34,7 @@ include 'includes/templates/head.php'
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Materia prima</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Insumo</h1>
 
                     <?php
                     include 'includes/templates/nav_stock.php';
@@ -53,7 +53,7 @@ include 'includes/templates/head.php'
 
 
                         
-                        <form  method="POST" action="save_materiaprima.php" enctype="multipart/form-data">
+                        <form  method="POST" action="save_insumo.php" enctype="multipart/form-data">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -91,7 +91,7 @@ include 'includes/templates/head.php'
                             
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="save_materiaprima">Crear</button>
+                        <button type="submit" class="btn btn-primary" name="save_insumo">Crear</button>
                         </form>
 
                         <br>
@@ -100,7 +100,7 @@ include 'includes/templates/head.php'
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tabla de Materia Prima
+                                Tabla de Insumos
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-hover  table-bordered ">
@@ -129,11 +129,11 @@ include 'includes/templates/head.php'
                                     <tbody>
                                          <?php
 
-                                         $query = "SELECT * FROM materiaprima";
-                                         $resultado_materiaprima = mysqli_query($conn,$query);
+                                         $query = "SELECT * FROM insumo";
+                                         $resultado_insumo = mysqli_query($conn,$query);
 
 
-                                        while($row = mysqli_fetch_array($resultado_materiaprima)){ ?>
+                                        while($row = mysqli_fetch_array($resultado_insumo)){ ?>
                                          
                                          <tr>
    
@@ -160,14 +160,14 @@ include 'includes/templates/head.php'
 
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="edit_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima'] ?>" >
+                                             <a class="btn btn-warning" href="edit_insumo.php?idInsumo=<?php echo $row['idInsumo'] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="delete_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima']?>" >
+                                             <a class="btn btn-danger" href="delete_insumo.php?idInsumo=<?php echo $row['idInsumo']?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>

@@ -2,7 +2,8 @@
 <?php
 
 
-include("db.php");
+include 'includes/config/db.php';
+
                         $nombre = '';
                         $idCategoria='';
                         $descripcion= '';
