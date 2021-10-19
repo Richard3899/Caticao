@@ -10,6 +10,13 @@ $db=conexion();
 $consulta="Select*from unidadMedida";
 $resultado= mysqli_query($db, $consulta);
 
+$Nombre = '';
+$Descripcion = '';
+$Descripcion_Marca='';
+$cantidad='';
+$Descripcion_TipoMateria='';
+$iddescripcion_Unidad = '';
+
 ?>
 
 <body id="page-top">
@@ -71,19 +78,21 @@ $resultado= mysqli_query($db, $consulta);
                             
                             <div class="form-group col-md-4">
                             <label for="descripcion_Unidad">Tipo de Unidad</label>
-                            <select name="descripcion_Unidad" class='form-control'>
-                            <option value="Seleccione">Seleccione</option>
-                                <?php while ($descripcion_Unidad=mysqli_fetch_assoc($descripcion_Unidad)):?>
-                                <option <?echo $descripcion_UnidadId == $descripcion_Unidad['idUnidadMedida'] ? 'selected' : '';?> 
-                                VALUE="<?php echo $descripcion_Unidad['idUnidadMedida']?>"><?php echo $descripcion_Unidad ['descripcion_Unidad'];?> </option>
-                       <?php endwhile; ?>
+                            <select id='id_idUnidadMedida' name="idUnidadMedida" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_Unidad=mysqli_fetch_assoc($resultado)):?>
+                                <option <?php echo $idUnidadMedida == $descripcion_Unidad['idUnidadMedida'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_Unidad['idUnidadMedida'];?>">
+                                <?php echo $descripcion_Unidad ['descripcion_Unidad'];?> </option>
+                             <?php endwhile; ?>
                         
                             </select>
+                           
+                            </div>
+
                             </div>
 
                         </div>
-
-                        
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
