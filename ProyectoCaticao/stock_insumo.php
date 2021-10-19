@@ -56,12 +56,17 @@ include 'includes/templates/head.php'
                         <form  method="POST" action="save_insumo.php" enctype="multipart/form-data">
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" value="" name="nombre" placeholder="Nombre">
                             </div>
-                            
-                            <div class="form-group col-md-6">
+
+                            <div class="form-group col-md-4">
+                            <label for="descripción"> Descripción </label>
+                            <input type="text" class="form-control" id="descripción" value="" name="descripción" placeholder="Descripción">
+                            </div>
+
+                            <div class="form-group col-md-4">
                             <label for="tipodeunidad">Tipo de Unidad</label>
                             <select name="tipodeunidad" class='form-control'>
                                     <option value="Seleccione">Seleccione</option>
@@ -75,7 +80,7 @@ include 'includes/templates/head.php'
                         
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
 
                             <label for="descripcion">Marca</label>
                             <input type="text" class="form-control" id="marca" value="" name="marca" placeholder="Marca">
@@ -83,10 +88,20 @@ include 'includes/templates/head.php'
                             </div>
                             
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
                             </div>
+                            
+                            <div class="form-group col-md-4">
+                            <label for="Descripcion_TipoMateria">Tipo de Materia</label>
+                            <select name="Descripcion_TipoMateria" class='form-control'>
+                                    <option value="Seleccione">Seleccione</option>
+                                    <option value="insumos"> Insumos </option>
+                                    <option value="materiaprima"> Materia Prima </option>
+                            </select>
+                            </div>
+
                         
                             
                         </div>
@@ -107,9 +122,11 @@ include 'includes/templates/head.php'
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
+                                            <th>Descripción</th>
                                             <th>Marca</th>
                                             <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>
+                                            <th>Tipo Materia</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -118,9 +135,11 @@ include 'includes/templates/head.php'
                                     <tfoot>
                                         <tr>
                                             <th>Nombre</th>
+                                            <th>Descripción</th>
                                             <th>Marca</th>
                                             <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>
+                                            <th>Tipo Materia</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -129,7 +148,10 @@ include 'includes/templates/head.php'
                                     <tbody>
                                          <?php
 
-                                         $query = "SELECT * FROM insumo";
+                                         $query = " select m.idMateria, m.Nombre, m.descripción,m.cantidad,ma.Descripcion_Marca ,u.descripcion_Unidad, ti.Descripcion_TipoMateria 
+                                         from materia as m inner join marca as ma on m.idMarca=ma.idMarca
+                                         iNNER join unidadmedida as u on m.idUnidadMedida=u.idUnidadMedida
+                                         inner join tipomateria as ti on m.idTipoMateria=ti.idTipoMateria";
                                          $resultado_insumo = mysqli_query($conn,$query);
 
 
@@ -137,37 +159,39 @@ include 'includes/templates/head.php'
                                          
                                          <tr>
    
+                                         <td>
+                                                <?php echo $row['Nombre'] ?>
+                                             </td>
                                              <td>
-                                                <?php echo $row['nombre'] ?>
+                                                <?php echo $row['descripción'] ?>
                                              </td>
 
                                              <td>
-                                                <?php echo $row['marca'] ?>
+                                                <?php echo $row['Descripcion_Marca'] ?>
                                              </td>
 
                                              <td>
-
-                                             <?php echo $row['tipodeunidad'] ?>
-                                               
+                                                <?php echo $row['descripcion_Unidad'] ?>
                                              </td>
-
-                                             
 
                                              <td>
                                                 <?php echo $row['cantidad'] ?>
                                              </td>
+                                             <td>
+                                                <?php echo $row['Descripcion_TipoMateria'] ?>
+                                             </td>
                                              
 
                                              <td>
-                                                
-                                             <a class="btn btn-warning" href="edit_insumo.php?idInsumo=<?php echo $row['idInsumo'] ?>" >
+
+                                             <a class="btn btn-warning" href="edit_insumo.php?idInsumo=<?php echo $row['idMateria'] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="delete_insumo.php?idInsumo=<?php echo $row['idInsumo']?>" >
+                                             <a class="btn btn-danger" href="delete_insumo.php?idInsumo=<?php echo $row['idMateria']?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>
