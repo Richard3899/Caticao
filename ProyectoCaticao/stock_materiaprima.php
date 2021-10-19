@@ -2,20 +2,20 @@
 <?php
 
 include 'includes/config/db.php';
-
+include 'includes/templates/head.php';
 require 'includes/funciones.php';
 
 incluirTemplate('head');
-$db1=conexion();
 
+$db1=conexion();
 $consulta1="Select*from unidadMedida";
 $resultado1= mysqli_query($db1, $consulta1);
 
-
+$idMateria='';
 $Nombre = '';
 $Descripcion = '';
 $Descripcion_Marca='';
-$cantidad='';
+$Cantidad='';
 $Descripcion_TipoMateria='';
 $iddescripcion_Unidad = '';
 $idUnidadMedida='';
@@ -83,8 +83,8 @@ $idMarca="";
                             </div>
 
                             <div class="form-group col-md-4">
-                            <label for="descripción"> Descripción </label>
-                            <input type="text" class="form-control" id="descripción" value="" name="descripción" placeholder="Descripción">
+                            <label for="Descripción"> Descripción </label>
+                            <input type="text" class="form-control" id="Descripción" value="" name="Descripción" placeholder="Descripción">
                             </div>
                             
                             <div class="form-group col-md-4">
@@ -122,16 +122,16 @@ $idMarca="";
                               
                             <div class="form-group col-md-4">
                             <label for="cantidad">Cantidad</label>
-                            <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
+                            <input type="number" min="0" class="form-control" id="Cantidad" value="" name="Cantidad" placeholder="Cantidad">
                             </div>
 
                             <div class="form-group col-md-4">
                             <label for="Descripcion_TipoMateria">Tipo de Materia</label>
-                            <select name="id_idTipoMateria" name="idTipoMateria" class='form-control' required>
+                            <select id="id_idMarca" name="idTipoMateria" class='form-control' required>
                             <option selected disabled value="">Seleccione</option>
                                 <?php while ($descripcion_TipoMateria=mysqli_fetch_assoc($resultado2)):?>
                                 <option <?php echo $idTipoMateria == $descripcion_TipoMateria['idTipoMateria'] ? 'selected' : '';?> 
-                                value= "<?php echo $descripcion_TipoMaderia['idTipoMateria'];?>">
+                                value= "<?php echo $descripcion_TipoMateria['idTipoMateria'];?>">
                                 <?php echo $descripcion_TipoMateria['Descripcion_TipoMateria'];?> </option>
                              <?php endwhile; ?>
                             </select>
