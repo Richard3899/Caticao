@@ -4,10 +4,12 @@
 
 include 'includes/config/db.php';
 
-                        $nombre = '';
-                        $tipodeunidad='';
-                        $marca= '';
+                        $Nombre = '';
+                        $descripción='';
+                        $Descripcion_Marca= '';
+                        $descripcion_Unidad= '';
                         $cantidad= '';
+                        $Descripcion_TipoMateria='';
                        
                         
 
