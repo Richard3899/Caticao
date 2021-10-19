@@ -56,20 +56,24 @@ incluirTemplate('head');
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" value="" name="nombre" placeholder="Nombre">
+                            <label for="Nombre">Nombre</label>
+                            <input type="text" class="form-control" id="Nombre" value="" name="Nombre" placeholder="Nombre">
                             </div>
+
                             <div class="form-group col-md-4">
-                            <label for="descripcion">Descripción</label>
-                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
+                            <label for="descripción"> Descripción </label>
+                            <input type="text" class="form-control" id="descripción" value="" name="descripción" placeholder="Descripción">
                             </div>
                             
                             <div class="form-group col-md-4">
-                            <label for="tipodeunidad">Tipo de Unidad</label>
-                            <select name="tipodeunidad" class='form-control'>
-                                    <option value="Seleccione">Seleccione</option>
-                                    <option value="Kg"> Kg </option>
-                                    <option value="Lt"> Lt </option>
+                            <label for="descripcion_Unidad">Tipo de Unidad</label>
+                            <select name="descripcion_Unidad" class='form-control'>
+                            <option value="Seleccione">Seleccione</option>
+                                <?php while ($descripcion_Unidad=mysqli_fetch_assoc($descripcion_Unidad)):?>
+                                <option <?echo $descripcion_UnidadId == $descripcion_Unidad['idUnidadMedida'] ? 'selected' : '';?> 
+                                VALUE="<?php echo $descripcion_Unidad['idUnidadMedida']?>"><?php echo $descripcion_Unidad ['descripcion_Unidad']?> </option>
+                       <? endwhile; ?>
+                        
                             </select>
                             </div>
 
@@ -80,8 +84,8 @@ incluirTemplate('head');
                         <div class="form-row">
                             <div class="form-group col-md-4">
 
-                            <label for="descripcion">Marca</label>
-                            <input type="text" class="form-control" id="marca" value="" name="marca" placeholder="Marca">
+                            <label for="Descripcion_Marca">Marca</label>
+                            <input type="text" class="form-control" id="Descripcion_Marca" value="" name="Descripcion_Marca" placeholder="Marca">
 
                             </div>
                             
@@ -92,8 +96,8 @@ incluirTemplate('head');
                             </div>
 
                             <div class="form-group col-md-4">
-                            <label for="tipomateria">Tipo de Materia</label>
-                            <select name="tipomateria" class='form-control'>
+                            <label for="Descripcion_TipoMateria">Tipo de Materia</label>
+                            <select name="Descripcion_TipoMateria" class='form-control'>
                                     <option value="Seleccione">Seleccione</option>
                                     <option value="insumos"> Insumos </option>
                                     <option value="materiaprima"> Materia Prima </option>
@@ -120,7 +124,7 @@ incluirTemplate('head');
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Descripción>
+                                            <th>Descripción</th>
                                             <th>Marca</th>
                                             <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>

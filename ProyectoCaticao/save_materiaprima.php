@@ -5,16 +5,16 @@ include 'includes/config/db.php';
 
 if (isset($_POST['save_materiaprima'])) {
 
-    $nombre= $_POST['nombre'];
-    $tipodeunidad= $_POST['tipodeunidad'];
-    $marca= $_POST['marca'];
+    $Nombre= $_POST['Nombre'];
+    $descripción= $_POST['descripción'];
+    $Descripcion_Marca= $_POST['Descripcion_Marca'];
+    $descripcion_Unidad= $_POST['descripcion_Unidad'];
+    $Descripcion_TipoMateria= $_POST['Descripcion_TipoMateria'];
     $cantidad= $_POST['cantidad'];
  
 
-    $query = "INSERT INTO materiaprima(nombre,tipodeunidad,
-    marca,cantidad)
-    VALUES ('$nombre','$tipodeunidad','$marca',
-    '$cantidad')";
+    $query = "INSERT INTO materiaprima(Nombre,descripción,Descripcion_Marca,descripcion_Unidad,cantidad,Descripcion_TipoMateria)
+    VALUES ('$Nombre','$descripción','$Descripcion_Marca','$descripcion_Unidad','$Descripcion_TipoMateria','$cantidad')";
 
     $result = mysqli_query($conn, $query);
 
