@@ -56,34 +56,39 @@ include 'includes/templates/head.php'
                         <form  method="POST" action="save_producto.php" enctype="multipart/form-data">
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" value="" name="nombre" placeholder="Nombre">
                             </div>
+
+                            <div class="form-group col-md-4">
+                            <label for="descripcion">Descripcion</label>
+                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
+                            </div>
+                            <div class="form-group col-md-4">
+                            <label for="cantidad">Catidad</label>
+                            <input type="text" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
+                            </div>
                             
-                            <div class="form-group col-md-6">
-                            <label for="categoria">Categoría</label>
-                            <select name="idCategoria" class='form-control'>
+
+                       
+                        <div class="form-row">
+    
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="tipoProducto">Tipo Producto</label>
+                            <select name="tipoProducto" class='form-control'>
                                     <option value="Seleccione">Seleccione</option>
-                                    <option value="Dulce"> Dulce </option>
-                                    <option value="Semidulce">  Semidulce </option>
+                                    <option value="insumos"> Insumos </option>
+                                   
                             </select>
                             </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
-                        </div>
-
-                        <div class="form-row">
-
-                            <div class="form-group col-md-6">
-                            <label for="cantidad">Cantidad</label>
-                            <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
+                            <div class="form-group col-md-4">
+                            <label for="nroLote">Nro Lote</label>
+                            <input type="number" min="0" class="form-control" id="nroLote" value="" name="nroLote" placeholder="Nro Lote">
                             </div>
-                            <div class="form-group col-md-6">
+                            
+                            <div class="form-group col-md-4">
                             <label for="precio">Precio</label>
                             <input type="text" class="form-control" id="precio" value="" name="precio" placeholder="Precio">
                             </div>
@@ -107,9 +112,10 @@ include 'includes/templates/head.php'
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Descripción</th>
-                                            <th>Categoria</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
+                                            <th>Descripción</th>
+                                            <th>Nro Lote</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -117,11 +123,12 @@ include 'includes/templates/head.php'
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Nombre</th>
+                                             <th>Nombre</th>
                                             <th>Descripción</th>
-                                            <th>Categoria</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
+                                            <th>Descripción</th>
+                                            <th>Nro Lote</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -130,7 +137,9 @@ include 'includes/templates/head.php'
                                     <tbody>
                                          <?php
 
-                                         $query = "SELECT * FROM producto";
+                                         $query = "select p.nombre, p.descripcion,p.cantidad,p.precio,ti.descripcion, l.NroLote
+                                         from producto as p inner join tipoProducto as ti on p.idTipoProducto=ti.idTipoProducto
+                                         inner join lote as l on p.idLote=l.idlote";
                                          $resultado_producto = mysqli_query($conn,$query);
 
 
@@ -147,17 +156,20 @@ include 'includes/templates/head.php'
                                              </td>
 
                                              <td>
-                                             <?php echo $row['idCategoria'] ?>
+                                             <?php echo $row['cantidad'] ?>
                                              </td>
                                              
                                              <td>
-                                                <?php echo $row['cantidad'] ?>
+                                                <?php echo $row['descripcion'] ?>
                                              </td>
                                              <td>
                                                 <?php echo $row['precio'] ?>
                                              </td>
                                              <td>
-                                                
+                                             <td>
+                                                <?php echo $row['NroLote'] ?>
+                                             </td>
+                                             <td> 
                                              <a class="btn btn-warning" href="edit_producto.php?idProducto=<?php echo $row['idProducto'] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
