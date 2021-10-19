@@ -38,24 +38,36 @@
             </li>
 
 
-            <li class="nav-item">
+             <!-- Nav Item - Pages Collapse Menu -->
+             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-box-open"></i>
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>Stock</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+    
                         <a class="collapse-item" href="stock_materiaprima.php">Agregar</a>
-                        
+        
                     </div>
                 </div>
             </li>
 
+            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="costos.php">
-                    <i class="fas fa-fw fa-file-invoice-dollar"></i>
-                    <span>Costos</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Costos</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="costos_agregarcostomateria.php">Agregar</a>
+                        <a class="collapse-item" href="costos_directos.php">Calcular</a>
+                    </div>
+                </div>
             </li>
 
 
