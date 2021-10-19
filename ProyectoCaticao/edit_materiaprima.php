@@ -15,7 +15,7 @@ include 'includes/config/db.php';
 
                         if  (isset($_GET['idMateriaprima'])) {
                         $id = $_GET['idMateriaprima'];
-                        $query = "SELECT * FROM materiaprima WHERE idMateriaprima=$id";
+                        $query = "SELECT * FROM materia WHERE idMateria=$id";
                         $result = mysqli_query($conn, $query);
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
