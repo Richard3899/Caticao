@@ -137,7 +137,7 @@ include 'includes/templates/head.php'
                                     <tbody>
                                          <?php
 
-                                         $query = "select p.nombre, p.descripcion,p.cantidad,p.precio,ti.descripcion, l.NroLote
+                                         $query = "select p.idProducto, p.nombre, p.descripcion,p.cantidad,p.precio,ti.descripcion, l.NroLote
                                          from producto as p inner join tipoProducto as ti on p.idTipoProducto=ti.idTipoProducto
                                          inner join lote as l on p.idLote=l.idlote";
                                          $resultado_producto = mysqli_query($conn,$query);
@@ -158,14 +158,13 @@ include 'includes/templates/head.php'
                                              <td>
                                              <?php echo $row['cantidad'] ?>
                                              </td>
-                                             
-                                             <td>
-                                                <?php echo $row['descripcion'] ?>
-                                             </td>
                                              <td>
                                                 <?php echo $row['precio'] ?>
                                              </td>
                                              <td>
+                                                <?php echo $row['descripcion'] ?>
+                                             </td>
+
                                              <td>
                                                 <?php echo $row['NroLote'] ?>
                                              </td>
