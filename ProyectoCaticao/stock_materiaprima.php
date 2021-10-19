@@ -4,10 +4,12 @@
 include 'includes/config/db.php';
 
 require 'includes/funciones.php';
+
 incluirTemplate('head');
 $db1=conexion();
-$consulta="Select*from unidadMedida";
-$resultado= mysqli_query($db1, $consulta);
+
+$consulta1="Select*from unidadMedida";
+$resultado1= mysqli_query($db1, $consulta1);
 
 
 $Nombre = '';
@@ -89,7 +91,7 @@ $idMarca="";
                             <label for="descripcion_Unidad">Tipo de Unidad</label>
                             <select id='id_idUnidadMedida' name="idUnidadMedida" class='form-control' required>
                             <option selected disabled value="">Seleccione</option>
-                                <?php while ($descripcion_Unidad=mysqli_fetch_assoc($resultado)):?>
+                                <?php while ($descripcion_Unidad=mysqli_fetch_assoc($resultado1)):?>
                                 <option <?php echo $idUnidadMedida == $descripcion_Unidad['idUnidadMedida'] ? 'selected' : '';?> 
                                 value= "<?php echo $descripcion_Unidad['idUnidadMedida'];?>">
                                 <?php echo $descripcion_Unidad ['descripcion_Unidad'];?> </option>

@@ -3,9 +3,28 @@
 
 include 'includes/config/db.php';
 
+require 'includes/funciones.php';
+include 'includes/templates/head.php';
+incluirTemplate('head');
 
-include 'includes/templates/head.php'
+$db1=conexion();
+$consulta1="Select*from TipoProducto";
+$resultado1= mysqli_query($db1, $consulta1);
 
+
+$nombre = '';
+$descripcion = '';
+$cantidad='';
+$Precio='';
+$idTipoProducto='';
+$idLote='';
+$NroLote='';
+
+
+$db2=conexion();
+$consulta2="select*from Lote";
+$resultado2= mysqli_query($db2, $consulta2);
+$idLote="";
 ?>
 
 <body id="page-top">
@@ -69,34 +88,47 @@ include 'includes/templates/head.php'
                             <label for="cantidad">Catidad</label>
                             <input type="text" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
                             </div>
+                         </div>
                             
 
                        
                         <div class="form-row">
     
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="tipoProducto">Tipo Producto</label>
-                            <select name="tipoProducto" class='form-control'>
-                                    <option value="Seleccione">Seleccione</option>
-                                    <option value="insumos"> Insumos </option>
-                                   
-                            </select>
+                            <div class="form-group col-md-4">
+                                <label for="precio">Precio</label>
+                                <input type="number" class="form-control" id="precio" value="" name="precio" placeholder="Precio">
                             </div>
                             <div class="form-group col-md-4">
-                            <label for="nroLote">Nro Lote</label>
-                            <input type="number" min="0" class="form-control" id="nroLote" value="" name="nroLote" placeholder="Nro Lote">
-                            </div>
+                                <label for="tipoProducto">Tipo Producto</label>
+                                <select id='id_idtipoProducto' name="idTipoProducto" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_TipoProducto=mysqli_fetch_assoc($resultado1)):?>
+                                    <option <?php echo $idTipoProducto == $descripcion_TipoProducto['idTipoProducto'] ? 'selected' : '';?> 
+                                    value= "<?php echo $descripcion_TipoProducto['idTipoProducto'];?>">
+                                    <?php echo $descripcion_TipoProducto ['descripcion'];?> </option>
+                                <?php endwhile; ?>
+                                    
+                                </select>
                             
-                            <div class="form-group col-md-4">
-                            <label for="precio">Precio</label>
-                            <input type="text" class="form-control" id="precio" value="" name="precio" placeholder="Precio">
                             </div>
-                            
+                                <div class="form-group col-md-4">
+                                <label for="Lote">Nro Lote</label>
+                                <select id='id_idtLote' name="idLote" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_Lote=mysqli_fetch_assoc($resultado2)):?>
+                                    <option <?php echo $idLote == $descripcion_Lote['idLote'] ? 'selected' : '';?> 
+                                    value= "<?php echo $descripcion_Lote['idLote'];?>">
+                                    <?php echo $descripcion_Lote ['NroLote'];?> </option>
+                                <?php endwhile; ?>
+                                    
+                                </select>
+                            </div>
                         </div>
+                           
+                       
 
-                        <button type="submit" class="btn btn-primary" name="save_producto">Crear</button>
-                        </form>
+                         <button type="submit" class="btn btn-primary" name="save_producto">Crear</button>
+                         </form>
 
                         <br>
 
