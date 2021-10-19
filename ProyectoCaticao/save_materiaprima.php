@@ -7,14 +7,15 @@ if (isset($_POST['save_materiaprima'])) {
 
     $Nombre= $_POST['Nombre'];
     $descripción= $_POST['descripción'];
-    $Descripcion_Marca= $_POST['Descripcion_Marca'];
-    $descripcion_Unidad= $_POST['descripcion_Unidad'];
-    $Descripcion_TipoMateria= $_POST['Descripcion_TipoMateria'];
+    $Descripcion_Marca= $_POST['idMarca'];
+    $descripcion_Unidad= $_POST['idUnidadMedida'];
     $cantidad= $_POST['cantidad'];
+    $Descripcion_TipoMateria= $_POST['idTipoMateria'];
+
  
 
-    $query = "INSERT INTO materiaprima(Nombre,descripción,Descripcion_Marca,descripcion_Unidad,cantidad,Descripcion_TipoMateria)
-    VALUES ('$Nombre','$descripción','$Descripcion_Marca','$descripcion_Unidad','$Descripcion_TipoMateria','$cantidad')";
+    $query = "INSERT INTO materiaprima(Nombre,descripción,idMarca,idUnidadMedida,cantidad,idTipoMateria)
+    VALUES ('$Nombre','$descripción','$Descripcion_Marca','$descripcion_Unidad','$cantidad','$Descripcion_TipoMateria')";
 
     $result = mysqli_query($conn, $query);
 

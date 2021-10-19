@@ -10,15 +10,23 @@ $db=conexion();
 $consulta="Select*from unidadMedida";
 $resultado= mysqli_query($db, $consulta);
 
+
 $Nombre = '';
 $Descripcion = '';
 $Descripcion_Marca='';
 $cantidad='';
 $Descripcion_TipoMateria='';
 $iddescripcion_Unidad = '';
+$idUnidadMedida='';
 
+$consulta2="select*from TipoMateria";
+$resultado2= mysqli_query($db, $consulta2);
+$idTipoMateria="";
+
+$consulta3="select*from Marca";
+$resultado3= mysqli_query($db, $consulta3);
+$idMarca="";
 ?>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -90,19 +98,25 @@ $iddescripcion_Unidad = '';
                            
                             </div>
 
-                            </div>
+                           
 
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-
-                            <label for="Descripcion_Marca">Marca</label>
-                            <input type="text" class="form-control" id="Descripcion_Marca" value="" name="Descripcion_Marca" placeholder="Marca">
-
+                            <label for="descripcion_Marca">Marca</label>
+                            <select id='id_idMarca' name="idMarca" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_Marca=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idMarca == $descripcion_Marca['idMarca'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_Marca['idMarca'];?>">
+                                <?php echo $descripcion_Marca ['Descripcion_Marca'];?> </option>
+                             <?php endwhile; ?>
+                        
+                            </select>
+                           
                             </div>
-                            
-
+                              
                             <div class="form-group col-md-4">
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
@@ -110,10 +124,13 @@ $iddescripcion_Unidad = '';
 
                             <div class="form-group col-md-4">
                             <label for="Descripcion_TipoMateria">Tipo de Materia</label>
-                            <select name="Descripcion_TipoMateria" class='form-control'>
-                                    <option value="Seleccione">Seleccione</option>
-                                    <option value="insumos"> Insumos </option>
-                                    <option value="materiaprima"> Materia Prima </option>
+                            <select name="id_idTipoMateria" name="idTipoMateria" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_TipoMateria=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idTipoMateria == $descripcion_TipoMateria['idTipoMateria'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_TipoMaderia['idTipoMateria'];?>">
+                                <?php echo $descripcion_TipoMateria['Descripcion_TipoMateria'];?> </option>
+                             <?php endwhile; ?>
                             </select>
                             </div>
 
