@@ -71,8 +71,8 @@ incluirTemplate('head');
                             <option value="Seleccione">Seleccione</option>
                                 <?php while ($descripcion_Unidad=mysqli_fetch_assoc($descripcion_Unidad)):?>
                                 <option <?echo $descripcion_UnidadId == $descripcion_Unidad['idUnidadMedida'] ? 'selected' : '';?> 
-                                VALUE="<?php echo $descripcion_Unidad['idUnidadMedida']?>"><?php echo $descripcion_Unidad ['descripcion_Unidad']?> </option>
-                       <? endwhile; ?>
+                                VALUE="<?php echo $descripcion_Unidad['idUnidadMedida']?>"><?php echo $descripcion_Unidad ['descripcion_Unidad'];?> </option>
+                       <?php endwhile; ?>
                         
                             </select>
                             </div>
