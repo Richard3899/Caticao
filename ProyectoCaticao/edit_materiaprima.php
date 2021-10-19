@@ -3,44 +3,61 @@
 
 
 include 'includes/config/db.php';
+$db1=conexion();
+$consulta1="Select*from unidadMedida";
+$resultado1= mysqli_query($db1, $consulta1);
+
+$db2=conexion();
+$consulta2="select*from tipomateria";
+$resultado2= mysqli_query($db2, $consulta2);
+$idTipoMateria="";
+
+$db3=conexion();
+$consulta3="select*from Marca";
+$resultado3= mysqli_query($db3, $consulta3);
+$idMarca="";
+
 
                         $Nombre = '';
-                        $descripción='';
+                        $Descripción='';
                         $Descripcion_Marca= '';
                         $descripcion_Unidad= '';
-                        $cantidad= '';
+                        $Cantidad= '';
                         $Descripcion_TipoMateria='';
-                       
+                        $idUnidadMedida='';
                         
+                      
 
-                        if  (isset($_GET['idMateriaprima'])) {
-                        $id = $_GET['idMateriaprima'];
-                        $query = "SELECT * FROM materiaprima WHERE idMateriaprima=$id";
-                        $result = mysqli_query($conn, $query);
+                        if  (isset($_GET['idMateria'])) {
+                        $conexion=conexion();
+                        $id = $_GET['idMateria'];
+                        $query = "SELECT * FROM materia WHERE idMateria=$id";
+                        $result = mysqli_query($conexion, $query);
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
-                            $nombre = $row['nombre'];
-                            $marca = $row['marca'];
-                            $tipodeunidad = $row['tipodeunidad'];
-                            $cantidad = $row['cantidad'];
-
-                            
-                           
+                            $Nombre= $row['Nombre'];
+                            $Descripción= $row['Descripción'];
+                            $Descripcion_Marca= $row['idMarca'];
+                            $descripcion_Unidad= $row['idUnidadMedida'];
+                            $Cantidad= $row['Cantidad'];
+                            $Descripcion_TipoMateria= $row['idTipoMateria'];
                         }
                         }
 
                         if (isset($_POST['update_materiaprima'])) {
+                            $conexion=conexion();
 
-                            $id = $_GET['idMateriaprima'];
-                            $nombre = $_POST['nombre'];
-                            $marca = $_POST['marca'];
-                            $tipodeunidad = $_POST['tipodeunidad'];
-                            $cantidad = $_POST['cantidad'];
-                        
+                            $id = $_GET['idMateria'];
+                            $Nombre= $_POST['Nombre'];
+                            $Descripción= $_POST['Descripción'];
+                            $Descripcion_Marca= $_POST['idMarca'];
+                            $descripcion_Unidad= $_POST['idUnidadMedida'];
+                            $Cantidad= $_POST['Cantidad'];
+                            $Descripcion_TipoMateria= $_POST['idTipoMateria'];
 
-                        $query = "UPDATE materiaprima set nombre = '$nombre', marca = '$marca', tipodeunidad = '$tipodeunidad'
+                        $query = "UPDATE materia set Nombre = '$Nombre', Descripción = '$Descripción', idMarca ='$Descripcion_Marca'
                         
-                        , cantidad = '$cantidad' WHERE idMateriaprima=$id";
+                        , idUnidadMedida = '$descripcion_Unidad', Cantidad='$cantidad, idTipoMateria='$Descripcion_TipoMateria' WHERE idMateria=$id";
 
                         mysqli_query($conn, $query);
                         $_SESSION['message'] = 'Actualización exitosa';
@@ -94,38 +111,69 @@ include 'includes/config/db.php';
                         ?>
 
                         
-                        <form action="edit_materiaprima.php?idMateriaprima=<?php echo $_GET['idMateriaprima']; ?>" method="POST">
+                        <form action="edit_materiaprima.php?idMateriaprima=<?php echo $_GET['idMateria']; ?>" method="POST">
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" value="<?php echo $nombre;?>" name="nombre" placeholder="Actualizar Nombre">
+                            <div class="form-group col-md-4">
+                            <label for="Nombre">Nombre</label>
+                            <input type="text" class="form-control" id="Nombre" value="" name="Nombre" placeholder="Nombre">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                            <label for="Descripción"> Descripción </label>
+                            <input type="text" class="form-control" id="Descripción" value="" name="Descripción" placeholder="Descripción">
                             </div>
                             
-                            <div class="form-group col-md-6">
-                            <label for="tipodeunidad">Tipo de Unidad</label>
-                            <select name="tipodeunidad" class='form-control'>
-                                    <option value="Seleccione">Seleccione</option>
-                                    <option value="Kg"> Kg </option>
-                                    <option value="Lt"> Lt </option>
+                            <div class="form-group col-md-4">
+                                <label for="descripcion_Unidad">Tipo de Unidad</label>
+                                <select id='idUnidadMedida' name="idUnidadMedida" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                    <?php while ($descripcion_Unidad=mysqli_fetch_assoc($resultado1)):?>
+                                    <option <?php echo $idUnidadMedida == $descripcion_Unidad['idUnidadMedida'] ? 'selected' : '';?> 
+                                    value= "<?php echo $descripcion_Unidad['idUnidadMedida'];?>">
+                                    <?php echo $descripcion_Unidad ['descripcion_Unidad'];?> </option>
+                                <?php endwhile; ?>
+                        
                             </select>
+                           
                             </div>
+
+                           
 
                         </div>
 
-                        
                         <div class="form-row">
-
-                            <div class="form-group col-md-6">
-                                <label for="descripcion">Marca</label>
-                                <input type="text" class="form-control" id="marca" value="<?php echo $marca;?>" name="marca" placeholder="Actualizar Marca">
+                            <div class="form-group col-md-4">
+                            <label for="descripcion_Marca">Marca</label>
+                            <select id='idMarca' name="idMarca" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_Marca=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idMarca == $descripcion_Marca['idMarca'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_Marca['idMarca'];?>">
+                                <?php echo $descripcion_Marca ['Descripcion_Marca'];?> </option>
+                             <?php endwhile; ?>
+                        
+                            </select>
+                           
+                            </div>
+                              
+                            <div class="form-group col-md-4">
+                            <label for="Cantidad">Cantidad</label>
+                            <input type="number" min="0" class="form-control" id="Cantidad" value="" name="Cantidad" placeholder="Cantidad">
                             </div>
 
-                            <div class="form-group col-md-6">
-                            <label for="cantidad">Cantidad</label>
-                            <input type="number" min="0" class="form-control" id="cantidad" value="<?php echo $cantidad;?>" name="cantidad" placeholder="Actualizar Cantidad">
+                            <div class="form-group col-md-4">
+                            <label for="Descripcion_TipoMateria">Tipo de Materia</label>
+                            <select id="idTipoMateria" name="idTipoMateria" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_TipoMateria=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idTipoMateria == $descripcion_TipoMateria['idTipoMateria'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_TipoMaderia['idTipoMateria'];?>">
+                                <?php echo $descripcion_TipoMateria['Descripcion_TipoMateria'];?> </option>
+                             <?php endwhile; ?>
+                            </select>
                             </div>
-                       
+
                             
                         </div>
 

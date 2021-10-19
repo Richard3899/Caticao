@@ -4,7 +4,6 @@
 include 'includes/config/db.php';
 
 require 'includes/funciones.php';
-
 incluirTemplate('head');
 $db1=conexion();
 
@@ -127,11 +126,11 @@ $idMarca="";
 
                             <div class="form-group col-md-4">
                             <label for="Descripcion_TipoMateria">Tipo de Materia</label>
-                            <select name="id_idTipoMateria" name="idTipoMateria" class='form-control' required>
+                            <select name="id_idTipoMateria" class='form-control' required>
                             <option selected disabled value="">Seleccione</option>
                                 <?php while ($descripcion_TipoMateria=mysqli_fetch_assoc($resultado2)):?>
                                 <option <?php echo $idTipoMateria == $descripcion_TipoMateria['idTipoMateria'] ? 'selected' : '';?> 
-                                value= "<?php echo $descripcion_TipoMaderia['idTipoMateria'];?>">
+                                value= "<?php echo $descripcion_TipoMateria['idTipoMateria'];?>">
                                 <?php echo $descripcion_TipoMateria['Descripcion_TipoMateria'];?> </option>
                              <?php endwhile; ?>
                             </select>

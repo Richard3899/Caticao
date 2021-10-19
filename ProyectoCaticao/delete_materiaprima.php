@@ -1,11 +1,12 @@
 <?php
-
 include 'includes/config/db.php';
+$conexion=conexion();
 
-if(isset($_GET['idMateriaprima'])) {
-  $id = $_GET['idMateriaprima'];
-  $query = "DELETE FROM materiaprima WHERE idMateriaprima = $id";
-  $result = mysqli_query($conn, $query);
+
+if(isset($_GET['idMateria'])) {
+  $id = $_GET['idMateria'];
+  $query = "DELETE FROM materia WHERE idMateria = $id";
+  $result = mysqli_query($conexion, $query);
   if(!$result) {
     die("Query Failed.");
   }
