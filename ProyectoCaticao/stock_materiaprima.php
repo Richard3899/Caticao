@@ -5,6 +5,10 @@ include 'includes/config/db.php';
 
 require 'includes/funciones.php';
 incluirTemplate('head');
+$db=conexion();
+
+$consulta="Select*from unidadMedida";
+$resultado= mysqli_query($db, $consulta);
 
 ?>
 
