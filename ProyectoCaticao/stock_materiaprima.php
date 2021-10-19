@@ -109,13 +109,14 @@ incluirTemplate('head');
                         <br>
 
 
-                        <div class="card mb-4">
+    
+                        <div class="card mb-2">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Tabla de Materia Prima
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover  table-bordered ">
+                                <table id="datatablesSimple" class="table table-hover  table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
@@ -136,6 +137,7 @@ incluirTemplate('head');
                                             <th>Marca</th>
                                             <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>
+                                            <th>Tipo Materia</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -144,9 +146,9 @@ incluirTemplate('head');
                                     <tbody>
                                          <?php
 
-                                         $query = "select m.idMateria,m.Nombre , m.descripción,m.cantidad,ma.descripcion,u.descripcion, ti.Descripcion
+                                         $query = "select m.idMateria, m.Nombre, m.descripción,m.cantidad,ma.Descripcion_Marca ,u.descripcion_Unidad, ti.Descripcion_TipoMateria 
                                          from materia as m inner join marca as ma on m.idMarca=ma.idMarca
-                                         INNER join unidadmedida as u on m.idUnidadMedida=u.idUnidadMedida
+                                         iNNER join unidadmedida as u on m.idUnidadMedida=u.idUnidadMedida
                                          inner join tipomateria as ti on m.idTipoMateria=ti.idTipoMateria";
                                          $resultado_materiaprima = mysqli_query($conn,$query);
 
@@ -156,42 +158,38 @@ incluirTemplate('head');
                                          <tr>
    
                                              <td>
-                                                <?php echo $row['m.Nombre'] ?>
+                                                <?php echo $row['Nombre'] ?>
                                              </td>
                                              <td>
-                                                <?php echo $row['m.descripción'] ?>
-                                             </td>
-
-                                             <td>
-                                                <?php echo $row['ma.descripcion'] ?>
+                                                <?php echo $row['descripción'] ?>
                                              </td>
 
                                              <td>
-
-                                             <?php echo $row['u.descripcion,'] ?>
-                                               
+                                                <?php echo $row['Descripcion_Marca'] ?>
                                              </td>
 
-                                             
+                                             <td>
+                                                <?php echo $row['descripcion_Unidad'] ?>
+                                             </td>
 
                                              <td>
-                                                <?php echo $row['m.cantidad'] ?>
+                                                <?php echo $row['cantidad'] ?>
                                              </td>
                                              <td>
-                                                <?php echo $row['ti.Descripcion'] ?>
+                                                <?php echo $row['Descripcion_TipoMateria'] ?>
                                              </td>
                                              
 
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="edit_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima'] ?>" >
+                                             <a class="btn btn-warning" href="edit_materiaprima.php?idMateria=<?php echo $row['idMateria'] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="delete_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima']?>" >
+                                             <a class="btn btn-danger" href="delete_materiaprima.php?idMateria=<?php echo $row['idMateria']?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>
