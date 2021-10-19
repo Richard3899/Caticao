@@ -93,9 +93,13 @@ incluirTemplate('head');
 
                             <div class="form-group col-md-4">
                             <label for="tipomateria">Tipo de Materia</label>
-                            <input type="number" min="0" class="form-control" id="tipomateria" value="" name="tipomateria" placeholder="Tipo de Materia">
+                            <select name="tipomateria" class='form-control'>
+                                    <option value="Seleccione">Seleccione</option>
+                                    <option value="insumos"> Insumos </option>
+                                    <option value="materiaprima"> Materia Prima </option>
+                            </select>
                             </div>
-                        
+
                             
                         </div>
 
