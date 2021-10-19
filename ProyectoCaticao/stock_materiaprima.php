@@ -144,7 +144,10 @@ incluirTemplate('head');
                                     <tbody>
                                          <?php
 
-                                         $query = "SELECT * FROM materiaprima";
+                                         $query = "select m.idMateria,m.Nombre , m.descripción,m.cantidad,ma.descripcion,u.descripcion, ti.Descripcion
+                                         from materia as m inner join marca as ma on m.idMarca=ma.idMarca
+                                         INNER join unidadmedida as u on m.idUnidadMedida=u.idUnidadMedida
+                                         inner join tipomateria as ti on m.idTipoMateria=ti.idTipoMateria";
                                          $resultado_materiaprima = mysqli_query($conn,$query);
 
 
@@ -153,23 +156,29 @@ incluirTemplate('head');
                                          <tr>
    
                                              <td>
-                                                <?php echo $row['nombre'] ?>
+                                                <?php echo $row['m.Nombre'] ?>
+                                             </td>
+                                             <td>
+                                                <?php echo $row['m.descripción'] ?>
                                              </td>
 
                                              <td>
-                                                <?php echo $row['marca'] ?>
+                                                <?php echo $row['ma.descripcion'] ?>
                                              </td>
 
                                              <td>
 
-                                             <?php echo $row['tipodeunidad'] ?>
+                                             <?php echo $row['u.descripcion,'] ?>
                                                
                                              </td>
 
                                              
 
                                              <td>
-                                                <?php echo $row['cantidad'] ?>
+                                                <?php echo $row['m.cantidad'] ?>
+                                             </td>
+                                             <td>
+                                                <?php echo $row['ti.Descripcion'] ?>
                                              </td>
                                              
 
