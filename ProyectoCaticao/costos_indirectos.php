@@ -26,16 +26,15 @@ include 'includes/templates/head.php'
             
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Costos</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Costos Indirectos</h1>
 
 
+                    
 
-                    <?php
-                    include 'includes/templates/nav_costos.php'
-                    ?>
+
 
                   
 

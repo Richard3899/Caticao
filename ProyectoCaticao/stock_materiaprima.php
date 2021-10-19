@@ -5,9 +5,29 @@ include 'includes/config/db.php';
 
 require 'includes/funciones.php';
 incluirTemplate('head');
+$db1=conexion();
+$consulta="Select*from unidadMedida";
+$resultado= mysqli_query($db1, $consulta);
 
+
+$Nombre = '';
+$Descripcion = '';
+$Descripcion_Marca='';
+$cantidad='';
+$Descripcion_TipoMateria='';
+$iddescripcion_Unidad = '';
+$idUnidadMedida='';
+
+$db2=conexion();
+$consulta2="select*from tipomateria";
+$resultado2= mysqli_query($db2, $consulta2);
+$idTipoMateria="";
+
+$db3=conexion();
+$consulta3="select*from Marca";
+$resultado3= mysqli_query($db3, $consulta3);
+$idMarca="";
 ?>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -55,38 +75,66 @@ incluirTemplate('head');
                         <form  method="POST" action="save_materiaprima.php" enctype="multipart/form-data">
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" value="" name="nombre" placeholder="Nombre">
+                            <div class="form-group col-md-4">
+                            <label for="Nombre">Nombre</label>
+                            <input type="text" class="form-control" id="Nombre" value="" name="Nombre" placeholder="Nombre">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                            <label for="descripción"> Descripción </label>
+                            <input type="text" class="form-control" id="descripción" value="" name="descripción" placeholder="Descripción">
                             </div>
                             
-                            <div class="form-group col-md-6">
-                            <label for="tipodeunidad">Tipo de Unidad</label>
-                            <select name="tipodeunidad" class='form-control'>
-                                    <option value="Seleccione">Seleccione</option>
-                                    <option value="Kg"> Kg </option>
-                                    <option value="Lt"> Lt </option>
+                            <div class="form-group col-md-4">
+                            <label for="descripcion_Unidad">Tipo de Unidad</label>
+                            <select id='id_idUnidadMedida' name="idUnidadMedida" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_Unidad=mysqli_fetch_assoc($resultado)):?>
+                                <option <?php echo $idUnidadMedida == $descripcion_Unidad['idUnidadMedida'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_Unidad['idUnidadMedida'];?>">
+                                <?php echo $descripcion_Unidad ['descripcion_Unidad'];?> </option>
+                             <?php endwhile; ?>
+                        
                             </select>
+                           
                             </div>
+
+                           
 
                         </div>
 
-                        
-
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-
-                            <label for="descripcion">Marca</label>
-                            <input type="text" class="form-control" id="marca" value="" name="marca" placeholder="Marca">
-
+                            <div class="form-group col-md-4">
+                            <label for="descripcion_Marca">Marca</label>
+                            <select id='id_idMarca' name="idMarca" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_Marca=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idMarca == $descripcion_Marca['idMarca'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_Marca['idMarca'];?>">
+                                <?php echo $descripcion_Marca ['Descripcion_Marca'];?> </option>
+                             <?php endwhile; ?>
+                        
+                            </select>
+                           
                             </div>
-                            
-
-                            <div class="form-group col-md-6">
+                              
+                            <div class="form-group col-md-4">
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
                             </div>
-                        
+
+                            <div class="form-group col-md-4">
+                            <label for="Descripcion_TipoMateria">Tipo de Materia</label>
+                            <select name="id_idTipoMateria" name="idTipoMateria" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_TipoMateria=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idTipoMateria == $descripcion_TipoMateria['idTipoMateria'] ? 'selected' : '';?> 
+                                value= "<?php echo $descripcion_TipoMaderia['idTipoMateria'];?>">
+                                <?php echo $descripcion_TipoMateria['Descripcion_TipoMateria'];?> </option>
+                             <?php endwhile; ?>
+                            </select>
+                            </div>
+
                             
                         </div>
 
@@ -96,19 +144,22 @@ incluirTemplate('head');
                         <br>
 
 
-                        <div class="card mb-4">
+    
+                        <div class="card mb-2">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Tabla de Materia Prima
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover  table-bordered ">
+                                <table id="datatablesSimple" class="table table-hover  table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
+                                            <th>Descripción</th>
                                             <th>Marca</th>
                                             <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>
+                                            <th>Tipo Materia</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -117,9 +168,11 @@ incluirTemplate('head');
                                     <tfoot>
                                         <tr>
                                             <th>Nombre</th>
+                                            <th>Descripción</th>
                                             <th>Marca</th>
                                             <th>Tipo de Unidad</th>
                                             <th>Cantidad</th>
+                                            <th>Tipo Materia</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -128,7 +181,10 @@ incluirTemplate('head');
                                     <tbody>
                                          <?php
 
-                                         $query = "SELECT * FROM materiaprima";
+                                         $query = "select m.idMateria, m.Nombre, m.descripción,m.cantidad,ma.Descripcion_Marca ,u.descripcion_Unidad, ti.Descripcion_TipoMateria 
+                                         from materia as m inner join marca as ma on m.idMarca=ma.idMarca
+                                         iNNER join unidadmedida as u on m.idUnidadMedida=u.idUnidadMedida
+                                         inner join tipomateria as ti on m.idTipoMateria=ti.idTipoMateria";
                                          $resultado_materiaprima = mysqli_query($conn,$query);
 
 
@@ -137,36 +193,38 @@ incluirTemplate('head');
                                          <tr>
    
                                              <td>
-                                                <?php echo $row['nombre'] ?>
+                                                <?php echo $row['Nombre'] ?>
+                                             </td>
+                                             <td>
+                                                <?php echo $row['descripción'] ?>
                                              </td>
 
                                              <td>
-                                                <?php echo $row['marca'] ?>
+                                                <?php echo $row['Descripcion_Marca'] ?>
                                              </td>
 
                                              <td>
-
-                                             <?php echo $row['tipodeunidad'] ?>
-                                               
+                                                <?php echo $row['descripcion_Unidad'] ?>
                                              </td>
-
-                                             
 
                                              <td>
                                                 <?php echo $row['cantidad'] ?>
+                                             </td>
+                                             <td>
+                                                <?php echo $row['Descripcion_TipoMateria'] ?>
                                              </td>
                                              
 
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="edit_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima'] ?>" >
+                                             <a class="btn btn-warning" href="edit_materiaprima.php?idMateria=<?php echo $row['idMateria'] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="delete_materiaprima.php?idMateriaprima=<?php echo $row['idMateriaprima']?>" >
+                                             <a class="btn btn-danger" href="delete_materiaprima.php?idMateria=<?php echo $row['idMateria']?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>
