@@ -5,10 +5,9 @@ include 'includes/config/db.php';
 
 require 'includes/funciones.php';
 incluirTemplate('head');
-$db=conexion();
-
+$db1=conexion();
 $consulta="Select*from unidadMedida";
-$resultado= mysqli_query($db, $consulta);
+$resultado= mysqli_query($db1, $consulta);
 
 
 $Nombre = '';
@@ -19,12 +18,14 @@ $Descripcion_TipoMateria='';
 $iddescripcion_Unidad = '';
 $idUnidadMedida='';
 
-$consulta2="select*from TipoMateria";
-$resultado2= mysqli_query($db, $consulta2);
+$db2=conexion();
+$consulta2="select*from tipomateria";
+$resultado2= mysqli_query($db2, $consulta2);
 $idTipoMateria="";
 
+$db3=conexion();
 $consulta3="select*from Marca";
-$resultado3= mysqli_query($db, $consulta3);
+$resultado3= mysqli_query($db3, $consulta3);
 $idMarca="";
 ?>
 <body id="page-top">
