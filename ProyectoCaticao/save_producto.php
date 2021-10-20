@@ -1,4 +1,3 @@
-
 <?php
 
 include 'includes/config/db.php';
@@ -7,14 +6,14 @@ if (isset($_POST['save_producto'])) {
 
     $nombre= $_POST['nombre'];
     $descripcion= $_POST['descripcion'];
-    $idCategoria= $_POST['idCategoria'];
+    $idTipoProducto= $_POST['idTipoProducto'];
+    $idLote= $_POST['idLote'];
     $cantidad= $_POST['cantidad'];
     $precio= $_POST['precio'];
 
     $query = "INSERT INTO producto(nombre,descripcion,
-    idCategoria,cantidad,precio)
-    VALUES ('$nombre','$descripcion','$idCategoria',
-    '$cantidad','$precio')";
+    cantidad,precio,idTipoProducto,idLote)
+    VALUES ('$nombre','$descripcion','$cantidad','$precio','$idTipoProducto','$idLote')";
 
     $result = mysqli_query($conn, $query);
 

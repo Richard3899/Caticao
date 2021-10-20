@@ -50,7 +50,7 @@ idPersona int references Persona(idPersona)
 );
 create table TipoProducto(
 idTipoProducto int auto_increment primary key,
-descripcion varchar(45)
+descripcionP varchar(45)
 );
 create table Almacen(
 idAlmacen int auto_increment primary key,

@@ -169,7 +169,7 @@ $idLote="";
                                     <tbody>
                                          <?php
 
-                                         $query = "select p.idProducto, p.nombre, p.descripcion,p.cantidad,p.precio,ti.descripcion, l.NroLote
+                                         $query = "select p.idProducto, p.nombre, p.descripcion,p.cantidad,p.precio,ti.descripcionP, l.NroLote
                                          from producto as p inner join tipoProducto as ti on p.idTipoProducto=ti.idTipoProducto
                                          inner join lote as l on p.idLote=l.idlote";
                                          $resultado_producto = mysqli_query($conn,$query);
@@ -194,7 +194,7 @@ $idLote="";
                                                 <?php echo $row['precio'] ?>
                                              </td>
                                              <td>
-                                                <?php echo $row['descripcion'] ?>
+                                                <?php echo $row['descripcionP'] ?>
                                              </td>
 
                                              <td>

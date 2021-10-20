@@ -19,13 +19,13 @@ $idMarca="";
 
 
                         $Nombre = '';
-                        $Descripción='';
+                        $descripción='';
                         $Descripcion_Marca= '';
                         $descripcion_Unidad= '';
                         $Cantidad= '';
                         $Descripcion_TipoMateria='';
                         $idUnidadMedida='';
-                        
+                        $idTipoMateria='';
                       
 
                         if  (isset($_GET['idMateria'])) {
@@ -36,7 +36,7 @@ $idMarca="";
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
                             $Nombre= $row['Nombre'];
-                            $Descripción= $row['Descripción'];
+                            $descripción= $row['Descripción'];
                             $Descripcion_Marca= $row['idMarca'];
                             $descripcion_Unidad= $row['idUnidadMedida'];
                             $Cantidad= $row['Cantidad'];
@@ -49,15 +49,15 @@ $idMarca="";
 
                             $id = $_GET['idMateria'];
                             $Nombre= $_POST['Nombre'];
-                            $Descripción= $_POST['Descripción'];
+                            $descripción= $_POST['descripción'];
                             $Descripcion_Marca= $_POST['idMarca'];
                             $descripcion_Unidad= $_POST['idUnidadMedida'];
-                            $Cantidad= $_POST['Cantidad'];
+                            $cantidad= $_POST['cantidad'];
                             $Descripcion_TipoMateria= $_POST['idTipoMateria'];
 
-                        $query = "UPDATE materia set Nombre = '$Nombre', Descripción = '$Descripción', idMarca ='$Descripcion_Marca'
+                        $query = "UPDATE materia set Nombre = '$Nombre', descripción = '$descripción', idMarca ='$Descripcion_Marca'
                         
-                        , idUnidadMedida = '$descripcion_Unidad', Cantidad='$cantidad, idTipoMateria='$Descripcion_TipoMateria' WHERE idMateria=$id";
+                        , idUnidadMedida = '$descripcion_Unidad', cantidad='$cantidad', idTipoMateria='$Descripcion_TipoMateria' WHERE idMateria=$id";
 
                         mysqli_query($conn, $query);
                         $_SESSION['message'] = 'Actualización exitosa';
@@ -120,8 +120,8 @@ $idMarca="";
                             </div>
 
                             <div class="form-group col-md-4">
-                            <label for="Descripción"> Descripción </label>
-                            <input type="text" class="form-control" id="Descripción" value="" name="Descripción" placeholder="Descripción">
+                            <label for="descripción"> Descripción </label>
+                            <input type="text" class="form-control" id="descripción" value="" name="descripción" placeholder="Descripción">
                             </div>
                             
                             <div class="form-group col-md-4">
@@ -164,12 +164,12 @@ $idMarca="";
 
                             <div class="form-group col-md-4">
                             <label for="Descripcion_TipoMateria">Tipo de Materia</label>
-                            <select id="idTipoMateria" name="idTipoMateria" class='form-control' required>
+                            <select name="idTipoMateria" class='form-control' required>
                             <option selected disabled value="">Seleccione</option>
-                                <?php while ($descripcion_TipoMateria=mysqli_fetch_assoc($resultado2)):?>
-                                <option <?php echo $idTipoMateria == $descripcion_TipoMateria['idTipoMateria'] ? 'selected' : '';?> 
-                                value= "<?php echo $descripcion_TipoMaderia['idTipoMateria'];?>">
-                                <?php echo $descripcion_TipoMateria['Descripcion_TipoMateria'];?> </option>
+                                <?php while ($Descripcion_TipoMateria=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idTipoMateria == $Descripcion_TipoMateria['idTipoMateria'] ? 'selected' : '';?> 
+                                value= "<?php echo $Descripcion_TipoMateria['idTipoMateria'];?>">
+                                <?php echo $Descripcion_TipoMateria['Descripcion_TipoMateria'];?> </option>
                              <?php endwhile; ?>
                             </select>
                             </div>

@@ -4,11 +4,13 @@
 
 include 'includes/config/db.php';
 
-                        $nombre = '';
-                        $idCategoria='';
-                        $descripcion= '';
-                        $cantidad= '';
-                        $precio= '';
+                        $Nombre = '';
+                        $Descripcion= '';
+                        $idLote='';
+                   
+                        $Cantidad= '';
+                        $Precio= '';
+                        $idTipoProducto= '';
                         
 
                         if  (isset($_GET['idProducto'])) {
@@ -17,24 +19,26 @@ include 'includes/config/db.php';
                         $result = mysqli_query($conn, $query);
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
-                            $nombre = $row['nombre'];
-                            $descripcion = $row['descripcion'];
-                            $idCategoria = $row['idCategoria'];
-                            $cantidad = $row['cantidad'];
-                            $precio = $row['precio'];
+                            $Nombre = $row['Nombre'];
+                            $Descripcion = $row['Descripcion'];
+                            $Cantidad = $row['Cantidad'];
+                            $Precio = $row['Precio'];
+                            $idTipoProducto= $row['idTipoProducto'];
+                            $idLote= $row['idLote'];
                         }
                         }
 
                         if (isset($_POST['update_producto'])) {
 
                             $id = $_GET['idProducto'];
-                            $nombre = $_POST['nombre'];
-                            $descripcion = $_POST['descripcion'];
-                            $idCategoria = $_POST['idCategoria'];
-                            $cantidad = $_POST['cantidad'];
-                            $precio = $_POST['precio'];
+                            $Nombre = $_POST['Nombre'];
+                            $Descripcion = $_POST['Descripcion'];
+                            $Cantidad = $_POST['Cantidad'];
+                            $Precio = $_POST['Precio'];
+                            $idTipoProducto= $_POST['idTipoProducto'];
+                            $idLote= $_POST['idLote'];
 
-                        $query = "UPDATE producto set nombre = '$nombre', descripcion = '$descripcion', idCategoria = '$idCategoria',  cantidad = '$cantidad', precio = '$precio' WHERE idProducto=$id";
+                        $query = "UPDATE producto set Nombre = '$Nombre', Descripcion = '$Descripcion', Cantidad = '$Cantidad',  Precio = '$Precio', idTipoProducto = '$idTipoProducto', idLote = '$idLote' WHERE idProducto=$id";
                         mysqli_query($conn, $query);
                         $_SESSION['message'] = 'Actualización exitosa';
                         $_SESSION['message_type'] = 'warning';
@@ -89,40 +93,58 @@ include 'includes/config/db.php';
                         
                         <form action="edit_producto.php?idProducto=<?php echo $_GET['idProducto']; ?>" method="POST">
 
+                        
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" value="<?php echo $nombre;?>" name="nombre" placeholder="Actualizar Nombre">
-                            </div>
-                            
-                            <div class="form-group col-md-6">
-                            <label for="categoria">Categoría</label>
-                            <select name="idCategoria" class='form-control'>
-                                    <option value="Seleccione">Seleccione</option>
-                                    <option value="Dulce"> Dulce </option>
-                                    <option value="Semidulce">  Semidulce </option>
-                            </select>
+                            <input type="text" class="form-control" id="nombre" value="" name="nombre" placeholder="Nombre">
                             </div>
 
-                        </div>
-
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <input type="text" class="form-control" id="descripcion" value="<?php echo $descripcion;?>" name="descripcion" placeholder="Actualizar Descripción">
-                        </div>
-
-                        <div class="form-row">
-
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
+                            <label for="descripcion">Descripcion</label>
+                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
+                            </div>
+                            <div class="form-group col-md-4">
                             <label for="cantidad">Cantidad</label>
-                            <input type="number" min="0" class="form-control" id="cantidad" value="<?php echo $cantidad;?>" name="cantidad" placeholder="Actualizar Cantidad">
+                            <input type="text" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
                             </div>
-                            <div class="form-group col-md-6">
-                            <label for="precio">Precio</label>
-                            <input type="text" class="form-control" id="precio" value="<?php echo $precio;?>" name="precio" placeholder="Actualizar Precio">
-                            </div>
+                         </div>
                             
+
+                       
+                        <div class="form-row">
+    
+                            <div class="form-group col-md-4">
+                                <label for="precio">Precio</label>
+                                <input type="number" class="form-control" id="precio" value="" name="precio" placeholder="Precio">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="tipoProducto">Tipo Producto</label>
+                                <select id='id_idtipoProducto' name="idTipoProducto" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_TipoProducto=mysqli_fetch_assoc($resultado1)):?>
+                                    <option <?php echo $idTipoProducto == $descripcion_TipoProducto['idTipoProducto'] ? 'selected' : '';?> 
+                                    value= "<?php echo $descripcion_TipoProducto['idTipoProducto'];?>">
+                                    <?php echo $descripcion_TipoProducto ['descripcion'];?> </option>
+                                <?php endwhile; ?>
+                                    
+                                </select>
+                            
+                            </div>
+                                <div class="form-group col-md-4">
+                                <label for="Lote">Nro Lote</label>
+                                <select id='id_idtLote' name="idLote" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($descripcion_Lote=mysqli_fetch_assoc($resultado2)):?>
+                                    <option <?php echo $idLote == $descripcion_Lote['idLote'] ? 'selected' : '';?> 
+                                    value= "<?php echo $descripcion_Lote['idLote'];?>">
+                                    <?php echo $descripcion_Lote ['NroLote'];?> </option>
+                                <?php endwhile; ?>
+                                    
+                                </select>
+                            </div>
                         </div>
+                           
 
                         <button type="submit" class="btn btn-primary" name="update_producto">Actualizar</button>
                         </form>
