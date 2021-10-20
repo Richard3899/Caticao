@@ -11,7 +11,7 @@ if(isset($_GET['idMateriaCostos'])) {
     die("Falló el eliminar");
   }
 
-  $_SESSION['message'] = 'Costo de Materia prima eliminado';
+  $_SESSION['message'] = 'Costo de Materia eliminado';
   $_SESSION['message_type'] = 'danger';
   header('Location: costos_agregarcostomateria.php');
 }

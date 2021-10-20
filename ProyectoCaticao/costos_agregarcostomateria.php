@@ -48,11 +48,7 @@ $idTipoCostos = '';
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Agregar Costo de Materia prima</h1>
-
-                    <?php
-                    incluirTemplate('nav_agregarcostos');
-                    ?>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Agregar Costo de Materia</h1>
 
 
                         <?php if (isset($_SESSION['message'])) { ?>
@@ -212,8 +208,6 @@ $idTipoCostos = '';
 
 
 
-
-                  
 
                 </div>
                 <!-- /.container-fluid -->

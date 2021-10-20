@@ -129,9 +129,7 @@ Nombre varchar(45),
 Descripción varchar(45),
 Cantidad int,
 idTipoMateria int references TipoMateria(idTipoMateria),
-idAlmacen int references Almacen(idAlmacen),
 idUnidadMedida int references UnidadMedida (idUnidadMedida),
-idProveedor int references Proveedor(idProveedor),
 idMarca int references Marca(idMarca)
 );
 create table Costos (
@@ -174,7 +172,7 @@ idMateria int references Materia (idMateria)
 
 create table Receta_Materia(
 idReceta_Materia int auto_increment primary key,
-Cantidad varchar (45),
+Cantidad decimal(10,2),
 idMateria int references Materia (idMateria),
 idReceta int references Receta (idReceta)
 );
@@ -205,11 +203,9 @@ alter table MovimientoMateria add foreign key (idMovimiento) references Movimien
 alter table MovimientoMateria add foreign key (idMateria) references Materia (idMateria);
 alter table Materia add foreign key (idMarca) references Marca (idMarca);
 alter table Materia add foreign key (idTipoMateria) references TipoMateria(idTipoMateria);
-alter table Materia add foreign key (idAlmacen) references Almacen(idAlmacen);
 alter table Materia add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 alter table UnidadMedida add foreign key (idTipoMedida) references TipoMedida(idTipoMedida);
 alter table Persona add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
-alter table Materia add foreign key (idProveedor) references Proveedor(idProveedor);
 alter table Proceso add foreign key (idTipoProceso) references TipoProceso(idTipoProceso);
 alter table Proceso add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 alter table MateriaCostos add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
@@ -249,9 +245,9 @@ insert into Gastos values (1,'Jefe de Planta',1),(2,'Marketing Publicidad',1),(3
 /*Unidad de Medida y Cantidad Tabla GastosMateria*/
 insert into GastosServicios values(1,1,1);
 insert into GastosMateria values (1,1800,1,1);
-insert into Materia (idMateria,Nombre,Descripción,cantidad,idTipoMateria,idAlmacen, idUnidadMedida, idProveedor,idMarca) 
-values (1,'Leche','Preparación de Chocolate',12,1,1,1,1,1);
-insert into Costos values (1,'Costo de Materia Prima'),(2,'Costos de Servicios'),(3,'Costo de Depreciación'),(4,'Costo de Mano de obra');
+insert into Materia (idMateria,Nombre,Descripción,cantidad,idTipoMateria, idUnidadMedida,idMarca) 
+values (1,'Leche','Preparación de Chocolate',40,1,1,1),(2,'Cacao','Selecto',80,2,1,1),(3,'Pasas','Suaves',20,1,1,1);
+insert into Costos values (1,'Costo de Materia Prima e Insumos'),(2,'Costos de Servicios'),(3,'Costo de Depreciación'),(4,'Costo de Mano de obra');
 insert into MateriaCostos values(1,'10',1,1,1);
 insert into MovimientoMateria values (1,15,1,1);
 insert into TipoProceso values(1,'Mano de Obra'),(2,'Maquinaria');
@@ -267,7 +263,7 @@ insert into MovimientoProducto values (1, 2, 3, '8.5', 'Venta Producto',1,1);
 
 select*from Receta_Materia;
 
-select*from Materia;
+select*from Costos;
 select*from producto;
 
 
@@ -279,7 +275,5 @@ select m.idMateria,m.Nombre as 'Nombre del Producto' , m.descripción,m.cantidad
 from materia as m inner join marca as ma on m.idMarca=ma.idMarca
 INNER join unidadmedida as u on m.idUnidadMedida=u.idUnidadMedida
 inner join tipomateria as ti on m.idTipoMateria=ti.idTipoMateria;
-
-
 
 

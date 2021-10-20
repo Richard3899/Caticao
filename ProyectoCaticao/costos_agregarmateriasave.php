@@ -20,7 +20,7 @@ if (isset($_POST['save_agregarcostomateria'])) {
     die("Error al insertar los datos".$sql);
   }
 
-  $_SESSION['message'] = 'Costo de Materia prima registrado';
+  $_SESSION['message'] = 'Costo de Materia registrado';
   $_SESSION['message_type'] = 'success';
   header('Location: costos_agregarcostomateria.php');
 

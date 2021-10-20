@@ -56,7 +56,7 @@
 	                        mysqli_query($conexion,$sql);
                             
 
-                            $_SESSION['message'] = 'Actualización exitosa del costo de la materia prima';
+                            $_SESSION['message'] = 'Actualización exitosa del costo de la materia';
                             $_SESSION['message_type'] = 'warning';
                             header('Location: costos_agregarcostomateria.php');
                         }
@@ -93,20 +93,8 @@
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Productos</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar Costo de Materia </h1>
 
-
-
-                    <?php
-                   
-                    include 'includes/templates/nav_stock.php'
-                    ?>
-
-
-                        <?php
-                        
-
-                        ?>
 
                         
                         <form action="costos_agregarmateriaedit.php?idMateriaCostos=<?php echo $_GET['idMateriaCostos']; ?>" method="POST">
