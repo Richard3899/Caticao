@@ -1,24 +1,7 @@
 
 <?php
-include 'includes/config/db.php';
 require 'includes/funciones.php';
 incluirTemplate('head');
-
-
-$db1=conexion();
-$consulta1="CALL mostrar_combomateria";
-$resultado1= mysqli_query($db1, $consulta1);
-$idMateria = '';
-
-$db2=conexion();
-$consulta2="CALL mostrar_combocostos";
-$resultado2= mysqli_query($db2, $consulta2);
-$idCostos = '';
-
-$db3=conexion();
-$consulta3="CALL mostrar_combotipocostos";
-$resultado3= mysqli_query($db3, $consulta3);
-$idTipoCostos = '';
 
 ?>
 
@@ -48,10 +31,14 @@ $idTipoCostos = '';
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Agregar Costo de Materia</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Agregar Receta</h1>
 
 
-                        <?php if (isset($_SESSION['message'])) { ?>
+                    <?php
+                    incluirTemplate('nav_calcularcostos');
+                    ?>
+
+<?php if (isset($_SESSION['message'])) { ?>
                         <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
                             <?= $_SESSION['message']?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -204,10 +191,9 @@ $idTipoCostos = '';
                                 </table>
                             </div>
                         </div>
-                    
 
 
-
+                  
 
                 </div>
                 <!-- /.container-fluid -->
@@ -215,9 +201,15 @@ $idTipoCostos = '';
             </div>
             <!-- End of Main Content -->
 
-                <?php
-                    incluirTemplate('footer');
-                    ?>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
