@@ -243,7 +243,7 @@ $idMarca="";
 
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.container-fluid  nuevoooo -->
 
             </div>
             <!-- End of Main Content -->

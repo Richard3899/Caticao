@@ -105,7 +105,7 @@ $idLote="";
                                 <?php while ($descripcion_TipoProducto=mysqli_fetch_assoc($resultado1)):?>
                                     <option <?php echo $idTipoProducto == $descripcion_TipoProducto['idTipoProducto'] ? 'selected' : '';?> 
                                     value= "<?php echo $descripcion_TipoProducto['idTipoProducto'];?>">
-                                    <?php echo $descripcion_TipoProducto ['descripcion'];?> </option>
+                                    <?php echo $descripcion_TipoProducto ['descripcionP'];?> </option>
                                 <?php endwhile; ?>
                                     
                                 </select>
