@@ -4,6 +4,17 @@
 
 include 'includes/config/db.php';
 
+
+$db1=conexion();
+$consulta1="Select*from TipoProducto";
+$resultado1= mysqli_query($db1, $consulta1);
+
+$db2=conexion();
+$consulta2="select*from Lote";
+$resultado2= mysqli_query($db2, $consulta2);
+
+
+
                         $Nombre = '';
                         $Descripcion= '';
                         $idLote='';
@@ -11,7 +22,9 @@ include 'includes/config/db.php';
                         $Cantidad= '';
                         $Precio= '';
                         $idTipoProducto= '';
-                        
+                        $descripcion_TipoProducto='';
+                        $descripcionP= '';
+                        $descripcion_Lote='';
 
                         if  (isset($_GET['idProducto'])) {
                         $id = $_GET['idProducto'];
@@ -95,45 +108,51 @@ include 'includes/config/db.php';
 
                         
                         <div class="form-row">
-                            <div class="form-group col-md-4">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" value="" name="nombre" placeholder="Nombre">
-                            </div>
+                           
 
                             <div class="form-group col-md-4">
-                            <label for="descripcion">Descripcion</label>
-                            <input type="text" class="form-control" id="descripcion" value="" name="descripcion" placeholder="Descripción">
+                            <label for="precio">Nombre</label>
+                            <input type="text" step="any" class="form-control" id="Nombre" value="<?php echo $Nombre;?>" name="Nombre" placeholder="Nombre" required>
                             </div>
+                            
                             <div class="form-group col-md-4">
-                            <label for="cantidad">Cantidad</label>
-                            <input type="text" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
+                            <label for="Descripción">Descripcion</label>
+                            <input type="text" step="any" class="form-control" id="Descripcion" value="<?php echo $Descripcion;?>" name="Descripcion" placeholder="Descripcion" required>
                             </div>
-                         </div>
+                         
+                            <div class="form-group col-md-4">
+                            <label for="Cantidad">Cantidad</label>
+                            <input type="text" step="any" class="form-control" id="Cantidad" value="<?php echo $Cantidad;?>" name="Cantidad" placeholder="Cantidad" required>
+                            </div>
+                         
+                        </div>
                             
 
                        
                         <div class="form-row">
-    
+                            
                             <div class="form-group col-md-4">
-                                <label for="precio">Precio</label>
-                                <input type="number" class="form-control" id="precio" value="" name="precio" placeholder="Precio">
+                            <label for="Precio">Precio</label>
+                            <input type="Number" step="any" class="form-control" id="Precio" value="<?php echo $Precio;?>" name="Precio" placeholder="Precio" required>
                             </div>
+    
+                           
                             <div class="form-group col-md-4">
                                 <label for="tipoProducto">Tipo Producto</label>
-                                <select id='id_idtipoProducto' name="idTipoProducto" class='form-control' required>
+                                <select id='idtipoProducto' name="idTipoProducto" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
                                 <?php while ($descripcion_TipoProducto=mysqli_fetch_assoc($resultado1)):?>
                                     <option <?php echo $idTipoProducto == $descripcion_TipoProducto['idTipoProducto'] ? 'selected' : '';?> 
                                     value= "<?php echo $descripcion_TipoProducto['idTipoProducto'];?>">
-                                    <?php echo $descripcion_TipoProducto ['descripcion'];?> </option>
+                                    <?php echo $descripcion_TipoProducto ['descripcionP'];?> </option>
                                 <?php endwhile; ?>
                                     
                                 </select>
-                            
+                                                   
                             </div>
-                                <div class="form-group col-md-4">
+                            <div class="form-group col-md-4">
                                 <label for="Lote">Nro Lote</label>
-                                <select id='id_idtLote' name="idLote" class='form-control' required>
+                                <select id='idLote' name="idLote" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
                                 <?php while ($descripcion_Lote=mysqli_fetch_assoc($resultado2)):?>
                                     <option <?php echo $idLote == $descripcion_Lote['idLote'] ? 'selected' : '';?> 
