@@ -10,12 +10,12 @@ USE `caticao`$$
 CREATE PROCEDURE `mostrar_materia` ()
 BEGIN
 select m.idMateria,
-			m.Nombre,
-			m.Descripción,
+			m.nombre,
+			m.descripcion,
             m.Cantidad,
-            tm.Descripcion_TipoMateria,
-            um.descripcion_Unidad,
-            mc.Descripcion_marca
+            tm.descripcion,
+            um.descripcion,
+            mc.descripcion
 	from materia m inner join marca mc on mc.idMarca=m.idMarca
 						  inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
                           inner join tipomateria tm  on tm.idTipoMateria=m.idTipoMateria;
@@ -187,10 +187,6 @@ DELIMITER ;
 
 
 
-
-
-
-
 -- Procedimientos almacenados de Combo Box --
 
 
@@ -200,14 +196,15 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_combomateria` ()
 BEGIN
-select m.idMateria,
-			m.Nombre + 
+select DISTINCT m.idMateria,
+			CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre
 	from materia m 
     left JOIN materiacostos mc on m.idMateria=mc.idMateria
+    inner join marca mr on mr.idMarca = m.idMarca
+    where mc.idMateria is NULL
 ;
 END$$
 DELIMITER ;
-
 
 DROP procedure IF EXISTS `mostrar_combocostos`;
 
@@ -244,10 +241,10 @@ USE `caticao`$$
 CREATE PROCEDURE `mostrar_materiacostos` ()
 BEGIN
 select mc.idMateriaCostos,
-			m.Nombre,
-			c.Descripcion,
-            tc.Descripcion,
-            mc.PrecioUnit
+			m.nombre,
+			c.descripcion,
+            tc.descripcion,
+            mc.precioUnitario
 	from MateriaCostos mc inner join materia m on mc.idMateria=m.idMateria
 						  inner join costos c  on mc.idCostos=c.idCostos
                           inner join tipocostos tc  on mc.idTipoCostos=tc.idTipoCostos;
@@ -262,13 +259,13 @@ USE `caticao`$$
 CREATE PROCEDURE `insertar_materiacostos` (in idMateriaI int,
                                         in idCostosI int,
                                         in idTipoCostosI int,
-                                        in PrecioUnitI decimal(10,2))
+                                        in precioUnitarioI decimal(10,2))
 BEGIN
 	insert into materiacostos (idMateria,
 							idCostos,
                             idTipoCostos,
-                            PrecioUnit)
-			values (idMateriaI,idCostosI,idTipoCostosI,PrecioUnitI);
+                            precioUnitario)
+			values (idMateriaI,idCostosI,idTipoCostosI,precioUnitarioI);
 END$$
 
 DELIMITER ;
@@ -293,17 +290,18 @@ CREATE PROCEDURE `actualizar_materiacostos` (in idMateriaCostosA int,
 										in idMateriaA varchar(50),
 										in idCostosA varchar(50),
                                         in idTipoCostosA int,
-                                        in PrecioUnitA decimal(10,2))
+                                        in precioUnitarioA decimal(10,2))
 BEGIN
 	update materiacostos set idMateriaCostos=idMateriaCostosA,
 						idMateria=idMateriaA,
 						idCostos=idCostosA,
                         idTipoCostos=idTipoCostosA,
-                        PrecioUnit=PrecioUnitA
+                        precioUnitario=precioUnitarioA
 				where idMateriaCostos=idMateriaCostosA;
 END$$
 
 DELIMITER ;
+
 
                                     
 DROP procedure IF EXISTS `eliminar_materiacostos`;
@@ -332,14 +330,14 @@ select rc.idReceta_Materia,
             unm.descripcion_Unidad,
 			r.idReceta,
             rc.Cantidad
-	from receta_materia  rc inner join materia m on rc.idMateria=m.idMateria
+	from recetamateria  rc inner join materia m on rc.idMateria=m.idMateria
 						  inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
                           inner join receta r  on r.idReceta=rc.idReceta
                           inner join unidadmedida unm on unm.idUnidadMedida=m.idUnidadMedida;
 END$$
 DELIMITER ;
 
-select * from receta_materia;
+
 DROP procedure IF EXISTS `insertar_materiacostos`;
 
 DELIMITER $$

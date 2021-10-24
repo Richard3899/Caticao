@@ -34,7 +34,7 @@
                             $idMateria = $row['idMateria'];
                             $idCostos = $row['idCostos'];
                             $idTipoCostos = $row['idTipoCostos'];
-                            $PrecioUnit = $row['PrecioUnit'];
+                            $precioUnitario = $row['precioUnitario'];
                         }
 
     
@@ -46,12 +46,12 @@
                             $idMateria = $_POST['idMateria'];
                             $idCostos = $_POST['idCostos'];
                             $idTipoCostos = $_POST['idTipoCostos'];
-                            $PrecioUnit = $_POST['PrecioUnit'];
+                            $precioUnitario = $_POST['precioUnitario'];
 
 	                        $sql="CALL actualizar_materiacostos('$idMateriaCostos','$idMateria',
 									'$idCostos',
 									'$idTipoCostos',
-									'$PrecioUnit')";
+									'$precioUnitario')";
 									
 	                        mysqli_query($conexion,$sql);
                             
@@ -150,7 +150,7 @@
 
                             <div class="form-group col-md-6">
                             <label for="precio">Precio</label>
-                            <input type="number" step="any" class="form-control" id="id_precio" value="<?php echo $PrecioUnit;?>" name="PrecioUnit" placeholder="Precio" required>
+                            <input type="number" step="any" class="form-control" id="id_precio" value="<?php echo $precioUnitario;?>" name="precioUnitario" placeholder="Precio" required>
                             </div>
                          
                         </div>

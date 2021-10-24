@@ -71,7 +71,7 @@ $idTipoCostos = '';
                                 <?php while ($materia=mysqli_fetch_assoc($resultado1)):?>
                                 <option <?php echo $idMateria == $materia['idMateria'] ? 'selected' : '';?> 
                                 value="<?php echo $materia['idMateria'];?>">
-                                <?php echo $materia['Nombre'];?> </option>
+                                <?php echo $materia['nombre'];?> </option>
                               <?php endwhile; ?>
                         
                             </select>
@@ -114,7 +114,7 @@ $idTipoCostos = '';
 
                             <div class="form-group col-md-6">
                             <label for="precio">Precio</label>
-                            <input type="number" step="any" class="form-control" id="id_precio" value="" name="PrecioUnit" placeholder="Precio" required>
+                            <input type="number" step="any" class="form-control" id="id_precio" value="" name="precioUnitario" placeholder="Precio" required>
                             </div>
                          
                         </div>

@@ -10,14 +10,14 @@ if (isset($_POST['save_agregarcostomateria'])) {
 	  $idMateria= $_POST['idMateria'];
     $idCostos= $_POST['idCostos'];
     $idTipoCostos= $_POST['idTipoCostos'];
-    $PrecioUnit= $_POST['PrecioUnit'];
+    $precioUnitario= $_POST['precioUnitario'];
 
-	  $sql="CALL insertar_materiacostos('$idMateria','$idCostos','$idTipoCostos','$PrecioUnit')";
+	  $sql="CALL insertar_materiacostos('$idMateria','$idCostos','$idTipoCostos','$precioUnitario')";
 
     $result = mysqli_query($conexion, $sql);
 
   if(!$result) {
-    die("Error al insertar los datos".$sql);
+    die("Error al insertar los datos ".$sql);
   }
 
   $_SESSION['message'] = 'Costo de Materia registrado';
