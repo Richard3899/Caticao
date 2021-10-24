@@ -1,6 +1,49 @@
 
 use caticao;
 
+-- Procedimientos almacenados de Combo Box de Costos --
+
+
+DROP procedure IF EXISTS `mostrar_combomarca`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combomarca` ()
+BEGIN
+select DISTINCT mr.idMarca,
+		        mr.descripcion 
+	from marca mr
+    left JOIN materia m on m.idMarca=mr.idMarca
+;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `mostrar_combounidadmedida`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combounidadmedida` ()
+BEGIN
+select DISTINCT um.idUnidadMedida,
+			    um.descripcion
+from unidadmedida um left join materia m on m.idUnidadMedida=um.idUnidadMedida;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `mostrar_combotipomateria`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combotipomateria` ()
+BEGIN
+select DISTINCT tm.idTipoMateria,
+			tm.descripcion
+	from tipomateria tm left join materia m on m.idTipoMateria=tm.idTipoMateria ;
+END$$
+DELIMITER ;
+
+
+
 -- Procedimientos almacenados de Costo de Materia prima --
 
 DROP procedure IF EXISTS `mostrar_materia`;
@@ -12,10 +55,10 @@ BEGIN
 select m.idMateria,
 			m.nombre,
 			m.descripcion,
-            m.Cantidad,
-            tm.descripcion,
+            mc.descripcion,
             um.descripcion,
-            mc.descripcion
+            tm.descripcion,
+            m.Cantidad
 	from materia m inner join marca mc on mc.idMarca=m.idMarca
 						  inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
                           inner join tipomateria tm  on tm.idTipoMateria=m.idTipoMateria;
@@ -23,65 +66,71 @@ END$$
 DELIMITER ;
 
 
-DROP procedure IF EXISTS `insertar_materiacostos`;
+DROP procedure IF EXISTS `insertar_materia`;
 
 DELIMITER $$
 USE `caticao`$$
-CREATE PROCEDURE `insertar_materiacostos` (in idMateriaI int,
-                                        in idCostosI int,
-                                        in idTipoCostosI int,
-                                        in PrecioUnitI decimal(10,2))
+CREATE PROCEDURE `insertar_materia` (
+                                        in nombreI varchar(45),
+                                        in descripcionI varchar(45),
+                                        in cantidadI decimal(10,2),
+                                        in idTipoMateriaI int,
+                                        in idUnidadMedidaI int,
+                                        in idMarcaI int)
 BEGIN
-	insert into materiacostos (idMateria,
-							idCostos,
-                            idTipoCostos,
-                            PrecioUnit)
-			values (idMateriaI,idCostosI,idTipoCostosI,PrecioUnitI);
-END$$
-
-DELIMITER ;
-
-DROP procedure IF EXISTS `obtener_materiacostos`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `obtener_materiacostos` (in idMateriaCostosO int)
-BEGIN
-	select * from materiacostos where idMateriaCostos=idMateriaCostosO;
+	insert into materia (   nombre,
+                            descripcion,
+                            cantidad,idTipoMateria,idUnidadMedida,idMarca)
+			values (nombreI,descripcionI,cantidadI,idTipoMateriaI,idUnidadMedidaI,idMarcaI);
 END$$
 
 DELIMITER ;
 
 
-DROP procedure IF EXISTS `actualizar_materiacostos`;
+
+DROP procedure IF EXISTS `obtener_materia`;
 
 DELIMITER $$
 USE `caticao`$$
-CREATE PROCEDURE `actualizar_materiacostos` (in idMateriaCostosA int,
-										in idMateriaA varchar(50),
-										in idCostosA varchar(50),
-                                        in idTipoCostosA int,
-                                        in PrecioUnitA decimal(10,2))
+CREATE PROCEDURE `obtener_materia` (in idMateriaO int)
 BEGIN
-	update materiacostos set idMateriaCostos=idMateriaCostosA,
-						idMateria=idMateriaA,
-						idCostos=idCostosA,
-                        idTipoCostos=idTipoCostosA,
-                        PrecioUnit=PrecioUnitA
-				where idMateriaCostos=idMateriaCostosA;
+	select * from materia where idMateria=idMateriaO;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_materia`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_materia` (in idMateriaA int, nombreA varchar(30),
+										in descripcionA varchar(30),
+										in cantidadA decimal(10,2),
+                                        in idTipoMateriaA int,
+                                        in idUnidadMedidaA int,
+                                        in idMarcaA int)
+BEGIN
+	update materia set  idMateria=idMateriaA,nombre=nombreA,
+						descripcion=descripcionA,
+						cantidad=cantidadA,
+                        idTipoMateria=idTipoMateriaA,
+                        idUnidadMedida=idUnidadMedidaA,
+                        idMarca=idMarcaA
+				where idMateria=idMateriaA;
 END$$
 
 DELIMITER ;
 
                                     
-DROP procedure IF EXISTS `eliminar_materiacostos`;
+DROP procedure IF EXISTS `eliminar_materia`;
 
 DELIMITER $$
 USE `caticao`$$
-CREATE PROCEDURE `eliminar_materiacostos` (in idMateriaCostosE int)
+CREATE PROCEDURE `eliminar_materia` (in idMateriaE int)
 BEGIN
-	delete from materiacostos 
-    where idMateriaCostos=idMateriaCostosE;
+	delete from materia
+    where idMateria=idMateriaE;
 END$$
 
 DELIMITER ;
@@ -97,92 +146,7 @@ DELIMITER ;
 
 
 -- Procedimientos almacenados de producto --
-DROP procedure IF EXISTS `mostrar_productos`;
 
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `mostrar_productos` ()
-BEGIN
-select idProducto,
-			p.nombre,
-			p.descripcion,
-			c.nombre,
-            p.cantidad,
-            p.precio
-	from producto p inner join categoria c on p.idCategoria=c.idCategoria
-    ;
-END$$
-DELIMITER ;
-
-
-DROP procedure IF EXISTS `insertar_productos`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `insertar_productos` (in nombreI varchar(50),
-										in descripcionI varchar(50),
-                                        in idCategoriaI int,
-                                        in cantidadI int,
-                                        in precioI decimal(10,2))
-BEGIN
-	insert into producto (nombre,
-							descripcion,
-							idCategoria,
-                            cantidad,
-                            precio)
-			values (nombreI,descripcionI,idCategoriaI,cantidadI,precioI);
-END$$
-
-DELIMITER ;
-
-
-
-DROP procedure IF EXISTS `obtener_producto`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `obtener_producto` (in idProductoO int)
-BEGIN
-	select * from producto where idProducto=idProductoO;
-END$$
-
-DELIMITER ;
-
-
-
-DROP procedure IF EXISTS `actualizar_productos`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `actualizar_productos` (in idProductoA int,
-										in nombreA varchar(50),
-										in descripcionA varchar(50),
-                                        in idCategoriaA int,
-                                        in cantidadA int,
-                                        in precioA decimal(10,2))
-BEGIN
-	update producto set nombre=nombreA,
-						descripcion=descripcionA,
-						idCategoria=idCategoriaA,
-                        cantidad=cantidadA,
-                        precio=precioA
-				where idProducto=idProductoA;
-END$$
-
-DELIMITER ;
-
-
-DROP procedure IF EXISTS `eliminar_productos`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `eliminar_productos` (in idProductoE int)
-BEGIN
-	delete from producto 
-    where idProducto=idProductoE;
-END$$
-
-DELIMITER ;
 
 
 
@@ -338,66 +302,5 @@ END$$
 DELIMITER ;
 
 
-DROP procedure IF EXISTS `insertar_materiacostos`;
 
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `insertar_materiacostos` (in idMateriaI int,
-                                        in idCostosI int,
-                                        in idTipoCostosI int,
-                                        in PrecioUnitI decimal(10,2))
-BEGIN
-	insert into materiacostos (idMateria,
-							idCostos,
-                            idTipoCostos,
-                            PrecioUnit)
-			values (idMateriaI,idCostosI,idTipoCostosI,PrecioUnitI);
-END$$
-
-DELIMITER ;
-
-DROP procedure IF EXISTS `obtener_materiacostos`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `obtener_materiacostos` (in idMateriaCostosO int)
-BEGIN
-	select * from materiacostos where idMateriaCostos=idMateriaCostosO;
-END$$
-
-DELIMITER ;
-
-
-DROP procedure IF EXISTS `actualizar_materiacostos`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `actualizar_materiacostos` (in idMateriaCostosA int,
-										in idMateriaA varchar(50),
-										in idCostosA varchar(50),
-                                        in idTipoCostosA int,
-                                        in PrecioUnitA decimal(10,2))
-BEGIN
-	update materiacostos set idMateriaCostos=idMateriaCostosA,
-						idMateria=idMateriaA,
-						idCostos=idCostosA,
-                        idTipoCostos=idTipoCostosA,
-                        PrecioUnit=PrecioUnitA
-				where idMateriaCostos=idMateriaCostosA;
-END$$
-
-DELIMITER ;
-
-                                    
-DROP procedure IF EXISTS `eliminar_materiacostos`;
-
-DELIMITER $$
-USE `caticao`$$
-CREATE PROCEDURE `eliminar_materiacostos` (in idMateriaCostosE int)
-BEGIN
-	delete from materiacostos 
-    where idMateriaCostos=idMateriaCostosE;
-END$$
-
-DELIMITER ;
 

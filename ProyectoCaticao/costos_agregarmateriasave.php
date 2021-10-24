@@ -27,10 +27,6 @@ if (isset($_POST['save_agregarcostomateria'])) {
 }
 
 
-
-
-
-
 ?>
 
 

@@ -132,7 +132,8 @@ cantidad int,
 idTipoMateria int references TipoMateria(idTipoMateria),
 idUnidadMedida int references UnidadMedida (idUnidadMedida),
 idMarca int references Marca(idMarca)
-);
+)
+DEFAULT CHARACTER SET = latin1;
 
 create table Costos (
 idCostos int auto_increment primary key,

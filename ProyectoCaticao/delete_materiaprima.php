@@ -5,8 +5,8 @@ $conexion=conexion();
 
 if(isset($_GET['idMateria'])) {
   $id = $_GET['idMateria'];
-  $query = "DELETE FROM materia WHERE idMateria = $id";
-  $result = mysqli_query($conexion, $query);
+  $sql="CALL eliminar_materia('$id')";
+  $result = mysqli_query($conexion,$sql);
   if(!$result) {
     die("Query Failed.");
   }
@@ -17,3 +17,4 @@ if(isset($_GET['idMateria'])) {
 }
 
 ?>
+
