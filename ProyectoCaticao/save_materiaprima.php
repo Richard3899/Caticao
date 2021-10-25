@@ -4,22 +4,23 @@
 include 'includes/config/db.php';
 
 if (isset($_POST['save_materiaprima'])) {
-
-    $Nombre= $_POST['Nombre'];
-    $descripción= $_POST['descripción'];
-    $Descripcion_Marca= $_POST['idMarca'];
-    $descripcion_Unidad= $_POST['idUnidadMedida'];
+    $conexion=conexion();
+    $Nombre= $_POST['nombre'];
+    $descripcion= $_POST['descripcion'];
     $cantidad= $_POST['cantidad'];
     $Descripcion_TipoMateria= $_POST['id_idTipoMateria'];
+    $descripcion_Unidad= $_POST['idUnidadMedida'];
+    $Descripcion_Marca= $_POST['idMarca'];
     
-    $query = "INSERT INTO materia(Nombre,descripción,idMarca,idUnidadMedida,cantidad,idTipoMateria)
-    VALUES ('$Nombre','$descripción','$Descripcion_Marca','$descripcion_Unidad','$cantidad','$Descripcion_TipoMateria')";
+    
+    $sql="CALL insertar_materia('$Nombre','$descripcion','$cantidad','$Descripcion_TipoMateria'
+    ,'$descripcion_Unidad','$Descripcion_Marca')";
 
-    $result = mysqli_query($conn, $query);
+    $result = mysqli_query($conexion, $sql);
 
 
   if(!$result) {
-    die("Falta rellenar datos");
+    die("Falta rellenar datos ".$sql);
   }
   
   $_SESSION['message'] = 'Materia prima resgistrada';
@@ -29,6 +30,7 @@ if (isset($_POST['save_materiaprima'])) {
 }
 
 ?>
+
 
 
 
