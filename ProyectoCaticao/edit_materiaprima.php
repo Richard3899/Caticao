@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?php
 include 'includes/config/db.php';
 $db1=conexion();
@@ -13,6 +14,8 @@ $db3=conexion();
 $consulta3="select*from marca";
 $resultado3= mysqli_query($db3, $consulta3);
 $idMarca="";
+=======
+>>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
 =======
 >>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
 
@@ -40,10 +43,13 @@ $idMarca="";
 
                         if  (isset($_GET['idMateria'])) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         $id = $_GET['idMateria'];
                         $query = "SELECT * FROM materia WHERE idMateria=$id";
                         $result = mysqli_query($conn, $query);
 =======
+=======
+>>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
 
                         $conexion=conexion();
                     
@@ -53,6 +59,9 @@ $idMarca="";
                     
                         $result=mysqli_query($conexion,$sql);
                     
+<<<<<<< HEAD
+>>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
+=======
 >>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
@@ -69,6 +78,7 @@ $idMarca="";
 
                         if (isset($_POST['update_materiaprima'])) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                        
                             $id = $_GET['idMateria'];
                             $Nombre= $_POST['Nombre'];
@@ -77,6 +87,8 @@ $idMarca="";
                             $idUnidadMedida= $_POST['idUnidadMedida'];
                             $Cantidad= $_POST['Cantidad'];
 =======
+=======
+>>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
                             $conexion=conexion();
 
                             $idMateria = $_GET['idMateria'];
@@ -103,6 +115,7 @@ $idMarca="";
                     
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                         $query = "UPDATE materia set Nombre = '$Nombre', Descripción = '$descripción', idMarca ='$idMarca'  , idUnidadMedida = '$idUnidadMedida', Cantidad='$Cantidad', idTipoMateria='$idTipoMateria' WHERE idMateria=$id";
 
                         mysqli_query($conn, $query);
@@ -111,6 +124,9 @@ $idMarca="";
                         header('Location: stock_materiaprima.php');
 
                         }
+=======
+
+>>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
 =======
 
 >>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
@@ -171,7 +187,11 @@ $idMarca="";
                             <div class="form-group col-md-4">
                             <label for="descripción">Descripcion</label>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <input type="text" step="any" class="form-control" id="descripción" value="<?php echo $descripción;?>" name="descripción" placeholder="descripción" required>
+=======
+                            <input type="text" step="any" class="form-control" id="Nombre" value="<?php echo $descripción;?>" name="descripcion" placeholder="descripción" required>
+>>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
 =======
                             <input type="text" step="any" class="form-control" id="Nombre" value="<?php echo $descripción;?>" name="descripcion" placeholder="descripción" required>
 >>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
