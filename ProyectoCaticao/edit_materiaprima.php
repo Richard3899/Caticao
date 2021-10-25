@@ -9,7 +9,7 @@ $consulta2="select*from tipomateria";
 $resultado2= mysqli_query($db2, $consulta2);
 
 $db3=conexion();
-$consulta3="select*from Marca";
+$consulta3="select*from marca";
 $resultado3= mysqli_query($db3, $consulta3);
 $idMarca="";
 
@@ -25,10 +25,9 @@ $idMarca="";
                       
 
                         if  (isset($_GET['idMateria'])) {
-                        $conexion=conexion();
                         $id = $_GET['idMateria'];
                         $query = "SELECT * FROM materia WHERE idMateria=$id";
-                        $result = mysqli_query($conexion, $query);
+                        $result = mysqli_query($conn, $query);
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
                             $Nombre= $row['Nombre'];
@@ -41,23 +40,22 @@ $idMarca="";
                         }
 
                         if (isset($_POST['update_materiaprima'])) {
-                            $conexion=conexion();
+                       
                             $id = $_GET['idMateria'];
                             $Nombre= $_POST['Nombre'];
-                            $descripción= $_POST['descripción'];
+                            $descripción= $_POST['Descripción'];
                             $idMarca= $_POST['idMarca'];
                             $idUnidadMedida= $_POST['idUnidadMedida'];
-                            $cantidad= $_POST['cantidad'];
+                            $Cantidad= $_POST['Cantidad'];
                             $idTipoMateria= $_POST['idTipoMateria'];
 
-                        $query = "UPDATE materia set Nombre = '$Nombre', descripción = '$descripción', idMarca ='$idMarca'
-                        
-                        , idUnidadMedida = '$idUnidadMedida', cantidad='$cantidad', idTipoMateria='$idTipoMateria' WHERE idMateria=$id";
+                        $query = "UPDATE materia set Nombre = '$Nombre', Descripción = '$descripción', idMarca ='$idMarca'  , idUnidadMedida = '$idUnidadMedida', Cantidad='$Cantidad', idTipoMateria='$idTipoMateria' WHERE idMateria=$id";
 
                         mysqli_query($conn, $query);
                         $_SESSION['message'] = 'Actualización exitosa';
                         $_SESSION['message_type'] = 'warning';
                         header('Location: stock_materiaprima.php');
+
                         }
                         include 'includes/templates/head.php'
 
@@ -115,7 +113,7 @@ $idMarca="";
 
                             <div class="form-group col-md-4">
                             <label for="descripción">Descripcion</label>
-                            <input type="text" step="any" class="form-control" id="Nombre" value="<?php echo $descripción;?>" name="descripción" placeholder="descripción" required>
+                            <input type="text" step="any" class="form-control" id="descripción" value="<?php echo $descripción;?>" name="descripción" placeholder="descripción" required>
                             </div>
                             
                             <div class="form-group col-md-4">
