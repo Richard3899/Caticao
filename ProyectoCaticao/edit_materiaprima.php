@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?php
-include 'includes/config/db.php';
-$db1=conexion();
-$consulta1="Select*from unidadMedida";
-$resultado1= mysqli_query($db1, $consulta1);
-
-$db2=conexion();
-$consulta2="select*from tipomateria";
-$resultado2= mysqli_query($db2, $consulta2);
-
-$db3=conexion();
-$consulta3="select*from marca";
-$resultado3= mysqli_query($db3, $consulta3);
-$idMarca="";
-=======
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
-=======
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
 
 <?php
                         include 'includes/config/db.php';
@@ -42,14 +22,6 @@ $idMarca="";
                         $idTipoMateria = '';
 
                         if  (isset($_GET['idMateria'])) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        $id = $_GET['idMateria'];
-                        $query = "SELECT * FROM materia WHERE idMateria=$id";
-                        $result = mysqli_query($conn, $query);
-=======
-=======
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
 
                         $conexion=conexion();
                     
@@ -59,10 +31,6 @@ $idMarca="";
                     
                         $result=mysqli_query($conexion,$sql);
                     
-<<<<<<< HEAD
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
-=======
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
                             $Nombre= $row['nombre'];
@@ -77,25 +45,12 @@ $idMarca="";
                         }
 
                         if (isset($_POST['update_materiaprima'])) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                       
-                            $id = $_GET['idMateria'];
-                            $Nombre= $_POST['Nombre'];
-                            $descripción= $_POST['Descripción'];
-                            $idMarca= $_POST['idMarca'];
-                            $idUnidadMedida= $_POST['idUnidadMedida'];
-                            $Cantidad= $_POST['Cantidad'];
-=======
-=======
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
                             $conexion=conexion();
 
                             $idMateria = $_GET['idMateria'];
                             $Nombre= $_POST['nombre'];
                             $descripcion= $_POST['descripcion'];
                             $cantidad= $_POST['cantidad'];
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
                             $idTipoMateria= $_POST['idTipoMateria'];
                             $idUnidadMedida= $_POST['idUnidadMedida'];
                             $idMarca= $_POST['idMarca'];
@@ -114,22 +69,7 @@ $idMarca="";
                         }
                     
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        $query = "UPDATE materia set Nombre = '$Nombre', Descripción = '$descripción', idMarca ='$idMarca'  , idUnidadMedida = '$idUnidadMedida', Cantidad='$Cantidad', idTipoMateria='$idTipoMateria' WHERE idMateria=$id";
 
-                        mysqli_query($conn, $query);
-                        $_SESSION['message'] = 'Actualización exitosa';
-                        $_SESSION['message_type'] = 'warning';
-                        header('Location: stock_materiaprima.php');
-
-                        }
-=======
-
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
-=======
-
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
                         include 'includes/templates/head.php'
 
 ?>
@@ -186,15 +126,7 @@ $idMarca="";
 
                             <div class="form-group col-md-4">
                             <label for="descripción">Descripcion</label>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            <input type="text" step="any" class="form-control" id="descripción" value="<?php echo $descripción;?>" name="descripción" placeholder="descripción" required>
-=======
                             <input type="text" step="any" class="form-control" id="Nombre" value="<?php echo $descripción;?>" name="descripcion" placeholder="descripción" required>
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
-=======
-                            <input type="text" step="any" class="form-control" id="Nombre" value="<?php echo $descripción;?>" name="descripcion" placeholder="descripción" required>
->>>>>>> ab121d64978fbafd9ef477d064d8ba5986bebd4b
                             </div>
                             
 
@@ -260,16 +192,9 @@ $idMarca="";
 
             </div>
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+            <?php
+            include 'includes/templates/footer.php'
+            ?>
 
         </div>
         <!-- End of Content Wrapper -->
