@@ -7,13 +7,13 @@ if (isset($_POST['save_producto'])) {
     $nombre= $_POST['nombre'];
     $descripcion= $_POST['descripcion'];
     $idTipoProducto= $_POST['idTipoProducto'];
-    $idLote= $_POST['idLote'];
+    $idAlmacen= $_POST['idAlmacen'];
     $cantidad= $_POST['cantidad'];
     $precio= $_POST['precio'];
 
     $query = "INSERT INTO producto(nombre,descripcion,
-    cantidad,precio,idTipoProducto,idLote)
-    VALUES ('$nombre','$descripcion','$cantidad','$precio','$idTipoProducto','$idLote')";
+    cantidad,precio,idTipoProducto,idAlmacen)
+    VALUES ('$nombre','$descripcion','$cantidad','$precio','$idTipoProducto','$idAlmacen')";
 
     $result = mysqli_query($conn, $query);
 
