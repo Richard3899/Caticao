@@ -208,7 +208,7 @@ $idUnidadMedida = '';
                                              
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="costos_agregarreceta_edit.php?idReceta=<?php echo $row[0] ?>" >
+                                             <a class="btn btn-warning" href="costos_agregarrecetainsumos_edit.php?idRecetaMateria=<?php echo $row[0] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
@@ -225,6 +225,16 @@ $idUnidadMedida = '';
                                          
                                         <?php } ?>
 
+
+
+                                        <?php
+
+                                        $conexion=conexion();
+
+                                        $sql="CALL mostrar_recetainsumostotal";
+                                        $result=mysqli_query($conexion,$sql);
+
+                                        while($row = mysqli_fetch_array($result)){ ?>
                                         <tr>
    
                                              <td>
@@ -245,8 +255,11 @@ $idUnidadMedida = '';
                                              <td>
                                               
                                              </td>
+
                                              <td>
-                                             <input type="text" class="form-control" value=" Total - 29.50" disabled>
+
+                                             <?php echo $row[0] ?>
+
                                              </td>
                                              
                                              <td>
@@ -260,6 +273,7 @@ $idUnidadMedida = '';
                                              </td>
                                              
                                          </tr>
+                                         <?php } ?>
 
                     
                                     </tbody>

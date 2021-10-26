@@ -404,14 +404,13 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_combomateriarecetainsumos` ()
 BEGIN
-select DISTINCT m.idMateria,
+select  distinct m.idMateria,
 			CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre
 	from materia m 
-    inner join materiacostos mc on m.idMateria=mc.idMateria
+	inner join materiacostos mc on mc.idMateria=m.idMateria
     inner join marca mr on mr.idMarca = m.idMarca
-    left join recetamateria rm on rm.idMateria= m.idMateria
-    
-;
+    inner join recetamateria rm on rm.idMateria= rm.idMateria;
+
 END$$
 DELIMITER ;
 
@@ -423,7 +422,7 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_recetainsumos` ()
 BEGIN
-select  rm.idRecetaMateria,r.idReceta,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
+select  rm.idRecetaMateria,r.descripcion,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
 		um.descripcion as 'Unidad de Medida',CONCAT(m.cantidad , ' - ' , um.descripcion) as 'Cantidad en Sotck',
         CONCAT(TRUNCATE(rm.cantidad,0) , ' - ' , um1.descripcion) as 'Peso Neto',mc.precioUnitario,
         TRUNCATE((rm.cantidad/1000)*mc.precioUnitario,2) as Costo
@@ -484,21 +483,24 @@ END$$
 DELIMITER ;
 
 
-DROP procedure IF EXISTS `actualizar_agregarreceta`;
+DROP procedure IF EXISTS `actualizar_recetainsumos`;
 
 DELIMITER $$
 USE `caticao`$$
-CREATE PROCEDURE `actualizar_agregarreceta` (in idRecetaA int,
-										in descripcionA varchar(100),
-										in idProductoA int
+CREATE PROCEDURE `actualizar_recetainsumos` (in idRecetaMateriaA int,
+										in cantidadA decimal(10,2),
+										in idMateriaA int,
+                                        in idRecetaA int,
+                                        in idUnidadMedidaA int
                                             )
 BEGIN
-	update receta set idReceta=idRecetaA,
-						descripcion=descripcionA,
-						idProducto=idProductoA
-				where idReceta=idRecetaA;
+	update recetamateria set idRecetaMateria=idRecetaMateriaA,
+						cantidad=cantidadA,
+						idMateria=idMateriaA,
+                        idReceta=idRecetaA,
+                        idUnidadMedida=idUnidadMedidaA
+				where idRecetaMateria=idRecetaMateriaA;
 END$$
-
 DELIMITER ;
 
                                     
@@ -511,5 +513,4 @@ BEGIN
 	delete from recetamateria
     where idRecetaMateria=idRecetaMateriaE;
 END$$
-
 DELIMITER ;
