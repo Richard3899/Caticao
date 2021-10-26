@@ -146,7 +146,6 @@ $idUnidadMedida = '';
                                         <tr>
                                             <th>idReceta</th>
                                             <th>Insumo</th>
-                                            <th>Unidad de Medida</th>
                                             <th>Cantidad en Stock</th>
                                             <th>Peso Neto</th>
                                             <th>Precio Unitario</th>
@@ -160,7 +159,6 @@ $idUnidadMedida = '';
                                         <tr>
                                             <th>idReceta</th>
                                             <th>Insumo</th>
-                                            <th>Unidad de Medida</th>
                                             <th>Cantidad en Stock</th>
                                             <th>Peso Neto</th>
                                             <th>Precio Unitario</th>
@@ -201,9 +199,6 @@ $idUnidadMedida = '';
                                              </td>
                                              <td>
                                                 <?php echo $row[6] ?>
-                                             </td>
-                                             <td>
-                                                <?php echo $row[7] ?>
                                              </td>
                                              
                                              <td>
@@ -253,12 +248,12 @@ $idUnidadMedida = '';
                                                
                                              </td>
                                              <td>
-                                              
+                                             <?php echo $row[0] ?>
                                              </td>
 
                                              <td>
 
-                                             <?php echo $row[0] ?>
+                                             
 
                                              </td>
                                              

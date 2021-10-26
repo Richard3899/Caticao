@@ -423,7 +423,7 @@ USE `caticao`$$
 CREATE PROCEDURE `mostrar_recetainsumos` ()
 BEGIN
 select  rm.idRecetaMateria,r.descripcion,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
-		um.descripcion as 'Unidad de Medida',CONCAT(m.cantidad , ' - ' , um.descripcion) as 'Cantidad en Sotck',
+		CONCAT(m.cantidad , ' - ' , um.descripcion) as 'Cantidad en Sotck',
         CONCAT(TRUNCATE(rm.cantidad,0) , ' - ' , um1.descripcion) as 'Peso Neto',mc.precioUnitario,
         TRUNCATE((rm.cantidad/1000)*mc.precioUnitario,2) as Costo
            
