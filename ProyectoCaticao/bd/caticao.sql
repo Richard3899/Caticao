@@ -163,7 +163,7 @@ idUnidadMedida int references UnidadMedida(idUnidadMedida)
 
 create table Receta(
 idReceta int auto_increment primary key,
-descripcion varchar (45),
+descripcion varchar (100),
 idProducto int references Producto(idProducto)
 );
 
@@ -178,7 +178,8 @@ create table RecetaMateria(
 idRecetaMateria int auto_increment primary key,
 cantidad decimal(10,2),
 idMateria int references Materia (idMateria),
-idReceta int references Receta (idReceta)
+idReceta int references Receta (idReceta),
+idUnidadMedida int references UnidadMedida (idUnidadMedida)
 );
 
 create table Producto(
@@ -238,6 +239,7 @@ alter table GastosMateria add foreign key (idGastos) references Gastos (idGastos
 
 alter table RecetaMateria add foreign key (idMateria) references Materia(idMateria);
 alter table RecetaMateria add foreign key (idReceta) references Receta(idReceta);
+alter table RecetaMateria add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 alter table Receta add foreign key (idProducto) references Producto(idProducto);
 alter table Lote add foreign key (idReceta) references Receta(idReceta);
 
@@ -249,7 +251,7 @@ insert into TipoProveedor values (1,'Proveedor Interno'),(2,'Proveedor Externo')
 insert into tipoDocumento values (1,'RUC'),(2,'DNI'),(3,'CARNET EXTRANJERIA'),(4,'PASAPORTE');
 insert into Proveedor values (1,'Gloria S.A.C',59483948,'logistica@trading.com',1020413232,1,1);
 insert into TipoMedida values(1,'Materia Prima, Insumos y Producto'),(2,'Maquina'),(3,'Persona'),(4,'Servicios'),(5,'Depreciación');
-insert into UnidadMedida values (1,'Kilogramo',1),(2,'Gramo',1),(3,'Litro',1),(4,'Unidad',1),(5,'Jormal',3),(6,'Kw/Hra',4),(7,'Global',5);
+insert into UnidadMedida values (1,'Kilogramos',1),(2,'Gramos',1),(3,'Litros',1),(4,'Mililitros',1),(5,'Unidad',1),(6,'Jormal',3),(7,'Kw/Hra',4),(8,'Global',5);
 insert into Persona values (1,'Jose','Nalvarte','Empleado','SMP',960596970,'josenalvarte@gmail.com',10535401,1,1,5);
 insert into Usuario values (1,'Keyla','admin',1);
 insert into TipoProducto values (1,'Producto Intermedio'),(2,'Producto Terminado'),(3,'Perdida de producto');
@@ -273,7 +275,7 @@ insert into Materia (idMateria,Nombre,descripcion,cantidad,idTipoMateria, idUnid
 values (1,'Leche','Preparación de Chocolate',40,1,1,1),(2,'Cacao','Selecto',80,2,1,1),(3,'Pasas','Suaves',20,1,1,1),(4,'Pecanas','Suaves',20,1,1,1)
 	  ,(5,'Azucar','Suaves',20,1,1,1),(6,'Sal','Suaves',20,1,1,1),(7,'Lecitina de soya','Suaves',20,1,1,1);
 insert into Costos values (1,'Costo de Materia Prima e Insumos'),(2,'Costos de Servicios'),(3,'Costo de Depreciación'),(4,'Costo de Mano de obra');
-insert into MateriaCostos values(1,'10',1,1,1);
+insert into MateriaCostos values(1,'5',1,1,1);
 insert into MovimientoMateria values (1,15,1,1);
 insert into TipoProceso values(1,'Mano de Obra'),(2,'Maquinaria');
 insert into Proceso values(1,'Selección de granos',1,1),(2,'Tostado',1,1),(3,'Descascarillado',1,1),(4,'Molienda',1,1),(5,'Refinado',1,1)
@@ -285,7 +287,7 @@ insert into Producto values (1,'Chocolate CATICAO de leche 38% con Pecanas','cho
 (6,'Chocolate CATICAO semidulce 70% con Kiwicha','chocolate en barra',50,'9',1,1), (7,'Chocolate CATICAO semidulce 70% con Mango','chocolate en barra',60,'10',1,1);
 insert into Receta values(1,'Receta 1',1);
 insert into Lote values (1, 1,000001,1);
-insert into RecetaMateria values(1,10,1,1),(2,20,1,1);
+insert into RecetaMateria values(1,900,1,1,2),(2,5000,1,1,2);
 
 insert into MovimientoProducto values (1, 2, 3, '8.5',1,1);
 insert into OrdenProduccion values (1, 'Producción de Nibs', 1);

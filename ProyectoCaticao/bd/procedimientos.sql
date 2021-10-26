@@ -3,7 +3,6 @@ use caticao;
 
 -- Procedimientos almacenados de Combo Box de Costos --
 
-
 DROP procedure IF EXISTS `mostrar_combomarca`;
 
 DELIMITER $$
@@ -291,7 +290,24 @@ END$$
 DELIMITER ;
 
 
--- Procedimientos almacenados de Agregar receta --
+
+-- Procedimientos almacenados de Combo Box de Producto --
+
+DROP procedure IF EXISTS `mostrar_comboproducto`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_comboproducto` ()
+BEGIN
+select DISTINCT idProducto,nombre
+	from producto
+;
+END$$
+DELIMITER ;
+
+
+
+-- Procedimientos almacenados de Costo de Materia prima --
 
 DROP procedure IF EXISTS `mostrar_agregarreceta`;
 
@@ -299,18 +315,188 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_agregarreceta` ()
 BEGIN
-select rc.idReceta_Materia,
-			m.Nombre,
-            unm.descripcion_Unidad,
-			r.idReceta,
-            rc.Cantidad
-	from recetamateria  rc inner join materia m on rc.idMateria=m.idMateria
-						  inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
-                          inner join receta r  on r.idReceta=rc.idReceta
-                          inner join unidadmedida unm on unm.idUnidadMedida=m.idUnidadMedida;
+select      r.idReceta,p.nombre,p.descripcion,
+            r.descripcion
+           
+	from receta r inner join producto p on p.idProducto=r.idProducto
+;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `insertar_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_agregarreceta` (in descripcionI varchar(45),
+                                        in idProductoI int
+                                        )
+BEGIN
+	insert into receta (descripcion,
+                            idProducto)
+			values (descripcionI,idProductoI);
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_agregarreceta` (in idRecetaO int)
+BEGIN
+	select * from receta where idReceta=idRecetaO;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_agregarreceta` (in idRecetaA int,
+										in descripcionA varchar(100),
+										in idProductoA int
+                                            )
+BEGIN
+	update receta set idReceta=idRecetaA,
+						descripcion=descripcionA,
+						idProducto=idProductoA
+				where idReceta=idRecetaA;
+END$$
+
+DELIMITER ;
+
+                                    
+DROP procedure IF EXISTS `eliminar_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_agregarreceta` (in idRecetaE int)
+BEGIN
+	delete from receta 
+    where idReceta=idRecetaE;
+END$$
+
+DELIMITER ;
+
+
+-- Procedimientos almacenados de Combo Box de Recetainsumos --
+
+DROP procedure IF EXISTS `mostrar_comboreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_comboreceta` ()
+BEGIN
+select DISTINCT idPReceta,descripcion
+	from receta
+;
+END$$
+DELIMITER ;
+
+
+-- Procedimientos almacenados de Receta Insumos --
+
+DROP procedure IF EXISTS `mostrar_recetainsumos`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetainsumos` ()
+BEGIN
+select  rm.idRecetaMateria,r.idReceta,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
+		um.descripcion as 'Unidad de Medida',CONCAT(m.cantidad , ' - ' , um.descripcion) as 'Cantidad en Sotck',
+        CONCAT(TRUNCATE(rm.cantidad,0) , ' - ' , um1.descripcion) as 'Peso Neto',mc.precioUnitario,
+        TRUNCATE((rm.cantidad/1000)*mc.precioUnitario,2) as Costo
+           
+	from recetamateria rm inner join receta r on rm.idReceta=r.idReceta
+					      inner join materia m on m.idMateria=rm.idMateria
+                          inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
+                          inner join unidadmedida um1  on um1.idUnidadMedida=rm.idUnidadMedida
+                          inner join marca mr on mr.idMarca = m.idMarca
+                          inner join materiacostos mc on mc.idMateria = m.idMateria;
+                          
+                          
+
+END$$
+DELIMITER ;
+
+
+
+DROP procedure IF EXISTS `mostrar_recetainsumostotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetainsumostotal` ()
+BEGIN
+select SUM(TRUNCATE((rm.cantidad/1000)*mc.precioUnitario,2)) as Costo
+           
+	from recetamateria rm inner join receta r on rm.idReceta=r.idReceta
+					      inner join materia m on m.idMateria=rm.idMateria
+                          inner join materiacostos mc on mc.idMateria = m.idMateria;
+                         
 END$$
 DELIMITER ;
 
 
 
 
+DROP procedure IF EXISTS `insertar_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_agregarreceta` (in descripcionI varchar(45),
+                                        in idProductoI int
+                                        )
+BEGIN
+	insert into receta (descripcion,
+                            idProducto)
+			values (descripcionI,idProductoI);
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_agregarreceta` (in idRecetaO int)
+BEGIN
+	select * from receta where idReceta=idRecetaO;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_agregarreceta` (in idRecetaA int,
+										in descripcionA varchar(100),
+										in idProductoA int
+                                            )
+BEGIN
+	update receta set idReceta=idRecetaA,
+						descripcion=descripcionA,
+						idProducto=idProductoA
+				where idReceta=idRecetaA;
+END$$
+
+DELIMITER ;
+
+                                    
+DROP procedure IF EXISTS `eliminar_agregarreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_agregarreceta` (in idRecetaE int)
+BEGIN
+	delete from receta 
+    where idReceta=idRecetaE;
+END$$
+
+DELIMITER ;
