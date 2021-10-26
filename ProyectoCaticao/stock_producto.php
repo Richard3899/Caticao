@@ -17,14 +17,14 @@ $descripcion = '';
 $cantidad='';
 $Precio='';
 $idTipoProducto='';
-$idLote='';
-$NroLote='';
+$idAlmacen='';
+$descripcion='';
 
 
 $db2=conexion();
-$consulta2="select*from Lote";
+$consulta2="select*from Almacen";
 $resultado2= mysqli_query($db2, $consulta2);
-$idLote="";
+$idAlmacen="";
 ?>
 
 <body id="page-top">
@@ -105,20 +105,20 @@ $idLote="";
                                 <?php while ($descripcion_TipoProducto=mysqli_fetch_assoc($resultado1)):?>
                                     <option <?php echo $idTipoProducto == $descripcion_TipoProducto['idTipoProducto'] ? 'selected' : '';?> 
                                     value= "<?php echo $descripcion_TipoProducto['idTipoProducto'];?>">
-                                    <?php echo $descripcion_TipoProducto ['descripcionP'];?> </option>
+                                    <?php echo $descripcion_TipoProducto ['descripcionTP'];?> </option>
                                 <?php endwhile; ?>
                                     
                                 </select>
                             
                             </div>
                                 <div class="form-group col-md-4">
-                                <label for="Lote">Nro Lote</label>
-                                <select id='id_idtLote' name="idLote" class='form-control' required>
+                                <label for="Almacen">Sede Almacen</label>
+                                <select id='id_idAlmacen' name="idAlmacen" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
-                                <?php while ($descripcion_Lote=mysqli_fetch_assoc($resultado2)):?>
-                                    <option <?php echo $idLote == $descripcion_Lote['idLote'] ? 'selected' : '';?> 
-                                    value= "<?php echo $descripcion_Lote['idLote'];?>">
-                                    <?php echo $descripcion_Lote ['NroLote'];?> </option>
+                                <?php while ($descripcion_Almacen=mysqli_fetch_assoc($resultado2)):?>
+                                    <option <?php echo $idAlmacen == $descripcion_Almacen['idAlmacen'] ? 'selected' : '';?> 
+                                    value= "<?php echo $descripcion_Almacen['idAlmacen'];?>">
+                                    <?php echo $descripcion_Almacen ['descripcionA'];?> </option>
                                 <?php endwhile; ?>
                                     
                                 </select>
@@ -147,7 +147,7 @@ $idLote="";
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>Descripción</th>
-                                            <th>Nro Lote</th>
+                                            <th>Sede Almacen</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -160,7 +160,7 @@ $idLote="";
                                             <th>Cantidad</th>
                                             <th>Precio</th>
                                             <th>Descripción</th>
-                                            <th>Nro Lote</th>
+                                            <th>Sede Almacen</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -169,9 +169,9 @@ $idLote="";
                                     <tbody>
                                          <?php
 
-                                         $query = "select p.idProducto, p.nombre, p.descripcion,p.cantidad,p.precio,ti.descripcionP, l.NroLote
-                                         from producto as p inner join tipoProducto as ti on p.idTipoProducto=ti.idTipoProducto
-                                         inner join lote as l on p.idLote=l.idlote";
+                                         $query = "select p.idProducto, p.nombre, p.descripcion, p.cantidad, p.precio, t.descripcionTP, a.descripcionA
+                                         from producto p inner join tipoproducto t on p.idTipoProducto=t.idTipoProducto
+                                         inner join almacen a on p.idAlmacen=a.idAlmacen";
                                          $resultado_producto = mysqli_query($conn,$query);
 
 
@@ -194,11 +194,11 @@ $idLote="";
                                                 <?php echo $row['precio'] ?>
                                              </td>
                                              <td>
-                                                <?php echo $row['descripcionP'] ?>
+                                                <?php echo $row['descripcionTP'] ?>
                                              </td>
 
                                              <td>
-                                                <?php echo $row['NroLote'] ?>
+                                                <?php echo $row['descripcionA'] ?>
                                              </td>
                                              <td> 
                                              <a class="btn btn-warning" href="edit_producto.php?idProducto=<?php echo $row['idProducto'] ?>" >

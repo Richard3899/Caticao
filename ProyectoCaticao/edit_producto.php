@@ -6,25 +6,26 @@ include 'includes/config/db.php';
 
 
 $db1=conexion();
-$consulta1="Select*from TipoProducto";
+$consulta1="Select*from tipoProducto";
 $resultado1= mysqli_query($db1, $consulta1);
 
 $db2=conexion();
-$consulta2="select*from Lote";
+$consulta2="select*from almacen";
 $resultado2= mysqli_query($db2, $consulta2);
 
 
 
-                        $Nombre = '';
-                        $Descripcion= '';
-                        $idLote='';
+                        $nombre = '';
+                        $descripcion= '';
+                        $idAlmacen='';
                    
-                        $Cantidad= '';
-                        $Precio= '';
+                        $cantidad= '';
+                        $precio= '';
                         $idTipoProducto= '';
                         $descripcion_TipoProducto='';
-                        $descripcionP= '';
-                        $descripcion_Lote='';
+                        $descripcionTP= '';
+                        $descripcion_Almacen='';
+                        $descripcionA='';
 
                         if  (isset($_GET['idProducto'])) {
                         $id = $_GET['idProducto'];
@@ -32,26 +33,26 @@ $resultado2= mysqli_query($db2, $consulta2);
                         $result = mysqli_query($conn, $query);
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
-                            $Nombre = $row['Nombre'];
-                            $Descripcion = $row['Descripcion'];
-                            $Cantidad = $row['Cantidad'];
-                            $Precio = $row['Precio'];
+                            $nombre = $row['nombre'];
+                            $descripcion = $row['descripcion'];
+                            $cantidad = $row['cantidad'];
+                            $precio = $row['precio'];
                             $idTipoProducto= $row['idTipoProducto'];
-                            $idLote= $row['idLote'];
+                            $idAlmacen= $row['idAlmacen'];
                         }
                         }
 
                         if (isset($_POST['update_producto'])) {
 
                             $id = $_GET['idProducto'];
-                            $Nombre = $_POST['Nombre'];
-                            $Descripcion = $_POST['Descripcion'];
-                            $Cantidad = $_POST['Cantidad'];
-                            $Precio = $_POST['Precio'];
+                            $nombre = $_POST['nombre'];
+                            $descripcion = $_POST['descripcion'];
+                            $cantidad = $_POST['cantidad'];
+                            $precio = $_POST['precio'];
                             $idTipoProducto= $_POST['idTipoProducto'];
-                            $idLote= $_POST['idLote'];
+                            $idAlmacen= $_POST['idAlmacen'];
 
-                        $query = "UPDATE producto set Nombre = '$Nombre', Descripcion = '$Descripcion', Cantidad = '$Cantidad',  Precio = '$Precio', idTipoProducto = '$idTipoProducto', idLote = '$idLote' WHERE idProducto=$id";
+                        $query = "UPDATE producto set nombre = '$nombre', descripcion = '$descripcion', cantidad = '$cantidad',  precio = '$precio', idTipoProducto = '$idTipoProducto', idAlmacen = '$idAlmacen' WHERE idProducto=$id";
                         mysqli_query($conn, $query);
                         $_SESSION['message'] = 'Actualización exitosa';
                         $_SESSION['message_type'] = 'warning';
@@ -111,18 +112,18 @@ $resultado2= mysqli_query($db2, $consulta2);
                            
 
                             <div class="form-group col-md-4">
-                            <label for="precio">Nombre</label>
-                            <input type="text" step="any" class="form-control" id="Nombre" value="<?php echo $Nombre;?>" name="Nombre" placeholder="Nombre" required>
+                            <label for="nombre">nombre</label>
+                            <input type="text" step="any" class="form-control" id="nombre" value="<?php echo $nombre;?>" name="nombre" placeholder="Nombre" required>
                             </div>
                             
                             <div class="form-group col-md-4">
-                            <label for="Descripción">Descripcion</label>
-                            <input type="text" step="any" class="form-control" id="Descripcion" value="<?php echo $Descripcion;?>" name="Descripcion" placeholder="Descripcion" required>
+                            <label for="descripción">descripcion</label>
+                            <input type="text" step="any" class="form-control" id="descripcion" value="<?php echo $descripcion;?>" name="descripcion" placeholder="Descripcion" required>
                             </div>
                          
                             <div class="form-group col-md-4">
-                            <label for="Cantidad">Cantidad</label>
-                            <input type="text" step="any" class="form-control" id="Cantidad" value="<?php echo $Cantidad;?>" name="Cantidad" placeholder="Cantidad" required>
+                            <label for="cantidad">cantidad</label>
+                            <input type="number" step="any" class="form-control" id="cantidad" value="<?php echo $cantidad;?>" name="cantidad" placeholder="Cantidad" required>
                             </div>
                          
                         </div>
@@ -132,8 +133,8 @@ $resultado2= mysqli_query($db2, $consulta2);
                         <div class="form-row">
                             
                             <div class="form-group col-md-4">
-                            <label for="Precio">Precio</label>
-                            <input type="Number" step="any" class="form-control" id="Precio" value="<?php echo $Precio;?>" name="Precio" placeholder="Precio" required>
+                            <label for="precio">Precio</label>
+                            <input type="Number" step="any" class="form-control" id="precio" value="<?php echo $precio;?>" name="precio" placeholder="Precio" required>
                             </div>
     
                            
@@ -144,20 +145,20 @@ $resultado2= mysqli_query($db2, $consulta2);
                                 <?php while ($descripcion_TipoProducto=mysqli_fetch_assoc($resultado1)):?>
                                     <option <?php echo $idTipoProducto == $descripcion_TipoProducto['idTipoProducto'] ? 'selected' : '';?> 
                                     value= "<?php echo $descripcion_TipoProducto['idTipoProducto'];?>">
-                                    <?php echo $descripcion_TipoProducto ['descripcionP'];?> </option>
+                                    <?php echo $descripcion_TipoProducto ['descripcionTP'];?> </option>
                                 <?php endwhile; ?>
                                     
                                 </select>
                                                    
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="Lote">Nro Lote</label>
-                                <select id='idLote' name="idLote" class='form-control' required>
+                                <label for="Almacen">Sede Almacen</label>
+                                <select id='idAlmacen' name="idAlmacen" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
-                                <?php while ($descripcion_Lote=mysqli_fetch_assoc($resultado2)):?>
-                                    <option <?php echo $idLote == $descripcion_Lote['idLote'] ? 'selected' : '';?> 
-                                    value= "<?php echo $descripcion_Lote['idLote'];?>">
-                                    <?php echo $descripcion_Lote ['NroLote'];?> </option>
+                                <?php while ($descripcion_Almacen=mysqli_fetch_assoc($resultado2)):?>
+                                    <option <?php echo $idAlmacen == $descripcion_Almacen['idAlmacen'] ? 'selected' : '';?> 
+                                    value= "<?php echo $descripcion_Almacen['idAlmacen'];?>">
+                                    <?php echo $descripcion_Almacen ['descripcionA'];?> </option>
                                 <?php endwhile; ?>
                                     
                                 </select>

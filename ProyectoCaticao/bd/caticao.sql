@@ -55,11 +55,11 @@ idPersona int references Persona(idPersona)
 );
 create table TipoProducto(
 idTipoProducto int auto_increment primary key,
-descripcion varchar(45)
+descripcionTP varchar(45)
 );
 create table Almacen(
 idAlmacen int auto_increment primary key,
-descripcion varchar(45)); 
+descripcionA varchar(45)); 
 
 create table TipoMovimiento(
 idTipoMovimiento int auto_increment primary key,
@@ -299,5 +299,3 @@ select*from RecetaMateria;
 select*from materia;
 select*from Costos;
 select*from producto;
-
-
