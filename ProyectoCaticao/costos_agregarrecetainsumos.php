@@ -7,9 +7,19 @@ incluirTemplate('head');
 
 
 $db1=conexion();
-$consulta1="CALL mostrar_comboproducto";
+$consulta1="CALL mostrar_combomateriarecetainsumos";
 $resultado1= mysqli_query($db1, $consulta1);
-$idProducto = '';
+$idMateria = '';
+
+$db2=conexion();
+$consulta2="CALL mostrar_comboreceta";
+$resultado2= mysqli_query($db2, $consulta2);
+$idReceta = '';
+
+$db3=conexion();
+$consulta3="CALL mostrar_combounidadmedida";
+$resultado3= mysqli_query($db3, $consulta3);
+$idUnidadMedida = '';
 
 
 ?>
@@ -57,18 +67,18 @@ $idProducto = '';
 
 
                         
-                        <form  method="POST" action="costos_agregarreceta_save.php" enctype="multipart/form-data">
+                        <form  method="POST" action="costos_agregarrecetainsumos_save.php" enctype="multipart/form-data">
 
                         <div class="form-row">
                             
                             <div class="form-group col-md-6">
-                            <label for="producto">Producto</label>
-                            <select id='id_idProducto' name="idProducto" class='form-control' required>
+                            <label for="Receta">Receta</label>
+                            <select id='id_idReceta' name="idReceta" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
-                                <?php while ($producto=mysqli_fetch_assoc($resultado1)):?>
-                                <option <?php echo $idProducto == $producto['idProducto'] ? 'selected' : '';?> 
-                                value="<?php echo $producto['idProducto'];?>">
-                                <?php echo $producto['nombre'];?> </option>
+                                <?php while ($receta=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idReceta == $receta['idReceta'] ? 'selected' : '';?> 
+                                value="<?php echo $receta['idReceta'];?>">
+                                <?php echo $receta['descripcion'];?> </option>
                               <?php endwhile; ?>
                         
                             </select>
@@ -77,16 +87,48 @@ $idProducto = '';
 
 
                             <div class="form-group col-md-6">
-                            <label for="descripción"> Descripción </label>
-                            <input type="text" class="form-control" id="iddescripcion" value="" name="descripcion" placeholder="Descripción">
+                            <label for="materia">Insumo</label>
+                            <select id='id_idMateria' name="idMateria" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($materia=mysqli_fetch_assoc($resultado1)):?>
+                                <option <?php echo $idMateria == $materia['idMateria'] ? 'selected' : '';?> 
+                                value="<?php echo $materia['idMateria'];?>">
+                                <?php echo $materia['nombre'];?> </option>
+                              <?php endwhile; ?>
+                        
+                            </select>
+
                             </div>
 
 
                         </div>
 
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                            <label for="descripcion_Unidad">Unidad de Medida</label>
+                            <select id='id_idUnidadMedida' name="idUnidadMedida" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($unidad=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idUnidadMedida == $unidad['idUnidadMedida'] ? 'selected' : '';?> 
+                                value= "<?php echo $unidad['idUnidadMedida'];?>">
+                                <?php echo $unidad ['descripcion'];?> </option>
+                             <?php endwhile; ?>
+                        
+                            </select>
+                           
+                            </div>
+
+                            <div class="form-group col-md-6">
+                            <label for="precio">Cantidad</label>
+                            <input type="number" step="any" class="form-control" value="" name="cantidad" placeholder="Cantidad" required>
+                            </div>
+
+                        </div>
+
             
 
-                        <button type="submit" class="btn btn-primary" name="save_agregarreceta">Crear</button>
+                        <button type="submit" class="btn btn-primary" name="save_agregarrecetainsumos">Crear</button>
                         </form>
 
                         <br>
@@ -173,7 +215,7 @@ $idProducto = '';
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="costos_agregarreceta_delete.php?idReceta=<?php echo $row[0]?>" >
+                                             <a class="btn btn-danger" href="costos_agregarrecetainsumos_delete.php?idRecetaMateria=<?php echo $row[0]?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>

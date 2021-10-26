@@ -391,12 +391,29 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_comboreceta` ()
 BEGIN
-select DISTINCT idPReceta,descripcion
+select DISTINCT idReceta,descripcion
 	from receta
 ;
 END$$
 DELIMITER ;
 
+
+DROP procedure IF EXISTS `mostrar_combomateriarecetainsumos`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combomateriarecetainsumos` ()
+BEGIN
+select DISTINCT m.idMateria,
+			CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre
+	from materia m 
+    inner join materiacostos mc on m.idMateria=mc.idMateria
+    inner join marca mr on mr.idMarca = m.idMarca
+    left join recetamateria rm on rm.idMateria= m.idMateria
+    
+;
+END$$
+DELIMITER ;
 
 -- Procedimientos almacenados de Receta Insumos --
 
@@ -416,10 +433,8 @@ select  rm.idRecetaMateria,r.idReceta,CONCAT(m.nombre , ' - ' , mr.descripcion) 
                           inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
                           inner join unidadmedida um1  on um1.idUnidadMedida=rm.idUnidadMedida
                           inner join marca mr on mr.idMarca = m.idMarca
-                          inner join materiacostos mc on mc.idMateria = m.idMateria;
+                          left join materiacostos mc on mc.idMateria = m.idMateria;
                           
-                          
-
 END$$
 DELIMITER ;
 
@@ -441,33 +456,31 @@ END$$
 DELIMITER ;
 
 
-
-
-DROP procedure IF EXISTS `insertar_agregarreceta`;
+DROP procedure IF EXISTS `insertar_recetainsumos`;
 
 DELIMITER $$
 USE `caticao`$$
-CREATE PROCEDURE `insertar_agregarreceta` (in descripcionI varchar(45),
-                                        in idProductoI int
+CREATE PROCEDURE `insertar_recetainsumos` (in cantidadI decimal(10,2),
+                                        in idMateriaI int,
+                                        in idRecetaI int,
+                                        in idUnidadMedidaI int
                                         )
 BEGIN
-	insert into receta (descripcion,
-                            idProducto)
-			values (descripcionI,idProductoI);
+	insert into recetamateria (cantidad,idMateria,idReceta,idUnidadMedida)
+			values (cantidadI,idMateriaI,idRecetaI,idUnidadMedidaI);
 END$$
 
 DELIMITER ;
 
 
-DROP procedure IF EXISTS `obtener_agregarreceta`;
+DROP procedure IF EXISTS `obtener_recetainsumos`;
 
 DELIMITER $$
 USE `caticao`$$
-CREATE PROCEDURE `obtener_agregarreceta` (in idRecetaO int)
+CREATE PROCEDURE `obtener_recetainsumos` (in idRecetaMateriaO int)
 BEGIN
-	select * from receta where idReceta=idRecetaO;
+	select * from recetamateria where idRecetaMateria=idRecetaMateriaO;
 END$$
-
 DELIMITER ;
 
 
@@ -489,14 +502,14 @@ END$$
 DELIMITER ;
 
                                     
-DROP procedure IF EXISTS `eliminar_agregarreceta`;
+DROP procedure IF EXISTS `eliminar_recetainsumos`;
 
 DELIMITER $$
 USE `caticao`$$
-CREATE PROCEDURE `eliminar_agregarreceta` (in idRecetaE int)
+CREATE PROCEDURE `eliminar_recetainsumos` (in idRecetaMateriaE int)
 BEGIN
-	delete from receta 
-    where idReceta=idRecetaE;
+	delete from recetamateria
+    where idRecetaMateria=idRecetaMateriaE;
 END$$
 
 DELIMITER ;

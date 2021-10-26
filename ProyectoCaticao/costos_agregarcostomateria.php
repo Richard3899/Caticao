@@ -50,6 +50,9 @@ $idTipoCostos = '';
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800 text-center">Agregar Costo de Materia</h1>
 
+                        <?php
+                        incluirTemplate('nav_calcularcostos');
+                        ?>
 
                         <?php if (isset($_SESSION['message'])) { ?>
                         <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
@@ -113,7 +116,7 @@ $idTipoCostos = '';
                             </div>
 
                             <div class="form-group col-md-6">
-                            <label for="precio">Precio</label>
+                            <label for="precio">Precio Unitario</label>
                             <input type="number" step="any" class="form-control" id="id_precio" value="" name="precioUnitario" placeholder="Precio" required>
                             </div>
                          
@@ -137,7 +140,7 @@ $idTipoCostos = '';
                                             <th>Costos</th>
                                             <th>Tipo de Costo</th>
                                             <th>Unidad de Medida</th>
-                                            <th>Precio</th>
+                                            <th>Precio Unitario</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -149,7 +152,7 @@ $idTipoCostos = '';
                                             <th>Costos</th>
                                             <th>Tipo de Costo</th>
                                             <th>Unidad de Medida</th>
-                                            <th>Precio</th>
+                                            <th>Precio Unitario</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -186,7 +189,7 @@ $idTipoCostos = '';
                                              <td>
                                             <?php echo $row[5] ?>
                                              </td>
-                                             
+
                                              <td>
                                                 
                                              <a class="btn btn-warning" href="costos_agregarmateriaedit.php?idMateriaCostos=<?php echo $row[0] ?>" >

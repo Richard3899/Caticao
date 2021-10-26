@@ -64,8 +64,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="costos_agregarcostomateria.php">Agregar</a>
-                        <a class="collapse-item" href="costos_agregarreceta.php">Calcular</a>
+                        <a class="collapse-item" href="costos_agregarcostomateria.php">Directos</a>
+                        <a class="collapse-item" href="costos_indirectos.php">Indirectos</a>
                     </div>
                 </div>
             </li>

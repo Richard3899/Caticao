@@ -152,7 +152,7 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                            <label for="precio">Precio</label>
+                            <label for="precio">Precio Unitario</label>
                             <input type="number" step="any" class="form-control" id="id_precio" value="<?php echo $precioUnitario;?>" name="precioUnitario" placeholder="Precio" required>
                             </div>
                          
