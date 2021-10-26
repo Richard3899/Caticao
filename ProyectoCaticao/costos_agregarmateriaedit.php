@@ -5,7 +5,7 @@
                         $PrecioUnit= '';
 
                         $db1=conexion();
-                        $consulta1="CALL mostrar_combomateria";
+                        $consulta1="CALL mostrar_combomateriaeditar";
                         $resultado1= mysqli_query($db1, $consulta1);
                         $idMateria = '';
 
@@ -102,12 +102,12 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                             <label for="materia">Matería</label>
-                            <select id='id_idMateria' name="idMateria" class='form-control' required>
-                                <option selected disabled value="">Seleccione</option>
+                            <select  id='id_idMateria' name="idMateria" class='form-control' required>
+                                <option disabled value="">Seleccione</option>
                                 <?php while ($materia=mysqli_fetch_assoc($resultado1)):?>
                                 <option <?php echo $idMateria == $materia['idMateria'] ? 'selected' : '';?> 
                                 value="<?php echo $materia['idMateria'];?>">
-                                <?php echo $materia['Nombre'];?> </option>
+                                <?php echo $materia['nombre'];?> </option>
                               <?php endwhile; ?>
                         
                             </select>

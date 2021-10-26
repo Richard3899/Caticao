@@ -170,6 +170,21 @@ select DISTINCT m.idMateria,
 END$$
 DELIMITER ;
 
+DROP procedure IF EXISTS `mostrar_combomateriaeditar`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combomateriaeditar` ()
+BEGIN
+select DISTINCT m.idMateria,
+			CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre
+	from materia m 
+    left JOIN materiacostos mc on m.idMateria=mc.idMateria
+    inner join marca mr on mr.idMarca = m.idMarca
+;
+END$$
+DELIMITER ;
+
 DROP procedure IF EXISTS `mostrar_combocostos`;
 
 DELIMITER $$
