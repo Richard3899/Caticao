@@ -82,7 +82,6 @@ BEGIN
                             cantidad,idTipoMateria,idUnidadMedida,idMarca)
 			values (nombreI,descripcionI,cantidadI,idTipoMateriaI,idUnidadMedidaI,idMarcaI);
 END$$
-
 DELIMITER ;
 
 
