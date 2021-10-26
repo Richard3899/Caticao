@@ -8,6 +8,7 @@
                         $consulta1="CALL mostrar_combomateriaeditar";
                         $resultado1= mysqli_query($db1, $consulta1);
                         $idMateria = '';
+                        
 
                         $db2=conexion();
                         $consulta2="CALL mostrar_combocostos";
@@ -95,9 +96,9 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar Costo de Materia </h1>
 
-
                         
                         <form action="costos_agregarmateriaedit.php?idMateriaCostos=<?php echo $_GET['idMateriaCostos']; ?>" method="POST">
+                        
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -111,6 +112,8 @@
                               <?php endwhile; ?>
                         
                             </select>
+
+                            
 
                             </div>
 

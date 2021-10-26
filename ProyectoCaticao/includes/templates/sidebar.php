@@ -65,7 +65,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="costos_agregarcostomateria.php">Agregar</a>
-                        <a class="collapse-item" href="costos_directos.php">Calcular</a>
+                        <a class="collapse-item" href="costos_agregarreceta.php">Calcular</a>
                     </div>
                 </div>
             </li>

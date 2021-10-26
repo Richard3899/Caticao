@@ -137,14 +137,6 @@ DELIMITER ;
 
 
 
-
-
-
-
-
-
-
-
 -- Procedimientos almacenados de producto --
 
 
@@ -205,7 +197,8 @@ CREATE PROCEDURE `mostrar_combotipocostos` ()
 BEGIN
 select DISTINCT tc.idTipoCostos,
 			tc.Descripcion
-	from TipoCostos tc left join materiacostos mc on tc.idTipoCostos=mc.idTipoCostos ;
+	from TipoCostos tc left join materiacostos mc on tc.idTipoCostos=mc.idTipoCostos
+    ;
 END$$
 DELIMITER ;
 
@@ -219,12 +212,14 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_materiacostos` ()
 BEGIN
-select mc.idMateriaCostos,
-			m.nombre,
+select mc.idMateriaCostos,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
 			c.descripcion,
             tc.descripcion,
+            um.descripcion,
             mc.precioUnitario
 	from MateriaCostos mc inner join materia m on mc.idMateria=m.idMateria
+						  inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
+						  inner join marca mr on mr.idMarca = m.idMarca
 						  inner join costos c  on mc.idCostos=c.idCostos
                           inner join tipocostos tc  on mc.idTipoCostos=tc.idTipoCostos;
 END$$

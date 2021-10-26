@@ -136,6 +136,7 @@ $idTipoCostos = '';
                                             <th>Materia</th>
                                             <th>Costos</th>
                                             <th>Tipo de Costo</th>
+                                            <th>Unidad de Medida</th>
                                             <th>Precio</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
@@ -147,6 +148,7 @@ $idTipoCostos = '';
                                             <th>Materia</th>
                                             <th>Costos</th>
                                             <th>Tipo de Costo</th>
+                                            <th>Unidad de Medida</th>
                                             <th>Precio</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
@@ -180,6 +182,11 @@ $idTipoCostos = '';
                                              <td>
                                             <?php echo $row[4] ?>
                                              </td>
+                                             
+                                             <td>
+                                            <?php echo $row[5] ?>
+                                             </td>
+                                             
                                              <td>
                                                 
                                              <a class="btn btn-warning" href="costos_agregarmateriaedit.php?idMateriaCostos=<?php echo $row[0] ?>" >

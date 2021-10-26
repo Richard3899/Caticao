@@ -31,7 +31,7 @@ $idTipoMateria = '';
             incluirTemplate('sidebar');
             ?>
 
-        <!-- Content Wrapper nuevoooooooooooo pruebaaaaaaaaaaa -->
+        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
@@ -152,7 +152,7 @@ $idTipoMateria = '';
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>Marca</th>
-                                            <th>Tipo de Unidad</th>                                           
+                                            <th>Unidad de Medida</th>                                           
                                             <th>Tipo Materia</th>
                                             <th>Cantidad</th>
                                             <th>Editar</th>
@@ -165,7 +165,7 @@ $idTipoMateria = '';
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>Marca</th>
-                                            <th>Tipo de Unidad</th>
+                                            <th>Unidad de Medida</th>
                                             <th>Tipo Materia</th>
                                             <th>Cantidad</th>
                                             <th>Editar</th>
