@@ -251,7 +251,7 @@ insert into TipoProveedor values (1,'Proveedor Interno'),(2,'Proveedor Externo')
 insert into tipoDocumento values (1,'RUC'),(2,'DNI'),(3,'CARNET EXTRANJERIA'),(4,'PASAPORTE');
 insert into Proveedor values (1,'Gloria S.A.C',59483948,'logistica@trading.com',1020413232,1,1);
 insert into TipoMedida values(1,'Materia Prima, Insumos y Producto'),(2,'Maquina'),(3,'Persona'),(4,'Servicios'),(5,'Depreciación');
-insert into UnidadMedida values (1,'Kilogramos',1),(2,'Gramos',1),(3,'Litros',1),(4,'Mililitros',1),(5,'Unidad',1),(6,'Jormal',3),(7,'Kw/Hra',4),(8,'Global',5);
+insert into UnidadMedida values (1,'Kilogramos',1),(2,'Gramos',1),(3,'Litros',1),(4,'Mililitros',1),(5,'Unidad',1),(6,'Jornal',3),(7,'Kw/Hra',4),(8,'Global',5);
 insert into Persona values (1,'Jose','Nalvarte','Empleado','SMP',960596970,'josenalvarte@gmail.com',10535401,1,1,5);
 insert into Usuario values (1,'Keyla','admin',1);
 insert into TipoProducto values (1,'Producto Intermedio'),(2,'Producto Terminado'),(3,'Perdida de producto');
@@ -260,7 +260,8 @@ insert into TipoMovimiento values (1,'Entrada Productos') ,(2,'Salida de Product
 insert into Movimiento values (1,'Salida de Productos por Venta','2021-10-01 10:25:30',1);
 
 insert into TipoMateria values (1,'Insumos'),(2,'Materia Prima'),(3,'Materiales y Equipos');
-insert into Marca values (1,'Gloria'),(2,'Dulfina'),(3,'Fruttox'),(4,'Negrita'),(5,'Anchor');
+insert into Marca values (1,'Gloria'),(2,'Dulfina'),(3,'Fruttox'),(4,'Negrita'),(5,'Anchor'),(6,'Marina'),
+(7,'Mason'),(8,'Andina'),(9,'Orinka'),(10,'Nestle'),(11,'Rio Valle'),(12,'Villa Natura'),(13,'Elaboración Propia');
 insert into TipoCostos values (1,'Variable'),(2,'Fijo');
 
 insert into Servicios values(1,'Servicios de Elictricidad'),(2,'Servicio de Agua'); 
@@ -272,10 +273,12 @@ insert into Gastos values (1,'Jefe de Planta',1),(2,'Marketing Publicidad',1),(3
 insert into GastosServicios values(1,1,1);
 insert into GastosMateria values (1,1800,1,1);
 insert into Materia (idMateria,Nombre,descripcion,cantidad,idTipoMateria, idUnidadMedida,idMarca) 
-values (1,'Leche','Preparación de Chocolate',40,1,1,1),(2,'Cacao','Selecto',80,2,1,1),(3,'Pasas','Suaves',20,1,1,1),(4,'Pecanas','Suaves',20,1,1,1)
-	  ,(5,'Azucar','Suaves',20,1,1,1),(6,'Sal','Suaves',20,1,1,1),(7,'Lecitina de soya','Suaves',20,1,1,1);
+values (1,'Leche descremada','En polvo',40,1,1,10),(2,'Cacao','Selecto',80,1,1,8),(3,'Pasas','Suaves',20,1,1,11),(4,'Pecanas','Suaves',20,1,1,12)
+,(5,'Azucar','Blanca',20,1,1,2),(6,'Sal','De maras',20,1,1,9),(7,'Lecitina de soya','De calidad',20,1,3,7),(8,'Licor de cacao','Bueno',20,1,3,13),
+(9,'Leche entera','En polvo',20,1,1,1),(10,'Manteca de cacao','bueno',20,1,1,13);
 insert into Costos values (1,'Costo de Materia Prima e Insumos'),(2,'Costos de Servicios'),(3,'Costo de Depreciación'),(4,'Costo de Mano de obra');
-insert into MateriaCostos values(1,'5',1,1,1);
+insert into MateriaCostos values(1,'3.9',1,1,1);
+
 insert into MovimientoMateria values (1,15,1,1);
 insert into TipoProceso values(1,'Mano de Obra'),(2,'Maquinaria');
 insert into Proceso values(1,'Selección de granos',1,1),(2,'Tostado',1,1),(3,'Descascarillado',1,1),(4,'Molienda',1,1),(5,'Refinado',1,1)
@@ -285,9 +288,9 @@ insert into Producto values (1,'Chocolate CATICAO de leche 38% con Pecanas','cho
 (2,'Chocolate CATICAO Dark 99% y stevia con Arándanos','chocolate en barra',30,'8.5',1,1), (3,'Chocolate CATICAO semidulce 70% con Nibs de Cacao','chocolate en barra',40,'6.5',1,1),
 (4,'Chocolate CATICAO a la taza','chocolate de Taza',40,'8.5',1,1), (5,'Chocolate Instantáneo CATICAO 100% cacao en polvo','chocolate en Polvo',30,'10.5',2,1),
 (6,'Chocolate CATICAO semidulce 70% con Kiwicha','chocolate en barra',50,'9',1,1), (7,'Chocolate CATICAO semidulce 70% con Mango','chocolate en barra',60,'10',1,1);
-insert into Receta values(1,'Receta 1',1);
+insert into Receta values(1,'Receta 1 - a 70% con pasas',1),(2,'Receta 2 - a 38% con leche',1);
 insert into Lote values (1, 1,000001,1);
-insert into RecetaMateria values(1,900,1,1,2),(2,5000,1,1,2);
+insert into RecetaMateria values(1,240,1,2,2);
 
 insert into MovimientoProducto values (1, 2, 3, '8.5',1,1);
 insert into OrdenProduccion values (1, 'Producción de Nibs', 1);
