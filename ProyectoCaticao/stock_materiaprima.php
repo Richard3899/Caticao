@@ -146,7 +146,7 @@ $idTipoMateria = '';
                                 Tabla de Materia Prima
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover  table-bordered" style="width:100%">
+                                <table id="tabla" class="table table-hover  table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
@@ -160,19 +160,7 @@ $idTipoMateria = '';
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Marca</th>
-                                            <th>Unidad de Medida</th>
-                                            <th>Tipo Materia</th>
-                                            <th>Cantidad</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar 1 </th>
-                                            
-                                        </tr>
-                                    </tfoot>
+                        
                                     <tbody>
                             
 
@@ -260,6 +248,8 @@ $idTipoMateria = '';
     <?php
         incluirTemplate('scripts');
     ?>
+
+
 
 </body>
 
