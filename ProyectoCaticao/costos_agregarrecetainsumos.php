@@ -141,10 +141,10 @@ $idUnidadMedida = '';
                                 Tabla de Recetas
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover  table-bordered" style="width:100%">
+                                <table id="tabla" class="table table-hover  table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>idReceta</th>
+                                            <th>idReceta</th>            
                                             <th>Insumo</th>
                                             <th>Cantidad en Stock</th>
                                             <th>Peso Neto</th>
@@ -155,19 +155,6 @@ $idUnidadMedida = '';
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>idReceta</th>
-                                            <th>Insumo</th>
-                                            <th>Cantidad en Stock</th>
-                                            <th>Peso Neto</th>
-                                            <th>Precio Unitario</th>
-                                            <th>Costo</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                            
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                             
 
@@ -233,10 +220,10 @@ $idUnidadMedida = '';
                                         <tr>
    
                                              <td>
-                                                
+                                                Total:
                                              </td>
                                              <td>
-                                                
+                                               
                                              </td>
                                              <td>
                                                 
@@ -262,10 +249,7 @@ $idUnidadMedida = '';
                                                 
                                              </td>
 
-                                             <td>
                                              
-
-                                             </td>
                                              
                                          </tr>
                                          <?php } ?>

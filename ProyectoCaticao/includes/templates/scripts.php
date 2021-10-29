@@ -16,6 +16,16 @@
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/demo/chart-bar-demo.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+    <!-- Page level custom scripts Tables -->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        var table = $('#tabla').DataTable({
+            "order": [[ 0, "asc" ]]
+    });
+
+    } );
+
+
+    </script>

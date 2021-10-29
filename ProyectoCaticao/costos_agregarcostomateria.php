@@ -133,7 +133,7 @@ $idTipoCostos = '';
                                 Tabla de Productos
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover  table-bordered ">
+                                <table id="tabla" class="table table-hover  table-bordered ">
                                     <thead>
                                         <tr>
                                             <th>Materia</th>
@@ -146,18 +146,6 @@ $idTipoCostos = '';
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Materia</th>
-                                            <th>Costos</th>
-                                            <th>Tipo de Costo</th>
-                                            <th>Unidad de Medida</th>
-                                            <th>Precio Unitario</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                            
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                          <?php
 

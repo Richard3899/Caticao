@@ -99,7 +99,7 @@ $idProducto = '';
                                 Tabla de Recetas
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover  table-bordered" style="width:100%">
+                                <table id="tabla" class="table table-hover  table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Producto</th>
@@ -110,16 +110,6 @@ $idProducto = '';
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Producto</th>
-                                            <th>Descripción de Producto</th>
-                                            <th>Descripción de receta</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                            
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                             
 
