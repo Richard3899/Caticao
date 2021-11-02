@@ -21,8 +21,6 @@ idTipoProveedor int references TipoProveedor(idTipoProveedor),
 idtipoDocumento int references TipoDocumento(idtipoDocumento)
 );
 
-
-
 create table TipoMedida(
 idTipoMedida int auto_increment primary key not null,
 descripcion varchar (45));
@@ -32,7 +30,6 @@ idUnidadMedida int auto_increment primary key,
 descripcion varchar(45),
 idTipoMedida int references TipoMedida(idTipoMedida)
 );
-
 
 create table Persona(
 idPersona int auto_increment primary key,
@@ -111,12 +108,12 @@ precioUnitario decimal (18,2),
 cantidad int,
 idGastos int references Gastos(idGastos)
 );
+
 create table GastosServicios(
 idGastosServicios int auto_increment primary key,
 idGastos int references Gastos(idGastos),
 idServicios int references Servicios(idServicios)
 );
-
 
 create table Materia(
 idMateria int auto_increment primary key,
@@ -126,8 +123,7 @@ cantidad int,
 idTipoMateria int references TipoMateria(idTipoMateria),
 idUnidadMedida int references UnidadMedida (idUnidadMedida),
 idMarca int references Marca(idMarca)
-)
-DEFAULT CHARACTER SET = latin1;
+);
 
 create table Costos (
 idCostos int auto_increment primary key,
@@ -154,12 +150,7 @@ idTipoProceso int auto_increment primary key,
 descripcion varchar(45)
 );
 
-create table Proceso(
-idProceso int auto_increment primary key,
-descripcion varchar(45),
-idTipoProceso int references TipoProducto(idTipoProceso),
-idUnidadMedida int references UnidadMedida(idUnidadMedida)
-);
+
 
 create table Receta(
 idReceta int auto_increment primary key,
@@ -205,6 +196,56 @@ idOrdenProduccion int references OrdenProduccion(idOrdenProduccion),
 idProceso int references Proceso (idProceso)
 );
 
+create table Maquina(
+idMaquina int auto_increment primary key,
+nombre varchar(80),
+descripcion varchar(80),
+importe decimal(10,2),
+vidaUtil int
+);
+
+create table Proceso(
+idProceso int auto_increment primary key,
+descripcion varchar(45),
+idTipoProceso int references TipoProducto(idTipoProceso),
+idUnidadMedida int references UnidadMedida(idUnidadMedida),
+idMaquina int references Maquina (idMaquina)
+);
+
+create table Depreciacion(
+idDepreciacion int auto_increment primary key,
+depreciacionAnual decimal(10,2),
+depreciacionMensual decimal(10,2),
+depreciacionHora decimal(10,2), 
+tiempoDeUso decimal(10,2),
+depreciacionPorBatch decimal(10,2),
+idMaquina int references Maquina (idMaquina)
+);
+
+create table ConsumoEnergia(
+idConsumoEnergia int auto_increment primary key,
+potenciaHP decimal(10,2),
+potenciawatts decimal(10,2),
+potenciaKw decimal(10,2), 
+horasTrabajoBatch decimal(10,2),
+consumoKwh decimal(10,2),
+tarifaKwh decimal(10,2),
+pagoPorBatch decimal(10,2),
+idMaquina int references Maquina (idMaquina)
+);
+
+create table CostosI(
+idCostosI int auto_increment primary key,
+costosDeProduccion decimal(10,2),
+unidadMedida decimal(10,2),
+tipoCosto decimal(10,2), 
+proceso decimal(10,2),
+precioUnitario decimal(10,2),
+requerimiento decimal(10,2),
+costo decimal(10,2),
+
+idReceta int references Receta(idReceta)
+);
 
 
 alter table Usuario add foreign key (idPersona) references Persona(idPersona);
@@ -242,6 +283,10 @@ alter table RecetaMateria add foreign key (idReceta) references Receta(idReceta)
 alter table RecetaMateria add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 alter table Receta add foreign key (idProducto) references Producto(idProducto);
 alter table Lote add foreign key (idReceta) references Receta(idReceta);
+alter table Depreciacion add foreign key (idMaquina) references Maquina(idMaquina);
+alter table Proceso add foreign key (idMaquina) references Maquina(idMaquina);
+alter table ConsumoEnergia add foreign key (idMaquina) references Maquina(idMaquina);
+alter table ConstosI add foreign key (idReceta) references Receta(idReceta);
 
 alter table OrdenProduccion add foreign key (idReceta) references Receta (idReceta);
 alter table OrdenProduccionProceso add foreign key (idProceso) references Proceso (idProceso);
@@ -281,8 +326,10 @@ insert into MateriaCostos values(1,'3.9',1,1,1);
 
 insert into MovimientoMateria values (1,15,1,1);
 insert into TipoProceso values(1,'Mano de Obra'),(2,'Maquinaria');
-insert into Proceso values(1,'Selección de granos',1,1),(2,'Tostado',1,1),(3,'Descascarillado',1,1),(4,'Molienda',1,1),(5,'Refinado',1,1)
-						 ,(6,'Prensado',1,1),(7,'Refinado - Formulado',1,1),(8,'Temperado',1,1),(9,'Moldeado',1,1),(10,'Enfriado',1,1),(11,'Empaquetado y Etiquetado',1,1);
+
+insert into Maquina values(1,'Seleccionadora','Sirve para la selección del cacao',16000,5);
+insert into Proceso values(1,'Selección de granos',1,1,1),(2,'Tostado',1,1,1),(3,'Descascarillado',1,1,1),(4,'Molienda',1,1,1),(5,'Refinado',1,1,1)
+						 ,(6,'Prensado',1,1,1),(7,'Refinado - Formulado',1,1,1),(8,'Temperado',1,1,1),(9,'Moldeado',1,1,1),(10,'Enfriado',1,1,1),(11,'Empaquetado y Etiquetado',1,1,1);
 
 insert into Producto values (1,'Chocolate CATICAO de leche 38% con Pecanas','chocolate en barra',20,'7.5',1,1),
 (2,'Chocolate CATICAO Dark 99% y stevia con Arándanos','chocolate en barra',30,'8.5',1,1), (3,'Chocolate CATICAO semidulce 70% con Nibs de Cacao','chocolate en barra',40,'6.5',1,1),

@@ -160,6 +160,7 @@ $idTipoMateria = '';
                                             
                                         </tr>
                                     </thead>
+                                    
                         
                                     <tbody>
                             
@@ -215,10 +216,24 @@ $idTipoMateria = '';
                                          </tr>
                                          
                                         <?php } ?>
-
-
-                    
                                     </tbody>
+                                    <tfoot>
+                                        <td>
+                                            <input type="text" class="form-control filter-input" placeholder="Buscar" data-column="0"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control filter-input" placeholder="Buscar" data-column="1"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control filter-input" placeholder="Buscar" data-column="2"/>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tfoot>
+
+                                    
                                 </table>
                             </div>
                         </div>

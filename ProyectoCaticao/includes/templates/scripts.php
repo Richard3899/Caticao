@@ -25,7 +25,12 @@
             "order": [[ 0, "asc" ]]
     });
 
-    } );
+    $('.filter-input').keyup(function(){
+        table.column($(this).data('column'))
+        .search($(this).val())
+        .draw();
+    });
 
+    } );
 
     </script>
