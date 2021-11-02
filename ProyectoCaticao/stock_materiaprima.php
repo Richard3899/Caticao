@@ -231,6 +231,7 @@ $idTipoMateria = '';
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                     </tfoot>
 
                                     
