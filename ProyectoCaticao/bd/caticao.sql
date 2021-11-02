@@ -286,7 +286,7 @@ alter table Lote add foreign key (idReceta) references Receta(idReceta);
 alter table Depreciacion add foreign key (idMaquina) references Maquina(idMaquina);
 alter table Proceso add foreign key (idMaquina) references Maquina(idMaquina);
 alter table ConsumoEnergia add foreign key (idMaquina) references Maquina(idMaquina);
-alter table ConstosI add foreign key (idReceta) references Receta(idReceta);
+alter table CostosI add foreign key (idReceta) references Receta(idReceta);
 
 alter table OrdenProduccion add foreign key (idReceta) references Receta (idReceta);
 alter table OrdenProduccionProceso add foreign key (idProceso) references Proceso (idProceso);
