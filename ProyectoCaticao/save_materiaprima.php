@@ -23,7 +23,7 @@ if (isset($_POST['save_materiaprima'])) {
     die("Falta rellenar datos ".$sql);
   }
   
-  $_SESSION['message'] = 'Materia prima resgistrada';
+  $_SESSION['message'] = 'Materia resgistrada';
   $_SESSION['message_type'] = 'success';
   header('Location: stock_materiaprima.php');
 

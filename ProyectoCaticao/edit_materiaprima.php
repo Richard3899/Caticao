@@ -100,7 +100,7 @@
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Materia prima</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Materia</h1>
 
 
 

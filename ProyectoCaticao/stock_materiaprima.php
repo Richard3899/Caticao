@@ -48,7 +48,7 @@ $idTipoMateria = '';
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Materia prima</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Stock de Materia</h1>
 
                     <?php
                     incluirTemplate('nav_stock');
@@ -143,7 +143,7 @@ $idTipoMateria = '';
                         <div class="card mb-2">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tabla de Materia Prima
+                                Tabla de Materia
                             </div>
                             <div class="card-body">
                                 <table id="tabla" class="table table-hover  table-bordered" style="width:100%">

@@ -11,7 +11,7 @@ if(isset($_GET['idMateria'])) {
     die("Query Failed.");
   }
 
-  $_SESSION['message'] = 'Materia prima eliminada';
+  $_SESSION['message'] = 'Materia eliminada';
   $_SESSION['message_type'] = 'danger';
   header('Location: stock_materiaprima.php');
 }
