@@ -168,6 +168,63 @@ $idMaquina = '';
                                          
                                         <?php } ?>
 
+                                        <?php
+
+                                        $conexion=conexion();
+
+                                        $sql="CALL mostrar_consumoenergiatotal";
+                                        $result=mysqli_query($conexion,$sql);
+
+                                        while($row = mysqli_fetch_array($result)){ ?>
+                                        <tr>
+   
+                                             <td>
+                                                Total:
+                                             </td>
+                                             <td>
+                                               
+                                             </td>
+                                             <td>
+                                                
+                                             </td>
+                                             <td>
+                                               
+                                             </td>
+                                             <td>
+                                               
+                                             </td>
+                                             <td>
+                                            
+                                             </td>
+
+                                             <td>
+
+                                             
+
+                                             </td>
+                                             
+                                             <td>
+                                                
+                                                
+                                             </td>
+                                             <td>
+                                             <?php echo $row[0] ?> 
+                                                
+                                             </td>
+                                             <td>
+                                                
+                                                
+                                             </td>
+                                             <td>
+                                                
+                                                
+                                             </td>
+
+                                             
+                                             
+                                         </tr>
+                                         <?php } ?>
+
 
                     
                                     </tbody>
