@@ -139,7 +139,7 @@ $idAlmacen="";
                                 Tabla de Productos
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-hover  table-bordered ">
+                                <table id="tabla" class="table table-hover  table-bordered ">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
@@ -153,19 +153,7 @@ $idAlmacen="";
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                             <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                            <th>Descripción</th>
-                                            <th>Sede Almacen</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                            
-                                        </tr>
-                                    </tfoot>
+                                  
                                     <tbody>
                                          <?php
 

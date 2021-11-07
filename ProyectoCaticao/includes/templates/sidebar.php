@@ -65,7 +65,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="costos_agregarcostomateria.php">Directos</a>
-                        <a class="collapse-item" href="costos_indirectos.php">Indirectos</a>
+                        <a class="collapse-item" href="ci_consumoenergia_registro.php">Indirectos</a>
                     </div>
                 </div>
             </li>

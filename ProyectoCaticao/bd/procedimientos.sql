@@ -513,3 +513,116 @@ BEGIN
     where idRecetaMateria=idRecetaMateriaE;
 END$$
 DELIMITER ;
+
+
+
+-- Procedimientos almacenados de Combo Box de Costos Indirectos --------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_combomaquina`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combomaquina` ()
+BEGIN
+select DISTINCT idMaquina,nombre
+	from maquina
+;
+END$$
+DELIMITER ;
+
+
+-- Procedimientos almacenados de Consumo de energia -----------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_consumoenergia`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_consumoenergia` ()
+BEGIN
+select ce.idConsumoEnergia, m.nombre, ce.potenciaHP,ce.potenciawatts,ce.potenciaKw,ce.horasTrabajoBatch,
+ce.consumoKwh,ce.tarifaKwh,ce.pagoPorBatch
+	from ConsumoEnergia ce  inner join  maquina m on m.idMaquina= ce.idMaquina;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `insertar_consumoenergia`;
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_consumoenergia` (in tarifaKwhI decimal(10,2),
+											 in idMaquinaI int)
+                                        
+BEGIN
+	insert into consumoenergia (potenciaHP,potenciawatts,potenciaKw,horasTrabajoBatch,consumoKwh,tarifaKwh,pagoPorBatch,idMaquina)
+			values (1,potenciaHP*745,potenciawatts/1000,0.40,potenciaKw*horasTrabajoBatch,tarifaKwhI,consumoKwh*tarifaKwhI,idMaquinaI);
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_consumoenergia`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_consumoenergia` (in idConsumoEnergiaO int)
+BEGIN
+	select * from consumoenergia where idConsumoEnergia=idConsumoEnergiaO;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_consumoenergia`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_consumoenergia` (in idConsumoEnergiaA int,
+                                        in tarifaKwhA decimal(10,2))
+BEGIN
+	update consumoenergia set idConsumoEnergia=idConsumoEnergiaA,
+						tarifaKwh=tarifaKwhA,
+                        pagoPorBatch=consumoKwh*tarifaKwhA
+				where idConsumoEnergia=idConsumoEnergiaA;
+END$$
+
+DELIMITER ;
+
+
+update consumoenergia set idConsumoEnergia=1,
+						tarifaKwh=1
+				where idConsumoEnergia=1;
+
+DROP procedure IF EXISTS `eliminar_consumoenergia`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_consumoenergia` (in idConsumoEnergiaE int)
+BEGIN
+	delete from consumoenergia 
+    where idConsumoEnergia=idConsumoEnergiaE;
+END$$
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
