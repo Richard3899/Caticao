@@ -605,12 +605,121 @@ END$$
 DELIMITER ;
 
 
+DROP procedure IF EXISTS `mostrar_consumoenergiatotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_consumoenergiatotal` ()
+BEGIN
+select SUM(TRUNCATE(pagoPorBatch,2)) as Costo
+           
+	from consumoenergia;
+                         
+END$$
+DELIMITER ;
 
 
 
 
+-- Procedimientos almacenados de Consumo de energia -----------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_depreciacion`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_depreciacion` ()
+BEGIN
+select d.idDepreciacion, m.nombre,d.importe,d.vidautil,d.depreciacionAnual,d.depreciacionMensual,d.depreciacionHora,
+	   d.tiempoDeUso,d.depreciacionPorBatch
+	from depreciacion d  inner join  maquina m on m.idMaquina= d.idMaquina;
+END$$
+DELIMITER ;
 
 
+DROP procedure IF EXISTS `insertar_depreciacion`;
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_depreciacion` (   in importeI decimal(10,2),
+											 in vidaUtilI int,
+                                             in idMaquinaI int)
+                                        
+BEGIN
+	insert into depreciacion (importe,vidaUtil,depreciacionAnual,depreciacionMensual,depreciacionHora,
+                                tiempoDeUso,depreciacionPorBatch,idMaquina)
+			values (importeI,vidaUtilI,importeI/vidaUtilI,depreciacionAnual/12,depreciacionMensual/(25*24),
+                    0.4,depreciacionHora*tiempoDeUso,idMaquinaI);
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_depreciacion`;
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_depreciacion` (in idDepreciacionO int)
+BEGIN
+	select * from depreciacion where idDepreciacion=idDepreciacionO;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_depreciacion`;
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_depreciacion` (in idDepreciacionA int,
+                                        in importeA decimal(10,2),
+                                        in vidaUtilA int)
+BEGIN
+	update depreciacion set idDepreciacion=idDepreciacionA,
+						importe=importeA,
+                        vidaUtil=vidaUtilA,
+                        depreciacionAnual=importeA/vidaUtilA,
+                        depreciacionMensual=depreciacionAnual/12,
+                        depreciacionHora=depreciacionMensual/(25*24),
+                        depreciacionPorBatch=depreciacionHora*tiempoDeUso
+				where idDepreciacion=idDepreciacionA;
+END$$
+
+DELIMITER ;
+
+
+update depreciacion set idDepreciacion=6,
+						importe=1,
+                        vidaUtil=1,
+                        depreciacionAnual=1,
+                        depreciacionMensual=1,
+                        depreciacionHora=1,
+                        depreciacionPorBatch=1
+				where idDepreciacion=6;
+
+select * from depreciacion;
+
+DROP procedure IF EXISTS `eliminar_depreciacion`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_depreciacion` (in idDepreciacionE int)
+BEGIN
+	delete from depreciacion 
+    where idDepreciacion=idDepreciacionE;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `mostrar_depreciaciontotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_depreciaciontotal` ()
+BEGIN
+select SUM(TRUNCATE(depreciacionPorBatch,2)) as Costo
+           
+	from depreciacion;
+                         
+END$$
+DELIMITER ;
 
 
 

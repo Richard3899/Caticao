@@ -199,9 +199,7 @@ idProceso int references Proceso (idProceso)
 create table Maquina(
 idMaquina int auto_increment primary key,
 nombre varchar(80),
-descripcion varchar(80),
-importe decimal(10,2),
-vidaUtil int
+descripcion varchar(80)
 );
 
 create table Proceso(
@@ -214,6 +212,8 @@ idMaquina int references Maquina (idMaquina)
 
 create table Depreciacion(
 idDepreciacion int auto_increment primary key,
+importe decimal(10,2),
+vidaUtil int,
 depreciacionAnual decimal(10,2),
 depreciacionMensual decimal(10,2),
 depreciacionHora decimal(10,2), 
@@ -327,7 +327,7 @@ insert into MateriaCostos values(1,'3.9',1,1,1);
 insert into MovimientoMateria values (1,15,1,1);
 insert into TipoProceso values(1,'Mano de Obra'),(2,'Maquinaria');
 
-insert into Maquina values(1,'Seleccionadora','Sirve para la selección del cacao',16000,5);
+insert into Maquina values(1,'Seleccionadora','Sirve para la selección del cacao');
 insert into Proceso values(1,'Selección de granos',1,1,1),(2,'Tostado',1,1,1),(3,'Descascarillado',1,1,1),(4,'Molienda',1,1,1),(5,'Refinado',1,1,1)
 						 ,(6,'Prensado',1,1,1),(7,'Refinado - Formulado',1,1,1),(8,'Temperado',1,1,1),(9,'Moldeado',1,1,1),(10,'Enfriado',1,1,1),(11,'Empaquetado y Etiquetado',1,1,1);
 
