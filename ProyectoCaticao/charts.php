@@ -1,6 +1,8 @@
 
 <?php
-include 'includes/templates/head.php'
+include 'includes/templates/head.php';
+include 'includes/config/db.php';
+
 ?>
 
 <body id="page-top">
@@ -49,7 +51,10 @@ include 'includes/templates/head.php'
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                        <canvas id="myAreaChart">
+
+                                        </canvas>
+                                        
                                     </div>
                                     <hr>
                                     Styling for the area chart can be found in the
@@ -97,6 +102,7 @@ include 'includes/templates/head.php'
 
                 </div>
                 <!-- /.container-fluid -->
+                
 
             </div>
             <!-- End of Main Content -->
