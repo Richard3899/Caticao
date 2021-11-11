@@ -42,7 +42,7 @@ include 'includes/config/db.php';
                                         <h6 class="m-0 font-weight-bold text-primary">Productos por Meses </h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="chart-area">
+                                        <div class="chart-bar">
                                             <canvas id="myAreaChart">
 
                                             </canvas>
