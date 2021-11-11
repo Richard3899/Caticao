@@ -37,9 +37,3 @@
 
     </script>
 
-
-    <script>
-        function CargarDatosGraficosBar(){
-            
-        }
-    </script>
