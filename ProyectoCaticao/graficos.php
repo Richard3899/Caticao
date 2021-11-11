@@ -42,13 +42,14 @@ include 'includes/config/db.php';
                                         <h6 class="m-0 font-weight-bold text-primary">Productos por Meses </h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="chart-bar">
-                                            <canvas id="myAreaChart">
-
-                                            </canvas>
-                                            
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                            <canvas id="myChart" width="400" height="400"></canvas>
+                                                <button class="btn btn-primary" onclick="CargarDatosGraficosBar()">Graficos Bar</button>
+                                            </div>
                                         </div>
-                                        <hr>
+                                       
+                                        
                                         
                                     </div>
                                 </div>
