@@ -35,13 +35,3 @@ const myChart = new Chart(ctx, {
     }
 }); 
 
-
-function CargarDatosGraficosBar(){
-    $.ajax({
-            url:'graficos/controlador_grafico.php',
-            type:'POST'
-    }).done(function(resp){
-            alert(resp);
-
-    })
-}

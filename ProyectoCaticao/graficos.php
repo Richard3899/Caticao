@@ -1,7 +1,5 @@
 <?php
 include 'includes/templates/head.php';
-include 'includes/config/db.php';
-
 ?>
 
 <body id="page-top">
@@ -108,12 +106,28 @@ include 'includes/config/db.php';
         <!-- End of Page Wrapper -->
          <?php
             include 'includes/templates/logout_modal.php'
-          ?> 
+        ?> 
           
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
+
             <script src="js/demo/chart-area-graficos.js"></script>
+
+
 </body>
 
 </html>
+
+<script>
+            function CargarDatosGraficosBar() {
+              $.ajax({
+                    url:'graficos/controlador_grafico.php',
+                    type:'POST'
+                }).done(function(resp) {
+                    alert(resp);
+
+                })
+            }
+</script>
