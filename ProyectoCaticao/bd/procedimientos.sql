@@ -518,6 +518,7 @@ DELIMITER ;
 
 -- Procedimientos almacenados de Combo Box de Costos Indirectos --------------------------------------------------------------------
 
+
 DROP procedure IF EXISTS `mostrar_combomaquina`;
 
 DELIMITER $$
@@ -527,6 +528,33 @@ BEGIN
 select DISTINCT idMaquina,nombre
 	from maquina
 ;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `mostrar_combomaquinaenergia`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combomaquinaenergia` ()
+BEGIN
+select DISTINCT m.idMaquina,m.nombre
+	from maquina m left join consumoenergia ce on ce.idMaquina= m.idMaquina
+	where ce.idMaquina is NULL;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `mostrar_combomaquinadepreciacion`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combomaquinadepreciacion` ()
+BEGIN
+select DISTINCT m.idMaquina,m.nombre
+	from maquina m left join depreciacion d on d.idMaquina= m.idMaquina
+	where d.idMaquina is NULL;
+
 END$$
 DELIMITER ;
 
@@ -722,8 +750,76 @@ END$$
 DELIMITER ;
 
 
+-- Procedimientos almacenados de Maquina ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_maquina`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_maquina` ()
+BEGIN
+select idMaquina,nombre,descripcion
+	from maquina;
+END$$
+DELIMITER ;
 
 
+DROP procedure IF EXISTS `insertar_maquina`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_maquina` (   in nombreI varchar(80),
+                                        in descripcionI varchar(80)
+                                        )
+BEGIN
+	insert into maquina (nombre,descripcion)
+			values (nombreI,descripcionI);
+END$$
+DELIMITER ;
+
+
+
+DROP procedure IF EXISTS `obtener_maquina`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_maquina` (in idMaquinaO int)
+BEGIN
+	select * from maquina where idMaquina=idMaquinaO;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_maquina`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_maquina` (in idMaquinaA int, nombreA varchar(80),
+										in descripcionA varchar(80))
+BEGIN
+	update maquina set  idMaquina=idMaquinaA,nombre=nombreA,
+						descripcion=descripcionA
+						
+				where idMaquina=idMaquinaA;
+END$$
+
+DELIMITER ;
+
+CALL actualizar_maquina('3','Molienda','Sirve para moler los granos de cacao');
+                                    
+DROP procedure IF EXISTS `eliminar_maquina`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_maquina` (in idMaquinaE int)
+BEGIN
+	delete from maquina
+    where idMaquina=idMaquinaE;
+END$$
+DELIMITER ;
+
+select * from maquina;
 
 
 

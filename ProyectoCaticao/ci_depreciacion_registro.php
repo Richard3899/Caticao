@@ -6,7 +6,7 @@ incluirTemplate('head');
 
 
 $db1=conexion();
-$consulta1="CALL mostrar_combomaquina";
+$consulta1="CALL mostrar_combomaquinadepreciacion";
 $resultado1= mysqli_query($db1, $consulta1);
 $idMaquina = '';
 
@@ -86,8 +86,9 @@ $idMaquina = '';
 
 
                         <button type="submit" class="btn btn-primary" name="save_depreciacion">Crear</button>
+                        
                         </form>
-
+                        
                         <br>
 
                         <div class="card mb-4">
