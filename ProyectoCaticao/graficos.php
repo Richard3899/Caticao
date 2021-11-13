@@ -1,8 +1,5 @@
-
 <?php
 include 'includes/templates/head.php';
-include 'includes/config/db.php';
-
 ?>
 
 <body id="page-top">
@@ -10,9 +7,9 @@ include 'includes/config/db.php';
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-            <?php
-            include 'includes/templates/sidebar.php'
-            ?>
+        <?php
+        include 'includes/templates/sidebar.php'
+        ?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -25,19 +22,10 @@ include 'includes/config/db.php';
                 <?php
                 include 'includes/templates/nav.php'
                 ?>
-            
-
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-
-
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-                    <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme.
-                        The charts below have been customized - for further customization options, please visit the <a
-                            target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js
-                            documentation</a>.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Graficos de Materia Prima y Productos </h1>
+                    <p class="mb-4"><a target="_blank"></a>.</p>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -47,18 +35,19 @@ include 'includes/config/db.php';
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Productos por Meses </h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart">
 
-                                        </canvas>
-                                        
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button class="btn btn-primary" onclick="CargarDatosGraficosBar()"> Graficos Bar</button>
+                                            <canvas id="myChart" width="400" height="400"></canvas>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    Styling for the area chart can be found in the
-                                    <code>/js/demo/chart-area-demo.js</code> file.
+
+
+
                                 </div>
                             </div>
 
@@ -71,9 +60,7 @@ include 'includes/config/db.php';
                                     <div class="chart-bar">
                                         <canvas id="myBarChart"></canvas>
                                     </div>
-                                    <hr>
-                                    Styling for the bar chart can be found in the
-                                    <code>/js/demo/chart-bar-demo.js</code> file.
+
                                 </div>
                             </div>
 
@@ -84,16 +71,14 @@ include 'includes/config/db.php';
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Cantidad de Materia Prima</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4">
                                         <canvas id="myPieChart"></canvas>
                                     </div>
-                                    <hr>
-                                    Styling for the donut chart can be found in the
-                                    <code>/js/demo/chart-pie-demo.js</code> file.
+
                                 </div>
                             </div>
                         </div>
@@ -101,38 +86,48 @@ include 'includes/config/db.php';
 
 
                 </div>
-                <!-- /.container-fluid -->
-                
-
+                <!-- /.c
             </div>
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2020</span>
+                        </div>
                     </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
+         <?php
+            include 'includes/templates/logout_modal.php'
+        ?> 
+          
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
 
-    </div>
-    <!-- End of Page Wrapper -->
+            <script src="js/demo/chart-area-graficos.js"></script>
 
-
-
-    <?php
-    include 'includes/templates/logout_modal.php'
-    ?>
-
-    <?php
-    include 'includes/templates/scripts.php'
-    ?>
 
 </body>
 
 </html>
+
+<script>
+            function CargarDatosGraficosBar() {
+              $.ajax({
+                    url:'graficos/controlador_grafico.php',
+                    type:'POST'
+                }).done(function(resp) {
+                    alert(resp);
+
+                })
+            }
+</script>
