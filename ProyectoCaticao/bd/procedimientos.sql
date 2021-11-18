@@ -721,10 +721,14 @@ select SUM(TRUNCATE(depreciacionPorBatch,2)) as Costo
 END$$
 DELIMITER ;
 
-
-
-
-
+--procedimientos Graficos Barra--
+DELIMITER $$
+USE `caticao`$$
+create PROCEDURE `Mostrar_DatosGraficoBarra` ()
+BEGIN
+select idProducto, nombre, cantidad from producto;
+END$$
+DELIMITER ;
 
 
 

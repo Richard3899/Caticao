@@ -9,7 +9,7 @@ class Modelo_Grafico{
         $this->conexion->conectar();
     }
     function TraerDatosGraficos1(){
-        $sql="select nombre, cantidad from materia;";
+        $sql="CALL Mostrar_DatosGraficoBarra";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)){
             while ($consulta_VU = mysqli_fetch_array($consulta)){
