@@ -6,7 +6,7 @@ incluirTemplate('head');
 
 
 $db1=conexion();
-$consulta1="CALL mostrar_combomaquina";
+$consulta1="CALL mostrar_combomaquinaenergia";
 $resultado1= mysqli_query($db1, $consulta1);
 $idMaquina = '';
 
@@ -78,10 +78,10 @@ $idMaquina = '';
 
                         </div>
 
-
                         <button type="submit" class="btn btn-primary" name="save_consumoenergia">Crear</button>
+                        <a class="btn btn-success float-right" href="maquina_registro.php" role="button">Agregar Nueva Maquina</a>
                         </form>
-
+                        
                         <br>
 
                         <div class="card mb-4">
