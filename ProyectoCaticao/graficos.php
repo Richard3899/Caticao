@@ -40,7 +40,7 @@ include 'includes/templates/head.php';
                                 <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-8">
                                             <button class="btn btn-primary" onclick="CargarDatosGraficosBar()"> Graficos Bar</button>
                                             <canvas id="myChart" width="400" height="400"></canvas>
                                         </div>
@@ -120,14 +120,3 @@ include 'includes/templates/head.php';
 
 </html>
 
-<script>
-            function CargarDatosGraficosBar() {
-              $.ajax({
-                    url:'graficos/controlador_grafico.php',
-                    type:'POST'
-                }).done(function(resp) {
-                    alert(resp);
-
-                })
-            }
-</script>
