@@ -86,7 +86,7 @@ $idMaquina = '';
 
 
                         <button type="submit" class="btn btn-primary" name="save_depreciacion">Crear</button>
-                        
+                
                         </form>
                         
                         <br>

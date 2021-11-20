@@ -33,7 +33,6 @@
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
                             $idMateria = $row['idMateria'];
-                            $idCostos = $row['idCostos'];
                             $idTipoCostos = $row['idTipoCostos'];
                             $precioUnitario = $row['precioUnitario'];
                         }
@@ -45,12 +44,10 @@
                             $conexion=conexion();
 	                        $idMateriaCostos = $_GET['idMateriaCostos'];
                             $idMateria = $_POST['idMateria'];
-                            $idCostos = $_POST['idCostos'];
                             $idTipoCostos = $_POST['idTipoCostos'];
                             $precioUnitario = $_POST['precioUnitario'];
 
 	                        $sql="CALL actualizar_materiacostos('$idMateriaCostos','$idMateria',
-									'$idCostos',
 									'$idTipoCostos',
 									'$precioUnitario')";
 									
@@ -112,30 +109,7 @@
                               <?php endwhile; ?>
                         
                             </select>
-
-                            
-
                             </div>
-
-                            
-                            <div class="form-group col-md-6">
-                            <label for="costos">Costos</label>
-                            <select id='id_idCostos' name="idCostos" class='form-control' required>
-                                <option selected disabled value="">Seleccione</option>
-                                <?php while ($costos=mysqli_fetch_assoc($resultado2)):?>
-                                <option <?php echo $idCostos == $costos['idCostos'] ? 'selected' : '';?> 
-                                value="<?php echo $costos['idCostos'];?>">
-                                <?php echo $costos['Descripcion'];?> </option>
-                              <?php endwhile; ?>
-                        
-                            </select>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-row">
 
                             <div class="form-group col-md-6">
                             <label for="categoria">Tipo de Costo</label>
@@ -150,6 +124,14 @@
                             </select>
 
                             </div>
+                            
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            
 
                             <div class="form-group col-md-6">
                             <label for="precio">Precio Unitario</label>

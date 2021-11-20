@@ -8,11 +8,10 @@ if (isset($_POST['save_agregarcostomateria'])) {
     $conexion=conexion();
 
 	  $idMateria= $_POST['idMateria'];
-    $idCostos= $_POST['idCostos'];
     $idTipoCostos= $_POST['idTipoCostos'];
     $precioUnitario= $_POST['precioUnitario'];
 
-	  $sql="CALL insertar_materiacostos('$idMateria','$idCostos','$idTipoCostos','$precioUnitario')";
+	  $sql="CALL insertar_materiacostos('$idMateria','$idTipoCostos','$precioUnitario')";
 
     $result = mysqli_query($conexion, $sql);
 

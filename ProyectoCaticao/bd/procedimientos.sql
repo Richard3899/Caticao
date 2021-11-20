@@ -181,9 +181,9 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_combocostos` ()
 BEGIN
-select DISTINCT c.idCostos,
-			c.Descripcion
-	from costos c left join materiacostos mc on c.idCostos=mc.idCostos ;
+
+
+
 END$$
 DELIMITER ;
 
@@ -211,14 +211,12 @@ USE `caticao`$$
 CREATE PROCEDURE `mostrar_materiacostos` ()
 BEGIN
 select mc.idMateriaCostos,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
-			c.descripcion,
             tc.descripcion,
             um.descripcion,
             mc.precioUnitario
 	from MateriaCostos mc inner join materia m on mc.idMateria=m.idMateria
 						  inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
 						  inner join marca mr on mr.idMarca = m.idMarca
-						  inner join costos c  on mc.idCostos=c.idCostos
                           inner join tipocostos tc  on mc.idTipoCostos=tc.idTipoCostos;
 END$$
 DELIMITER ;
@@ -229,15 +227,13 @@ DROP procedure IF EXISTS `insertar_materiacostos`;
 DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `insertar_materiacostos` (in idMateriaI int,
-                                        in idCostosI int,
                                         in idTipoCostosI int,
                                         in precioUnitarioI decimal(10,2))
 BEGIN
 	insert into materiacostos (idMateria,
-							idCostos,
                             idTipoCostos,
                             precioUnitario)
-			values (idMateriaI,idCostosI,idTipoCostosI,precioUnitarioI);
+			values (idMateriaI,idTipoCostosI,precioUnitarioI);
 END$$
 
 DELIMITER ;
@@ -260,13 +256,11 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `actualizar_materiacostos` (in idMateriaCostosA int,
 										in idMateriaA varchar(50),
-										in idCostosA varchar(50),
                                         in idTipoCostosA int,
                                         in precioUnitarioA decimal(10,2))
 BEGIN
 	update materiacostos set idMateriaCostos=idMateriaCostosA,
 						idMateria=idMateriaA,
-						idCostos=idCostosA,
                         idTipoCostos=idTipoCostosA,
                         precioUnitario=precioUnitarioA
 				where idMateriaCostos=idMateriaCostosA;
@@ -406,7 +400,6 @@ BEGIN
 select  distinct m.idMateria,
 			CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre
 	from materia m 
-	inner join materiacostos mc on mc.idMateria=m.idMateria
     inner join marca mr on mr.idMarca = m.idMarca
     inner join recetamateria rm on rm.idMateria= rm.idMateria;
 

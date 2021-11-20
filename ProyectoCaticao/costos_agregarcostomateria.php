@@ -81,26 +81,6 @@ $idTipoCostos = '';
 
                             </div>
 
-                            
-                            <div class="form-group col-md-6">
-                            <label for="costos">Costos</label>
-                            <select id='id_idCostos' name="idCostos" class='form-control' required>
-                                <option selected disabled value="">Seleccione</option>
-                                <?php while ($costos=mysqli_fetch_assoc($resultado2)):?>
-                                <option <?php echo $idCostos == $costos['idCostos'] ? 'selected' : '';?> 
-                                value="<?php echo $costos['idCostos'];?>">
-                                <?php echo $costos['Descripcion'];?> </option>
-                              <?php endwhile; ?>
-                        
-                            </select>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-row">
-
                             <div class="form-group col-md-6">
                             <label for="categoria">Tipo de Costo</label>
                             <select id='id_idCategoria' name="idTipoCostos" class='form-control' required>
@@ -114,6 +94,16 @@ $idTipoCostos = '';
                             </select>
 
                             </div>
+
+                            
+                            
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            
 
                             <div class="form-group col-md-6">
                             <label for="precio">Precio Unitario</label>
@@ -137,7 +127,6 @@ $idTipoCostos = '';
                                     <thead>
                                         <tr>
                                             <th>Materia</th>
-                                            <th>Costos</th>
                                             <th>Tipo de Costo</th>
                                             <th>Unidad de Medida</th>
                                             <th>Precio Unitario</th>
@@ -172,10 +161,6 @@ $idTipoCostos = '';
                                              
                                              <td>
                                             <?php echo $row[4] ?>
-                                             </td>
-                                             
-                                             <td>
-                                            <?php echo $row[5] ?>
                                              </td>
 
                                              <td>

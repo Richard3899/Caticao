@@ -84,37 +84,6 @@ create table Marca(
 idMarca int auto_increment primary key,
 descripcion varchar (45));
 
-create table TipoCostos(
-idTipoCostos int auto_increment primary key,
-descripcion varchar(45));
-
-create table Servicios(
-idServicios int auto_increment primary key,
-descripcion varchar(45));
-
-create table TipoGastos(
-idTipoGastos int auto_increment primary key,
-descripcion varchar(45));
-
-create table Gastos(
-idGastos int auto_increment primary key,
-descripcion varchar(45),
-idTipoGastos int references TipoGastos(idTipoGastos)
-);
-
-create table GastosMateria(
-idGastosMateria int auto_increment primary key,
-precioUnitario decimal (18,2),
-cantidad int,
-idGastos int references Gastos(idGastos)
-);
-
-create table GastosServicios(
-idGastosServicios int auto_increment primary key,
-idGastos int references Gastos(idGastos),
-idServicios int references Servicios(idServicios)
-);
-
 create table Materia(
 idMateria int auto_increment primary key,
 nombre varchar(45),
@@ -130,10 +99,16 @@ idCostos int auto_increment primary key,
 descripcion varchar(45)
 );
 
+create table TipoCostos(
+idTipoCostos int auto_increment primary key,
+descripcion varchar(45),
+idCostos int references Costos(idCostos)
+);
+
+
 create table MateriaCostos(
 idMateriaCostos int auto_increment primary key,
 precioUnitario decimal(18,2),
-idCostos int references Costos(idCostos),
 idMateria int references Materia(idMateria),
 idTipoCostos int references TipoCostos (idTipoCostos)
 );
@@ -270,13 +245,9 @@ alter table Proceso add foreign key (idTipoProceso) references TipoProceso(idTip
 alter table Proceso add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 
 alter table MateriaCostos add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
-alter table MateriaCostos add foreign key (idCostos) references Costos (idCostos);
 alter table MateriaCostos add foreign key (idMateria) references Materia (idMateria);
 
-alter table GastosServicios add foreign key (idServicios) references Servicios (idServicios);
-alter table Gastos add foreign key (idTipoGastos) references TipoGastos(idTipoGastos);
-alter table GastosServicios add foreign key (idGastos) references Gastos (idGastos);
-alter table GastosMateria add foreign key (idGastos) references Gastos (idGastos);
+alter table TipoCostos add foreign key (idCostos) references Costos (idCostos);
 
 alter table RecetaMateria add foreign key (idMateria) references Materia(idMateria);
 alter table RecetaMateria add foreign key (idReceta) references Receta(idReceta);
@@ -307,22 +278,20 @@ insert into Movimiento values (1,'Salida de Productos por Venta','2021-10-01 10:
 insert into TipoMateria values (1,'Insumos'),(2,'Materia Prima'),(3,'Materiales y Equipos');
 insert into Marca values (1,'Gloria'),(2,'Dulfina'),(3,'Fruttox'),(4,'Negrita'),(5,'Anchor'),(6,'Marina'),
 (7,'Mason'),(8,'Andina'),(9,'Orinka'),(10,'Nestle'),(11,'Rio Valle'),(12,'Villa Natura'),(13,'Elaboración Propia');
-insert into TipoCostos values (1,'Variable'),(2,'Fijo');
 
-insert into Servicios values(1,'Servicios de Elictricidad'),(2,'Servicio de Agua'); 
-insert into TipoGastos values(1,'Gastos Administrativos'),(2,'Gastos Servicios'),(3,'Gastos Equipos');
-insert into Gastos values (1,'Jefe de Planta',1),(2,'Marketing Publicidad',1),(3,'Alcohol',3);
 
 
 /*Unidad de Medida y Cantidad Tabla GastosMateria*/
-insert into GastosServicios values(1,1,1);
-insert into GastosMateria values (1,1800,1,1);
 insert into Materia (idMateria,Nombre,descripcion,cantidad,idTipoMateria, idUnidadMedida,idMarca) 
 values (1,'Leche descremada','En polvo',40,1,1,10),(2,'Cacao','Selecto',80,1,1,8),(3,'Pasas','Suaves',20,1,1,11),(4,'Pecanas','Suaves',20,1,1,12)
 ,(5,'Azucar','Blanca',20,1,1,2),(6,'Sal','De maras',20,1,1,9),(7,'Lecitina de soya','De calidad',20,1,3,7),(8,'Licor de cacao','Bueno',20,1,3,13),
 (9,'Leche entera','En polvo',20,1,1,1),(10,'Manteca de cacao','bueno',20,1,1,13);
-insert into Costos values (1,'Costo de Materia Prima e Insumos'),(2,'Costos de Servicios'),(3,'Costo de Depreciación'),(4,'Costo de Mano de obra');
-insert into MateriaCostos values(1,'3.9',1,1,1);
+insert into Costos values (1,'Costo de Materia Prima e Insumos'),(2,'Costos de Servicios'),(3,'Costo de Depreciación'),
+(4,'Costo de Mano de obra'),(5,'Gastos Administrativos y otros');
+
+insert into TipoCostos values (1,'Variable',1),(2,'Fijo',5);
+
+insert into MateriaCostos values(1,'3.9',1,1);
 
 insert into MovimientoMateria values (1,15,1,1);
 insert into TipoProceso values(1,'Mano de Obra'),(2,'Maquinaria');
@@ -345,7 +314,7 @@ insert into OrdenProduccionProceso values (1,'Se realiza el proceso de descascar
 
 
 use caticao;
-select*from RecetaMateria;
+select*from RecetaMateria; 
 select*from materia;
 select*from Costos;
 select*from producto;
