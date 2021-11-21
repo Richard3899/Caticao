@@ -8,12 +8,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="ci_gastosadministrativos_registro.php">Gastos Administrativos y otros</a>
+    <a class="nav-link" href="ci_gastosadmin_registro.php">Gastos Administrativos y otros</a>
   </li>
-
-  <li class="nav-item">
-    <a class="nav-link" href="ci_costostotales_registro.php">Calcular Costos</a>
-  </li>
-
 </ul>
 <br>

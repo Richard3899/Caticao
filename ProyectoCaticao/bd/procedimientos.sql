@@ -43,7 +43,7 @@ DELIMITER ;
 
 
 
--- Procedimientos almacenados de Costo de Materia prima --
+-- Procedimientos almacenados de Materia prima --
 
 DROP procedure IF EXISTS `mostrar_materia`;
 
@@ -141,7 +141,7 @@ DELIMITER ;
 
 
 
--- Procedimientos almacenados de Combo Box --
+-- Procedimientos almacenados de Combo Box ----------------------------------------------------------------------------------------------
 
 
 DROP procedure IF EXISTS `mostrar_combomateria`;
@@ -812,12 +812,172 @@ BEGIN
 END$$
 DELIMITER ;
 
-select * from maquina;
 
 
 
 
 
+
+-- Procedimientos almacenados de Gastos Administrativos y Otros  ----------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_gastosadmin`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_gastosadmin` ()
+BEGIN
+select ga.idGastosAdmin,
+            ga.descripcion,
+            um.descripcion,
+            tc.descripcion,
+            ga.precioUnitario
+	from gastosadmin ga inner join unidadmedida um  on um.idUnidadMedida=ga.idUnidadMedida
+                          inner join tipocostos tc on tc.idTipoCostos=ga.idTipoCostos;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `insertar_gastosadmin`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_gastosadmin` (in descripcionI varchar(45),
+                                        in precioUnitarioI decimal(10,2),
+                                        in idTipoCostosI int,
+                                        in idUnidadMedidaI int)
+BEGIN
+	insert into gastosadmin (descripcion,precioUnitario,idTipoCostos,idUnidadMedida)
+			         values (descripcionI,precioUnitarioI,idTipoCostosI,idUnidadMedidaI);
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_gastosadmin`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_gastosadmin` (in idGastosAdminO int)
+BEGIN
+	select * from gastosadmin where idGastosAdmin=idGastosAdminO;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_gastosadmin`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_gastosadmin` (in idGastosAdminA int,
+										in descripcionA varchar(30),
+										in precioUnitarioA decimal(10,2),
+                                        in idTipoCostosA int,
+                                        in idUnidadMedidaA int)
+BEGIN
+	update gastosadmin set  idGastosAdmin=idGastosAdminA,
+						descripcion=descripcionA,
+						precioUnitario=precioUnitarioA,
+                        idTipoCostos=idTipoCostosA,
+                        idUnidadMedida=idUnidadMedidaA
+				where idGastosAdmin=idGastosAdminA;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `eliminar_gastosadmin`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_gastosadmin` (in idGastosAdminE int)
+BEGIN
+	delete from gastosadmin
+    where idGastosAdmin=idGastosAdminE;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+-- Procedimientos almacenados de Mano de Obra  ----------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_manodeobra`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_manodeobra` ()
+BEGIN
+select mo.idManodeObra,
+            mo.descripcion,
+            um.descripcion,
+            tc.descripcion,
+            mo.precioUnitario
+	from manodeobra mo inner join unidadmedida um  on um.idUnidadMedida=mo.idUnidadMedida
+                          inner join tipocostos tc on tc.idTipoCostos=mo.idTipoCostos;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `insertar_manodeobra`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_manodeobra` (in descripcionI varchar(45),
+                                        in precioUnitarioI decimal(10,2),
+                                        in idTipoCostosI int,
+                                        in idUnidadMedidaI int)
+BEGIN
+	insert into manodeobra (descripcion,precioUnitario,idTipoCostos,idUnidadMedida)
+			         values (descripcionI,precioUnitarioI,idTipoCostosI,idUnidadMedidaI);
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_manodeobra`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_manodeobra` (in idManodeObraO int)
+BEGIN
+	select * from manodeobra where idManodeObra=idManodeObraO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_manodeobra`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_manodeobra` (in idManodeObraA int,
+										in descripcionA varchar(30),
+										in precioUnitarioA decimal(10,2),
+                                        in idTipoCostosA int,
+                                        in idUnidadMedidaA int)
+BEGIN
+	update manodeobra set  idManodeObra=idManodeObraA,
+						descripcion=descripcionA,
+						precioUnitario=precioUnitarioA,
+                        idTipoCostos=idTipoCostosA,
+                        idUnidadMedida=idUnidadMedidaA
+				where idManodeObra=idManodeObraA;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `eliminar_manodeobra`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_manodeobra` (in idManodeObraE int)
+BEGIN
+	delete from manodeobra
+    where idManodeObra=idManodeObraE;
+END$$
+DELIMITER ;
 
 
 

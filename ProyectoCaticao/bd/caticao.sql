@@ -218,10 +218,16 @@ proceso decimal(10,2),
 precioUnitario decimal(10,2),
 requerimiento decimal(10,2),
 costo decimal(10,2),
-
 idReceta int references Receta(idReceta)
 );
 
+create table GastosAdmin(
+idGastosAdmin int auto_increment primary key,
+descripcion varchar(45),
+precioUnitario decimal(10,2),
+idTipoCostos int references TipoCostos (idTipoCostos),
+idUnidadMedida int references UnidadMedida(idUnidadMedida)
+);
 
 alter table Usuario add foreign key (idPersona) references Persona(idPersona);
 alter table Persona add foreign key (idTipoDocumento) references tipoDocumento(idTipoDocumento);
@@ -246,7 +252,6 @@ alter table Proceso add foreign key (idUnidadMedida) references UnidadMedida(idU
 
 alter table MateriaCostos add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table MateriaCostos add foreign key (idMateria) references Materia (idMateria);
-
 alter table TipoCostos add foreign key (idCostos) references Costos (idCostos);
 
 alter table RecetaMateria add foreign key (idMateria) references Materia(idMateria);
@@ -258,6 +263,8 @@ alter table Depreciacion add foreign key (idMaquina) references Maquina(idMaquin
 alter table Proceso add foreign key (idMaquina) references Maquina(idMaquina);
 alter table ConsumoEnergia add foreign key (idMaquina) references Maquina(idMaquina);
 alter table CostosI add foreign key (idReceta) references Receta(idReceta);
+alter table GastosAdmin add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
+alter table GastosAdmin add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 
 alter table OrdenProduccion add foreign key (idReceta) references Receta (idReceta);
 alter table OrdenProduccionProceso add foreign key (idProceso) references Proceso (idProceso);
@@ -312,9 +319,12 @@ insert into MovimientoProducto values (1, 2, 3, '8.5',1,1);
 insert into OrdenProduccion values (1, 'Producción de Nibs', 1);
 insert into OrdenProduccionProceso values (1,'Se realiza el proceso de descascarillado' , 1 ,2);
 
+insert into GastosAdmin values (1,'Jefe de Planta' , 1800 ,2,4);
+
 
 use caticao;
 select*from RecetaMateria; 
 select*from materia;
 select*from Costos;
 select*from producto;
+select*from GastosAdmin;

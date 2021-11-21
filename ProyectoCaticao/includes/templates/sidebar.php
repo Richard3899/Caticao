@@ -66,6 +66,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="costos_agregarcostomateria.php">Directos</a>
                         <a class="collapse-item" href="ci_consumoenergia_registro.php">Indirectos</a>
+                        <a class="collapse-item" href="costostotales_registro.php">Totales</a>
                     </div>
                 </div>
             </li>
