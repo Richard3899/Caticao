@@ -108,9 +108,7 @@ $idTipoMateria = '';
                                 value= "<?php echo $unidad['idUnidadMedida'];?>">
                                 <?php echo $unidad ['descripcion'];?> </option>
                              <?php endwhile; ?>
-                        
                             </select>
-                           
                             </div>
     
                             <div class="form-group col-md-4">
