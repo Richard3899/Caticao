@@ -225,8 +225,17 @@ create table GastosAdmin(
 idGastosAdmin int auto_increment primary key,
 descripcion varchar(45),
 precioUnitario decimal(10,2),
-idTipoCostos int references TipoCostos (idTipoCostos),
-idUnidadMedida int references UnidadMedida(idUnidadMedida)
+idUnidadMedida int references UnidadMedida(idUnidadMedida),
+idTipoCostos int references TipoCostos (idTipoCostos)
+
+);
+
+create table ManodeObra(
+idManodeObra int auto_increment primary key,
+descripcion varchar(45),
+precioUnitario decimal(10,2),
+idUnidadMedida int references UnidadMedida(idUnidadMedida),
+idTipoCostos int references TipoCostos (idTipoCostos)
 );
 
 alter table Usuario add foreign key (idPersona) references Persona(idPersona);
@@ -263,8 +272,12 @@ alter table Depreciacion add foreign key (idMaquina) references Maquina(idMaquin
 alter table Proceso add foreign key (idMaquina) references Maquina(idMaquina);
 alter table ConsumoEnergia add foreign key (idMaquina) references Maquina(idMaquina);
 alter table CostosI add foreign key (idReceta) references Receta(idReceta);
+
 alter table GastosAdmin add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table GastosAdmin add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
+
+alter table ManodeObra add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
+alter table ManodeObra add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 
 alter table OrdenProduccion add foreign key (idReceta) references Receta (idReceta);
 alter table OrdenProduccionProceso add foreign key (idProceso) references Proceso (idProceso);
@@ -319,8 +332,8 @@ insert into MovimientoProducto values (1, 2, 3, '8.5',1,1);
 insert into OrdenProduccion values (1, 'Producción de Nibs', 1);
 insert into OrdenProduccionProceso values (1,'Se realiza el proceso de descascarillado' , 1 ,2);
 
-insert into GastosAdmin values (1,'Jefe de Planta' , 1800 ,2,4);
-
+insert into GastosAdmin values (1,'Jefe de Planta' , 1800 ,4,2);
+insert into ManodeObra values (1,'Selección' , 1800 ,4,2);
 
 use caticao;
 select*from RecetaMateria; 
