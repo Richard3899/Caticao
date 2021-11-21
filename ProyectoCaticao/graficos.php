@@ -35,17 +35,17 @@ include 'includes/templates/head.php';
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Productos por Meses </h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Cantidad de Productos Terminados</h6>
                                 </div>
                                 <div class="card-body">
-
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <button class="btn btn-primary" onclick="CargarDatosGraficosBar()"> Graficos Bar</button>
-                                            <canvas id="myChart" width="400" height="400"></canvas>
+                                     
+                                            <canvas id="GraficoBar" width="200" height="200"></canvas>
                                         </div>
-                                    </div>
 
+                                    </div>
 
 
                                 </div>
@@ -54,13 +54,16 @@ include 'includes/templates/head.php';
                             <!-- Bar Chart -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Cantidad de Insumos</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-bar">
-                                        <canvas id="myBarChart"></canvas>
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <button class="btn btn-primary" onclick="CargarDatosGraficosBarHorizontal()"> Graficos Bar horizontal </button>
+                                            <canvas id="GraficoBarHorizontal" width="200" height="200"></canvas>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
 
@@ -104,19 +107,18 @@ include 'includes/templates/head.php';
 
         </div>
         <!-- End of Page Wrapper -->
-         <?php
-            include 'includes/templates/logout_modal.php'
-        ?> 
-          
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            
+        <?php
+        include 'includes/templates/logout_modal.php'
+        ?>
 
-            <script src="js/demo/chart-area-graficos.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+         <script src="js/demo/chart-area-graficos-horizontal.js"></script>
+         <script src="js/demo/chart-area-graficos.js"></script>
 
 
 </body>
 
 </html>
-

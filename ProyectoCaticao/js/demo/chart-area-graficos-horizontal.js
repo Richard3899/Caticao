@@ -1,4 +1,5 @@
-function CargarDatosGraficosBar() {
+
+function CargarDatosGraficosBarHorizontal() {
     $.ajax({
         url: 'graficos/controlador_grafico.php',
         type: 'POST'
@@ -11,14 +12,14 @@ function CargarDatosGraficosBar() {
                 titulo.push(data[i][1]);
                 cantidad.push(data[i][2]);
             }
-            CrearGrafico(titulo, cantidad, 'bar','GRAFICO EN BARRAS DE PRODUCTO','GraficoBar');
+            CrearGrafico(titulo, cantidad, 'horizontalBar', 'GRAFICO EN BARRAS HORIZONTAL  DE PRODUCTO jjjjjj', 'GraficoBarHorizontal');
         }
 
     })
 }
-function CrearGrafico(titulo, cantidad, tipo, encabezado, GraficoBar) {
-    var ctx = document.getElementById('GraficoBar');
-    var GraficoBar = new Chart(ctx, {
+function CrearGrafico(titulo, cantidad, tipo, encabezado, id) {
+    var ctx = document.getElementById('GraficoBarHorizontal');
+    var GraficoBarHorizontal = new Chart(ctx, {
         type: tipo,
         data: {
             labels: titulo,
@@ -53,4 +54,3 @@ function CrearGrafico(titulo, cantidad, tipo, encabezado, GraficoBar) {
         }
     });
 }
-
