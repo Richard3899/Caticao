@@ -979,7 +979,13 @@ BEGIN
 END$$
 DELIMITER ;
 
-
+DELIMITER $$
+USE `caticao`$$
+create PROCEDURE `Mostrar_DatosGraficoBarra` ()
+BEGIN
+select idProducto, nombre, cantidad from producto;
+END$$
+DELIMITER ;
 
 
 
