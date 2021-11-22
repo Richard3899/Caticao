@@ -121,6 +121,10 @@ include 'includes/templates/head.php';
 
             <script src="js/demo/chart-area-graficos.js"></script>
             <script src="js/demo/chart-area-graficos-horizontal.js"></script>
+            <?php
+    include 'includes/templates/scripts.php'
+    ?>
+
 
 
 </body>
@@ -156,7 +160,7 @@ include 'includes/templates/head.php';
 
     function CargarDatosGraficosBarHorizontal() {
         $.ajax({
-            url: 'graficos/controlador_grafico.php',
+            url: 'graficos/controlador_graficodoughnut.php',
             type: 'POST'
         }).done(function(resp) {
             if (resp.length > 0) {
@@ -169,7 +173,7 @@ include 'includes/templates/head.php';
                     cantidad.push(data[i][2]);
                     colores.push(colorRGB());
                 }
-                CrearGrafico(titulo, cantidad, colores, 'horizontalBar', 'GRAFICO EN BARRAS HORIZONTAL  DE PRODUCTO', 'GraficoBarHorizontal');
+                CrearGrafico(titulo, cantidad, colores, 'doughnut', 'GRAFICO EN BARRAS HORIZONTAL  DE PRODUCTO', 'GraficoBarHorizontal');
 
             }
 
@@ -177,7 +181,7 @@ include 'includes/templates/head.php';
     }
     function CargarDatosGraficosPie() {
         $.ajax({
-            url: 'graficos/controlador_graficohorizontal.php',
+            url: 'graficos/controlador_graficopie.php',
             type: 'POST'
         }).done(function(resp) {
             if (resp.length > 0) {

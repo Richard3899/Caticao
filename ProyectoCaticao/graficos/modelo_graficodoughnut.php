@@ -1,6 +1,6 @@
 <?php
 
-class Modelo_GraficoHorizontal{
+class Modelo_GraficoDoughnut{
     private $conexion;
     function __construct()
     {
@@ -8,8 +8,8 @@ class Modelo_GraficoHorizontal{
         $this->conexion= new conexion();
         $this->conexion->conectar();
     }
-    function TraerDatosGraficosHorizontal(){
-        $sql="CALL Mostrar_DatosGraficoHorizontal";
+    function TraerDatosGraficosDoughnut(){
+        $sql="CALL Mostrar_DatosGraficodoughnut";
         $arreglo = array();
         if ($consulta = $this->conexion->conexion->query($sql)){
             while ($consulta_VU = mysqli_fetch_array($consulta)){
