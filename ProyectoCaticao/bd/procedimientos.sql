@@ -996,3 +996,26 @@ END$$
 DELIMITER ;
 
 
+DELIMITER $$
+USE `caticao`$$
+create PROCEDURE `Mostrar_DatosGraficoPie` ()
+BEGIN
+select idMateria, nombre, cantidad from materia;
+END$$
+DELIMITER ;
+use caticao;
+
+
+
+
+DELIMITER $$
+USE `caticao`$$
+create PROCEDURE `Mostrar_DatosGraficodoughnut` ()
+BEGIN
+
+select rm.idmateria,r.descripcion,rm.cantidad 
+from recetamateria rm inner join receta r on rm.idreceta=r.idreceta;
+END$$
+DELIMITER ;
+use caticao;
+
