@@ -26,8 +26,18 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-2">
-                    <button class="btn btn-primary" onclick="CargarDatosGraficosBarHorizontal()"> Graficos Bar </button>
-                    <canvas id="myChart" width="400" height="400"></canvas>
+                    <button class="btn btn-primary" onclick="CargarDatosGraficosBarHorizontal()"> Graficos horizontal </button>
+                    <canvas id="GraficoBarHorizontal" width="400" height="400"></canvas>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card-body">
+        
+            <div class="row">
+                <div class="col-lg-2">
+                    <button class="btn btn-primary" onclick="CargarDatosGraficosBar()"> Graficos Bar </button>
+                    <canvas id="GraficoBar" width="400" height="400"></canvas>
                 </div>
             </div>
 
@@ -46,27 +56,52 @@
 </html>
 
 <script>
+    function CargarDatosGraficosBar() {
+        $.ajax({
+            url: 'graficos/controlador_grafico.php',
+            type: 'POST'
+        }).done(function(resp) {
+            if (resp.length > 0) {
+                var titulo = [];
+                var cantidad = [];
+                var data = JSON.parse(resp);
+                for (var i = 0; i < data.length; i++) {
+                    titulo.push(data[i][1]);
+                    cantidad.push(data[i][2]);
+                }
+                CrearGrafico(titulo, cantidad, 'bar', 'GRAFICO EN BARRAS DE PRODUCTO','GraficoBar');
+            }
 
-function CargarDatosGraficosBarHorizontal() {
-    $.ajax({
-        url: 'graficos/controlador_grafico.php',
-        type: 'POST'
-    }).done(function (resp) {
-        var titulo = [];
-        var cantidad = [];
-        var data = JSON.parse(resp);
-        for (var i = 0; i < data.length; i++) {
-            titulo.push(data[i][1]);
-            cantidad.push(data[i][2]);
-        }
+        })
+    }
 
-        var ctx = document.getElementById('myChart');
-        var myChart = new Chart(ctx, {
-            type: 'horizontalBar',
+    function CargarDatosGraficosBarHorizontal() {
+        $.ajax({
+            url: 'graficos/controlador_grafico.php',
+            type: 'POST'
+        }).done(function(resp) {
+            if (resp.length > 0) {
+                var titulo = [];
+                var cantidad = [];
+                var data = JSON.parse(resp);
+                for (var i = 0; i < data.length; i++) {
+                    titulo.push(data[i][1]);
+                    cantidad.push(data[i][2]);
+                }
+                CrearGrafico(titulo, cantidad, 'horizontalBar', 'GRAFICO EN BARRAS HORIZONTAL  DE PRODUCTO','GraficoBarHorizontal');
+            }
+
+        })
+    }
+
+    function CrearGrafico(titulo, cantidad, tipo, encabezado, id,) {
+        var ctx = document.getElementById(id);
+        var id = new Chart(ctx, {
+            type: tipo,
             data: {
                 labels: titulo,
                 datasets: [{
-                    label: '# of Votes',
+                    label: encabezado,
                     data: cantidad,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -88,13 +123,12 @@ function CargarDatosGraficosBarHorizontal() {
                 }]
             },
             options: {
-
-                indexAxis: 'y',
-  },
-
-               
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         });
-
-    })
-}
+    }
 </script>

@@ -987,6 +987,12 @@ select idProducto, nombre, cantidad from producto;
 END$$
 DELIMITER ;
 
-
+DELIMITER $$
+USE `caticao`$$
+create PROCEDURE `Mostrar_DatosGraficoHorizontal` ()
+BEGIN
+select idMateria, nombre, cantidad from materia;
+END$$
+DELIMITER ;
 
 

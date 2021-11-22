@@ -12,13 +12,15 @@ function CargarDatosGraficosBar() {
                 cantidad.push(data[i][2]);
             }
             CrearGrafico(titulo, cantidad, 'bar','GRAFICO EN BARRAS DE PRODUCTO','GraficoBar');
+            
         }
 
     })
 }
+
 function CrearGrafico(titulo, cantidad, tipo, encabezado, GraficoBar) {
-    var ctx = document.getElementById('GraficoBar');
-    var GraficoBar = new Chart(ctx, {
+    var ctx = document.getElementById(GraficoBar);
+    var myChart = new Chart(ctx, {
         type: tipo,
         data: {
             labels: titulo,

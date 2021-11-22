@@ -12,14 +12,15 @@ function CargarDatosGraficosBarHorizontal() {
                 titulo.push(data[i][1]);
                 cantidad.push(data[i][2]);
             }
-            CrearGrafico(titulo, cantidad, 'horizontalBar', 'GRAFICO EN BARRAS HORIZONTAL  DE PRODUCTO jjjjjj', 'GraficoBarHorizontal');
+            CrearGrafico(titulo, cantidad, 'horizontalBar', 'GRAFICO EN BARRAS HORIZONTAL  DE PRODUCTO', 'GraficoBarHorizontal');
+         
         }
 
     })
 }
-function CrearGrafico(titulo, cantidad, tipo, encabezado, id) {
-    var ctx = document.getElementById('GraficoBarHorizontal');
-    var GraficoBarHorizontal = new Chart(ctx, {
+function CrearGrafico(titulo, cantidad, tipo, encabezado, GraficoBarHorizontal) {
+    var ctx = document.getElementById(GraficoBarHorizontal);
+    var myChart = new Chart(ctx, {
         type: tipo,
         data: {
             labels: titulo,
