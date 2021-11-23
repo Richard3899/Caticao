@@ -340,6 +340,7 @@ insert into OrdenProduccionProceso values (1,'Se realiza el proceso de descascar
 
 insert into GastosAdmin values (1,'Jefe de Planta' , 1800 ,4,2);
 insert into ManodeObra values (1,'Selección' , 1800 ,4,2);
+insert into MateriaProceso values (1,'Prueba',1 ,1);
 
 use caticao;
 select*from RecetaMateria; 
@@ -347,3 +348,4 @@ select*from materia;
 select*from Costos;
 select*from producto;
 select*from GastosAdmin;
+select*from MateriaProceso;
