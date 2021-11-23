@@ -71,12 +71,12 @@ $idTipoMateria = '';
                         <div class="form-row">
                             <div class="form-group col-md-4">
                             <label for="Nombre">Nombre</label>
-                            <input type="text" class="form-control" id="Nombre" value="" name="nombre" placeholder="Nombre">
+                            <input type="text" class="form-control" id="Nombre" value="" name="nombre" placeholder="Nombre" required>
                             </div>
 
                             <div class="form-group col-md-4">
                             <label for="descripción"> Descripción </label>
-                            <input type="text" class="form-control" id="descripción" value="" name="descripcion" placeholder="Descripción">
+                            <input type="text" class="form-control" id="descripción" value="" name="descripcion" placeholder="Descripción" required>
                             </div>
 
                             <div class="form-group col-md-4">
@@ -125,7 +125,7 @@ $idTipoMateria = '';
 
                             <div class="form-group col-md-4">
                             <label for="cantidad">Cantidad</label>
-                            <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad">
+                            <input type="number" min="0" class="form-control" id="cantidad" value="" name="cantidad" placeholder="Cantidad" required>
                             </div>
 
                             
