@@ -227,7 +227,6 @@ descripcion varchar(45),
 precioUnitario decimal(10,2),
 idUnidadMedida int references UnidadMedida(idUnidadMedida),
 idTipoCostos int references TipoCostos (idTipoCostos)
-
 );
 
 create table ManodeObra(
@@ -236,6 +235,13 @@ descripcion varchar(45),
 precioUnitario decimal(10,2),
 idUnidadMedida int references UnidadMedida(idUnidadMedida),
 idTipoCostos int references TipoCostos (idTipoCostos)
+);
+
+create table MateriaProceso(
+idMateriaProceso int auto_increment primary key,
+descripcion varchar(45),
+idProceso int references Proceso(idProceso),
+idMateria int references Materia (idMateria)
 );
 
 alter table Usuario add foreign key (idPersona) references Persona(idPersona);
@@ -275,6 +281,8 @@ alter table CostosI add foreign key (idReceta) references Receta(idReceta);
 
 alter table GastosAdmin add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table GastosAdmin add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
+alter table MateriaProceso add foreign key (idMateria) references Materia(idMateria);
+alter table MateriaProceso add foreign key (idProceso) references Proceso(idProceso);
 
 alter table ManodeObra add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table ManodeObra add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
@@ -298,8 +306,6 @@ insert into Movimiento values (1,'Salida de Productos por Venta','2021-10-01 10:
 insert into TipoMateria values (1,'Insumos'),(2,'Materia Prima'),(3,'Materiales y Equipos');
 insert into Marca values (1,'Gloria'),(2,'Dulfina'),(3,'Fruttox'),(4,'Negrita'),(5,'Anchor'),(6,'Marina'),
 (7,'Mason'),(8,'Andina'),(9,'Orinka'),(10,'Nestle'),(11,'Rio Valle'),(12,'Villa Natura'),(13,'Elaboración Propia');
-
-
 
 /*Unidad de Medida y Cantidad Tabla GastosMateria*/
 insert into Materia (idMateria,Nombre,descripcion,cantidad,idTipoMateria, idUnidadMedida,idMarca) 

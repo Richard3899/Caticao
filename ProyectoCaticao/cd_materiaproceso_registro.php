@@ -11,9 +11,9 @@ $resultado1= mysqli_query($db1, $consulta1);
 $idMateria = '';
 
 $db3=conexion();
-$consulta3="CALL mostrar_combotipocostos";
+$consulta3="CALL mostrar_proceso";
 $resultado3= mysqli_query($db3, $consulta3);
-$idTipoCostos = '';
+$idProceso = '';
 
 ?>
 
@@ -43,7 +43,7 @@ $idTipoCostos = '';
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Costo de Materia</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Materia y Proceso</h1>
 
                         <?php
                         incluirTemplate('nav_calcularcostos');
@@ -59,7 +59,7 @@ $idTipoCostos = '';
                         <?php session_unset(); } ?>
 
                         
-                        <form  method="POST" action="costos_agregarmateriasave.php" enctype="multipart/form-data" id="id_form">
+                        <form  method="POST" action="cd_materiaproceso_save.php" enctype="multipart/form-data" id="id_form">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -77,37 +77,29 @@ $idTipoCostos = '';
                             </div>
 
                             <div class="form-group col-md-6">
-                            <label for="categoria">Tipo de Costo</label>
-                            <select id='id_idCategoria' name="idTipoCostos" class='form-control' required>
+                            <label for="proceso">Proceso</label>
+                            <select id='id_idProceso' name="idProceso" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
-                                <?php while ($tipocostos=mysqli_fetch_assoc($resultado3)):?>
-                                <option <?php echo $idTipoCostos == $tipocostos['idTipoCostos'] ? 'selected' : '';?> 
-                                value="<?php echo $tipocostos['idTipoCostos'];?>">
-                                <?php echo $tipocostos['Descripcion'];?> </option>
+                                <?php while ($proceso=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idProceso == $proceso['idProceso'] ? 'selected' : '';?> 
+                                value="<?php echo $proceso['idProceso'];?>">
+                                <?php echo $proceso['descripcion'];?> </option>
                               <?php endwhile; ?>
-                        
                             </select>
-
                             </div>
-
-                            
-                            
 
                         </div>
 
-
                         <div class="form-row">
 
-                            
-
-                            <div class="form-group col-md-6">
-                            <label for="precio">Precio Unitario</label>
-                            <input type="number" step="any" class="form-control" id="id_precio" value="" name="precioUnitario" placeholder="Precio" required>
+                            <div class="form-group col-md-12">
+                            <label for="descripción"> Descripción </label>
+                            <input type="text" class="form-control" id="descripción" value="" name="descripcion" placeholder="Descripción" required>
                             </div>
                          
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="save_agregarcostomateria">Crear</button>
+                        <button type="submit" class="btn btn-primary" name="save_materiaproceso">Crear</button>
                         </form>
 
                         <br>
@@ -115,16 +107,16 @@ $idTipoCostos = '';
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tabla de Productos
+                                Tabla de Materia y Proceso
                             </div>
                             <div class="card-body">
                                 <table id="tabla" class="table table-hover  table-bordered ">
                                     <thead>
                                         <tr>
+                                            <th>N°</th>
                                             <th>Materia</th>
-                                            <th>Tipo de Costo</th>
-                                            <th>Unidad de Medida</th>
-                                            <th>Precio Unitario</th>
+                                            <th>Proceso</th>
+                                            <th>Descripcion</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                             
@@ -135,39 +127,38 @@ $idTipoCostos = '';
 
                                         $conexion=conexion();
 
-                                        $sql="CALL mostrar_materiacostos";
+                                        $sql="CALL mostrar_materiaproceso";
                                         $result=mysqli_query($conexion,$sql);
 
                                         while($row = mysqli_fetch_array($result)){ ?>
                                          
                                          <tr>
-   
+                                             <td>
+                                                <?php echo $row[0] ?>
+                                             </td>
+
                                              <td>
                                                 <?php echo $row[1] ?>
                                              </td>
 
                                              <td>
-                                                <?php echo $row[2] ?>
-                                             </td>
-
-                                             <td>
-                                             <?php echo $row[3] ?>
+                                             <?php echo $row[2] ?>
                                              </td>
                                              
                                              <td>
-                                            <?php echo $row[4] ?>
+                                            <?php echo $row[3] ?>
                                              </td>
 
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="costos_agregarmateriaedit.php?idMateriaCostos=<?php echo $row[0] ?>" >
+                                             <a class="btn btn-warning" href="cd_materiaproceso_edit.php?idMateriaProceso=<?php echo $row[0] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="costos_agregarmateriadelete.php?idMateriaCostos=<?php echo $row[0]?>" >
+                                             <a class="btn btn-danger" href="cd_materiaproceso_delete.php?idMateriaProceso=<?php echo $row[0]?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>
@@ -195,7 +186,7 @@ $idTipoCostos = '';
 
                 <?php
                     incluirTemplate('footer');
-                ?>
+                    ?>
 
         </div>
         <!-- End of Content Wrapper -->

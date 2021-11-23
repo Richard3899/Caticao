@@ -705,17 +705,6 @@ END$$
 DELIMITER ;
 
 
-update depreciacion set idDepreciacion=6,
-						importe=1,
-                        vidaUtil=1,
-                        depreciacionAnual=1,
-                        depreciacionMensual=1,
-                        depreciacionHora=1,
-                        depreciacionPorBatch=1
-				where idDepreciacion=6;
-
-select * from depreciacion;
-
 DROP procedure IF EXISTS `eliminar_depreciacion`;
 
 DELIMITER $$
@@ -799,7 +788,7 @@ END$$
 
 DELIMITER ;
 
-CALL actualizar_maquina('3','Molienda','Sirve para moler los granos de cacao');
+
                                     
 DROP procedure IF EXISTS `eliminar_maquina`;
 
@@ -903,7 +892,7 @@ DELIMITER ;
 
 
 
--- Procedimientos almacenados de Mano de Obra  ----------------------------------------------------------------------------
+-- Procedimientos almacenados de Mano de Obra  -----------------------------------------------------------------------------------------
 
 DROP procedure IF EXISTS `mostrar_manodeobra`;
 
@@ -978,6 +967,119 @@ BEGIN
     where idManodeObra=idManodeObraE;
 END$$
 DELIMITER ;
+
+
+
+-- Procedimientos almacenados de Costo de Materia prima ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_materiaproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_materiaproceso` ()
+BEGIN
+select mp.idMateriaProceso,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
+            p.descripcion,
+            mp.descripcion
+	from MateriaProceso mp inner join materia m on m.idMateria=mp.idMateria
+						  inner join marca mr on mr.idMarca = m.idMarca
+                          inner join proceso p  on p.idProceso=mp.idProceso;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `insertar_materiaproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_materiaproceso` (in idMateriaI int,
+                                        in idProcesoI int,
+                                       in descripcionI varchar(45))
+BEGIN
+	insert into materiaproceso (idMateria,
+                            idProceso,
+                            descripcion)
+			values (idMateriaI,idProcesoI,descripcionI);
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `obtener_materiaproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_materiaproceso` (in idMateriaProcesoO int)
+BEGIN
+	select * from materiaproceso where idMateriaProceso=idMateriaProcesoO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_materiaproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_materiaproceso` (in idMateriaProcesoA int,
+										in idMateriaA int,
+                                        in idProcesoA int,
+                                        in descripcionA varchar(45))
+BEGIN
+	update materiaproceso set idMateriaProceso=idMateriaProcesoA,
+						idMateria=idMateriaA,
+                        idProceso=idProcesoA,
+                        descripcion=descripcionA
+				where idMateriaProceso=idMateriaProcesoA;
+END$$
+DELIMITER ;
+
+
+                                    
+DROP procedure IF EXISTS `eliminar_materiaproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_materiaproceso` (in idMateriaProcesoE int)
+BEGIN
+	delete from materiaproceso
+    where idMateriaProceso=idMateriaProcesoE;
+END$$
+DELIMITER ;
+
+
+
+-- Procedimientos almacenados de Combo Box de Proceso---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_proceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_proceso` ()
+BEGIN
+select DISTINCT idProceso,descripcion
+	from proceso
+;
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DELIMITER $$
 USE `caticao`$$
