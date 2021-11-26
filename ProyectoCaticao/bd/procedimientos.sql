@@ -1061,11 +1061,92 @@ END$$
 DELIMITER ;
 
 
+-- Procedimientos almacenados de Combo Box de Gastos Administrativos---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_combogastosadmin`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combogastosadmin` ()
+BEGIN
+select DISTINCT idGastosAdmin,descripcion
+	from gastosadmin
+;
+END$$
+DELIMITER ;
 
 
 
+-- Procedimientos almacenados de Costo de Materia prima ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_gastosadminproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_gastosadminproceso` ()
+BEGIN
+select gap.idGastosAdminProceso, ga.descripcion,
+            p.descripcion,gap.descripcion
+	from gastosadminproceso gap inner join gastosadmin ga on ga.idGastosAdmin=gap.idGastosAdmin
+                          inner join proceso p  on p.idProceso=gap.idProceso;
+END$$
+DELIMITER ;
 
 
+DROP procedure IF EXISTS `insertar_gastosadminproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_gastosadminproceso` (in idGastosAdminI int,
+                                        in idProcesoI int,
+                                       in descripcionI varchar(45))
+BEGIN
+	insert into gastosadminproceso (idGastosAdmin,
+                            idProceso,
+                            descripcion)
+			values (idGastosAdminI,idProcesoI,descripcionI);
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `obtener_gastosadminproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_gastosadminproceso` (in idGastosAdminProcesoO int)
+BEGIN
+	select * from gastosadminproceso where idGastosAdminProceso=idGastosAdminProcesoO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_gastosadminproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_gastosadminproceso` (in idGastosAdminProcesoA int,
+										in idGastosAdminA int,
+                                        in idProcesoA int,
+                                        in descripcionA varchar(45))
+BEGIN
+	update gastosadminproceso set idGastosAdminProceso=idGastosAdminProcesoA,
+						idGastosAdmin=idGastosAdminA,
+                        idProceso=idProcesoA,
+                        descripcion=descripcionA
+				where idGastosAdminProceso=idGastosAdminProcesoA;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `eliminar_gastosadminproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_gastosadminproceso` (in idGastosAdminProcesoE int)
+BEGIN
+	delete from gastosadminproceso
+    where idGastosAdminProceso=idGastosAdminProcesoE;
+END$$
+DELIMITER ;
 
 
 

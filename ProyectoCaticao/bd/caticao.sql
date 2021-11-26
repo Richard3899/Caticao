@@ -94,15 +94,9 @@ idUnidadMedida int references UnidadMedida (idUnidadMedida),
 idMarca int references Marca(idMarca)
 );
 
-create table Costos (
-idCostos int auto_increment primary key,
-descripcion varchar(45)
-);
-
 create table TipoCostos(
 idTipoCostos int auto_increment primary key,
-descripcion varchar(45),
-idCostos int references Costos(idCostos)
+descripcion varchar(45)
 );
 
 
@@ -209,18 +203,6 @@ pagoPorBatch decimal(10,2),
 idMaquina int references Maquina (idMaquina)
 );
 
-create table CostosI(
-idCostosI int auto_increment primary key,
-costosDeProduccion decimal(10,2),
-unidadMedida decimal(10,2),
-tipoCosto decimal(10,2), 
-proceso decimal(10,2),
-precioUnitario decimal(10,2),
-requerimiento decimal(10,2),
-costo decimal(10,2),
-idReceta int references Receta(idReceta)
-);
-
 create table GastosAdmin(
 idGastosAdmin int auto_increment primary key,
 descripcion varchar(45),
@@ -242,6 +224,13 @@ idMateriaProceso int auto_increment primary key,
 descripcion varchar(45),
 idProceso int references Proceso(idProceso),
 idMateria int references Materia (idMateria)
+);
+
+create table GastosAdminProceso(
+idGastosAdminProceso int auto_increment primary key,
+descripcion varchar(45),
+idProceso int references Proceso(idProceso),
+idGastosAdmin int references GastosAdmin (idGastosAdmin)
 );
 
 alter table Usuario add foreign key (idPersona) references Persona(idPersona);
@@ -267,7 +256,6 @@ alter table Proceso add foreign key (idUnidadMedida) references UnidadMedida(idU
 
 alter table MateriaCostos add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table MateriaCostos add foreign key (idMateria) references Materia (idMateria);
-alter table TipoCostos add foreign key (idCostos) references Costos (idCostos);
 
 alter table RecetaMateria add foreign key (idMateria) references Materia(idMateria);
 alter table RecetaMateria add foreign key (idReceta) references Receta(idReceta);
@@ -277,12 +265,13 @@ alter table Lote add foreign key (idReceta) references Receta(idReceta);
 alter table Depreciacion add foreign key (idMaquina) references Maquina(idMaquina);
 alter table Proceso add foreign key (idMaquina) references Maquina(idMaquina);
 alter table ConsumoEnergia add foreign key (idMaquina) references Maquina(idMaquina);
-alter table CostosI add foreign key (idReceta) references Receta(idReceta);
 
 alter table GastosAdmin add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table GastosAdmin add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 alter table MateriaProceso add foreign key (idMateria) references Materia(idMateria);
+alter table GastosAdminProceso add foreign key (idGastosAdmin) references GastosAdmin(idGastosAdmin);
 alter table MateriaProceso add foreign key (idProceso) references Proceso(idProceso);
+alter table GastosAdminProceso add foreign key (idProceso) references Proceso(idProceso);
 
 alter table ManodeObra add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table ManodeObra add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
@@ -312,10 +301,8 @@ insert into Materia (idMateria,Nombre,descripcion,cantidad,idTipoMateria, idUnid
 values (1,'Leche descremada','En polvo',40,1,1,10),(2,'Cacao','Selecto',80,1,1,8),(3,'Pasas','Suaves',20,1,1,11),(4,'Pecanas','Suaves',20,1,1,12)
 ,(5,'Azucar','Blanca',20,1,1,2),(6,'Sal','De maras',20,1,1,9),(7,'Lecitina de soya','De calidad',20,1,3,7),(8,'Licor de cacao','Bueno',20,1,3,13),
 (9,'Leche entera','En polvo',20,1,1,1),(10,'Manteca de cacao','bueno',20,1,1,13);
-insert into Costos values (1,'Costo de Materia Prima e Insumos'),(2,'Costos de Servicios'),(3,'Costo de Depreciación'),
-(4,'Costo de Mano de obra'),(5,'Gastos Administrativos y otros');
 
-insert into TipoCostos values (1,'Variable',1),(2,'Fijo',5);
+insert into TipoCostos values (1,'Variable'),(2,'Fijo');
 
 insert into MateriaCostos values(1,'3.9',1,1);
 
@@ -341,11 +328,13 @@ insert into OrdenProduccionProceso values (1,'Se realiza el proceso de descascar
 insert into GastosAdmin values (1,'Jefe de Planta' , 1800 ,4,2);
 insert into ManodeObra values (1,'Selección' , 1800 ,4,2);
 insert into MateriaProceso values (1,'Prueba',1 ,1);
+insert into GastosAdminProceso values (1,'Prueba',1 ,1);
+
 
 use caticao;
 select*from RecetaMateria; 
 select*from materia;
-select*from Costos;
 select*from producto;
 select*from GastosAdmin;
 select*from MateriaProceso;
+select*from GastosAdminProceso;

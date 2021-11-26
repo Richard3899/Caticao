@@ -10,5 +10,9 @@
   <li class="nav-item">
     <a class="nav-link" href="ci_gastosadmin_registro.php">Gastos Administrativos y otros</a>
   </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="ci_gastosadminproceso_registro.php">Gastos y Proceso</a>
+  </li>
 </ul>
 <br>
