@@ -883,7 +883,19 @@ DELIMITER ;
 
 
 
+-- Procedimientos almacenados de Combo Box de Mano de Obra---------------------------------------------------------------------------------
 
+DROP procedure IF EXISTS `mostrar_combomanodeobra`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combomanodeobra` ()
+BEGIN
+select DISTINCT idManodeObra,descripcion
+	from manodeobra
+;
+END$$
+DELIMITER ;
 
 
 
@@ -1145,6 +1157,79 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+
+
+-- Procedimientos almacenados de Costo de Materia prima ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_manodeobraproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_manodeobraproceso` ()
+BEGIN
+select mop.idManodeObraProceso, mo.descripcion,
+            p.descripcion,mop.descripcion
+	from manodeobraproceso mop inner join manodeobra mo on mo.idManodeObra=mop.idManodeObra
+                               inner join proceso p  on p.idProceso=mop.idProceso;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `insertar_manodeobraproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_manodeobraproceso` (in idManodeObraI int,
+                                        in idProcesoI int,
+                                       in descripcionI varchar(45))
+BEGIN
+	insert into manodeobraproceso (idManodeObra,
+                            idProceso,
+                            descripcion)
+			values (idManodeObraI,idProcesoI,descripcionI);
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `obtener_manodeobraproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_manodeobraproceso` (in idManodeObraProcesoO int)
+BEGIN
+	select * from manodeobraproceso where idManodeObraProceso=idManodeObraProcesoO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_manodeobraproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_manodeobraproceso` (in idManodeObraProcesoA int,
+										in idManodeObraA int,
+                                        in idProcesoA int,
+                                        in descripcionA varchar(45))
+BEGIN
+	update manodeobraproceso set idManodeObraProceso=idManodeObraProcesoA,
+						idManodeObra=idManodeObraA,
+                        idProceso=idProcesoA,
+                        descripcion=descripcionA
+				where idManodeObraProceso=idManodeObraProcesoA;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `eliminar_manodeobraproceso`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_manodeobraproceso` (in idManodeObraProcesoE int)
+BEGIN
+	delete from manodeobraproceso
+    where idManodeObraProceso=idManodeObraProcesoE;
+END$$
+DELIMITER ;
 
 
 
