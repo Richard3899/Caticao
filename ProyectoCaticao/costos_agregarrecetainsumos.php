@@ -49,7 +49,7 @@ $idUnidadMedida = '';
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Agregar receta</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Receta Materia</h1>
 
                     <?php
                     incluirTemplate('nav_calcularcostos');
@@ -87,7 +87,7 @@ $idUnidadMedida = '';
 
 
                             <div class="form-group col-md-6">
-                            <label for="materia">Insumo</label>
+                            <label for="materia">Materia</label>
                             <select id='id_idMateria' name="idMateria" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
                                 <?php while ($materia=mysqli_fetch_assoc($resultado1)):?>
@@ -104,20 +104,6 @@ $idUnidadMedida = '';
                         </div>
 
                         <div class="form-row">
-
-                            <div class="form-group col-md-6">
-                            <label for="descripcion_Unidad">Unidad de Medida</label>
-                            <select id='id_idUnidadMedida' name="idUnidadMedida" class='form-control' required>
-                            <option selected disabled value="">Seleccione</option>
-                                <?php while ($unidad=mysqli_fetch_assoc($resultado3)):?>
-                                <option <?php echo $idUnidadMedida == $unidad['idUnidadMedida'] ? 'selected' : '';?> 
-                                value= "<?php echo $unidad['idUnidadMedida'];?>">
-                                <?php echo $unidad ['descripcion'];?> </option>
-                             <?php endwhile; ?>
-                        
-                            </select>
-                           
-                            </div>
 
                             <div class="form-group col-md-6">
                             <label for="precio">Cantidad</label>

@@ -10,6 +10,11 @@
                         $resultado1= mysqli_query($db1, $consulta1);
                         $idMaquina = '';
 
+                        $db3=conexion();
+                        $consulta3="CALL mostrar_combotipocostos";
+                        $resultado3= mysqli_query($db3, $consulta3);
+                        $idTipoCostos = '';
+
 
                         if  (isset($_GET['idDepreciacion'])) {
 
@@ -26,6 +31,7 @@
                             $importe = $row['importe'];
                             $vidautil = $row['vidaUtil'];
                             $idMaquina = $row['idMaquina'];
+                            $idTipoCostos = $row['idTipoCostos'];
                         }
 
     
@@ -36,9 +42,9 @@
 	                        $idDepreciacion = $_GET['idDepreciacion'];
                             $importe = $_POST['importe'];
                             $vidautil = $_POST['vidautil'];
+                            $idTipoCostos = $_POST['idTipoCostos'];
                        
-
-	                        $sql="CALL actualizar_depreciacion('$idDepreciacion','$importe','$vidautil')";
+	                        $sql="CALL actualizar_depreciacion('$idDepreciacion','$importe','$vidautil','$idTipoCostos')";
 									
                             $result = mysqli_query($conexion, $sql);
 
@@ -90,7 +96,7 @@
                         <form action="ci_depreciacion_edit.php?idDepreciacion=<?php echo $_GET['idDepreciacion']; ?>" method="POST">
                        
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                             <label for="maquina">Maquina</label>
                             <select id='id_idMaquina' name="idMaquina" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
@@ -102,12 +108,29 @@
                             </select>
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                             <label for="importe">Importe de la maquina</label>
                             <input type="number" step="any" class="form-control" id="id_importe" value="<?php echo $importe;?>" name="importe" placeholder="Importe" required>
                             </div>
 
-                            <div class="form-group col-md-4">
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                            <label for="categoria">Tipo de Costo</label>
+                            <select id='id_idCategoria' name="idTipoCostos" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($tipocostos=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idTipoCostos == $tipocostos['idTipoCostos'] ? 'selected' : '';?> 
+                                value="<?php echo $tipocostos['idTipoCostos'];?>">
+                                <?php echo $tipocostos['Descripcion'];?> </option>
+                              <?php endwhile; ?>
+                            </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
                             <label for="vidautil">Vida util</label>
                             <input type="number" step="any" class="form-control" id="id_vidautil" value="<?php echo $vidautil;?>" name="vidautil" placeholder="Vida util" required>
                             </div>

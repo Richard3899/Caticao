@@ -9,10 +9,8 @@ if (isset($_POST['save_agregarrecetainsumos'])) {
     $cantidad= $_POST['cantidad'];
 	  $idMateria= $_POST['idMateria'];
     $idReceta= $_POST['idReceta'];
-    $idUnidadMedida= $_POST['idUnidadMedida'];
 
-
-	  $sql="CALL insertar_recetainsumos('$cantidad','$idMateria','$idReceta','$idUnidadMedida')";
+	  $sql="CALL insertar_recetainsumos('$cantidad','$idMateria','$idReceta')";
 
     $result = mysqli_query($conexion, $sql);
 

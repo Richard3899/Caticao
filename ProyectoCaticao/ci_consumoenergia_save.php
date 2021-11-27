@@ -8,8 +8,9 @@ if (isset($_POST['save_consumoenergia'])) {
     $conexion=conexion();
     $tarifa= $_POST['tarifa'];
     $idMaquina= $_POST['idMaquina'];
+    $idTipoCostos= $_POST['idTipoCostos'];
 
-	  $sql="CALL insertar_consumoenergia('$tarifa','$idMaquina')";
+	  $sql="CALL insertar_consumoenergia('$tarifa','$idMaquina','$idTipoCostos')";
 
     $result = mysqli_query($conexion, $sql);
 

@@ -79,7 +79,7 @@
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar Receta </h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar de Receta </h1>
 
                         
                         <form action="costos_agregarreceta_edit.php?idReceta=<?php echo $_GET['idReceta']; ?>" method="POST">

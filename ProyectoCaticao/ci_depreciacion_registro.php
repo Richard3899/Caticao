@@ -10,6 +10,10 @@ $consulta1="CALL mostrar_combomaquinadepreciacion";
 $resultado1= mysqli_query($db1, $consulta1);
 $idMaquina = '';
 
+$db3=conexion();
+$consulta3="CALL mostrar_combotipocostos";
+$resultado3= mysqli_query($db3, $consulta3);
+$idTipoCostos = '';
 
 ?>
 
@@ -58,7 +62,8 @@ $idMaquina = '';
                         <form  method="POST" action="ci_depreciacion_save.php" enctype="multipart/form-data" id="id_form">
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+
+                            <div class="form-group col-md-6">
                             <label for="maquina">Maquina</label>
                             <select id='id_idMaquina' name="idMaquina" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
@@ -67,23 +72,36 @@ $idMaquina = '';
                                 value="<?php echo $maquina['idMaquina'];?>">
                                 <?php echo $maquina['nombre'];?> </option>
                               <?php endwhile; ?>
-                        
                             </select>
-
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                             <label for="importe">Importe de la maquina</label>
                             <input type="number" step="any" class="form-control" id="id_importe" value="" name="importe" placeholder="Importe" required>
                             </div>
 
-                            <div class="form-group col-md-4">
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                            <label for="categoria">Tipo de Costo</label>
+                            <select id='id_idCategoria' name="idTipoCostos" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($tipocostos=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idTipoCostos == $tipocostos['idTipoCostos'] ? 'selected' : '';?> 
+                                value="<?php echo $tipocostos['idTipoCostos'];?>">
+                                <?php echo $tipocostos['Descripcion'];?> </option>
+                              <?php endwhile; ?>
+                            </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
                             <label for="vidautil">Vida util</label>
                             <input type="number" step="any" class="form-control" id="id_vidautil" value="" name="vidautil" placeholder="Vida util" required>
                             </div>
 
                         </div>
-
 
                         <button type="submit" class="btn btn-primary" name="save_depreciacion">Crear</button>
                 
@@ -108,6 +126,7 @@ $idMaquina = '';
                                             <th>Dep. Mensual</th>
                                             <th>Dep. por Hora</th>
                                             <th>Uso (Hora) Batch</th>
+                                            <th>Tipo de costo</th>
                                             <th>Dep. por Batch</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
@@ -155,6 +174,9 @@ $idMaquina = '';
                                              </td>
                                              <td>
                                             <?php echo $row[8] ?>
+                                             </td>
+                                             <td>
+                                            <?php echo $row[9] ?>
                                              </td>
 
                                              <td>
@@ -215,12 +237,16 @@ $idMaquina = '';
                                                 
                                              </td>
                                              <td>
-                                             <?php echo $row[0] ?> 
+                                             
+                                                
+                                             </td>
+                                             <td>
+                                             
                                                 
                                              </td>
                                              <td>
                                                 
-                                                
+                                             <?php echo $row[0] ?> 
                                              </td>
                                              <td>
                                                 

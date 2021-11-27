@@ -416,13 +416,12 @@ CREATE PROCEDURE `mostrar_recetainsumos` ()
 BEGIN
 select  rm.idRecetaMateria,r.descripcion,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,
 		CONCAT(m.cantidad , ' - ' , um.descripcion) as 'Cantidad en Sotck',
-        CONCAT(TRUNCATE(rm.cantidad,0) , ' - ' , um1.descripcion) as 'Peso Neto',mc.precioUnitario,
-        TRUNCATE((rm.cantidad/1000)*mc.precioUnitario,2) as Costo
+        CONCAT(TRUNCATE(rm.cantidad,2) , ' - ' , um.descripcion ) as 'Peso Neto',mc.precioUnitario,
+        TRUNCATE(rm.cantidad*mc.precioUnitario,2) as Costo
            
 	from recetamateria rm inner join receta r on rm.idReceta=r.idReceta
 					      inner join materia m on m.idMateria=rm.idMateria
                           inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
-                          inner join unidadmedida um1  on um1.idUnidadMedida=rm.idUnidadMedida
                           inner join marca mr on mr.idMarca = m.idMarca
                           left join materiacostos mc on mc.idMateria = m.idMateria;
                           
@@ -437,7 +436,7 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_recetainsumostotal` ()
 BEGIN
-select SUM(TRUNCATE((rm.cantidad/1000)*mc.precioUnitario,2)) as Costo
+select SUM(TRUNCATE(rm.cantidad*mc.precioUnitario,2)) as Costo
            
 	from recetamateria rm inner join receta r on rm.idReceta=r.idReceta
 					      inner join materia m on m.idMateria=rm.idMateria
@@ -453,12 +452,11 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `insertar_recetainsumos` (in cantidadI decimal(10,2),
                                         in idMateriaI int,
-                                        in idRecetaI int,
-                                        in idUnidadMedidaI int
+                                        in idRecetaI int
                                         )
 BEGIN
-	insert into recetamateria (cantidad,idMateria,idReceta,idUnidadMedida)
-			values (cantidadI,idMateriaI,idRecetaI,idUnidadMedidaI);
+	insert into recetamateria (cantidad,idMateria,idReceta)
+			values (cantidadI,idMateriaI,idRecetaI);
 END$$
 
 DELIMITER ;
@@ -482,15 +480,13 @@ USE `caticao`$$
 CREATE PROCEDURE `actualizar_recetainsumos` (in idRecetaMateriaA int,
 										in cantidadA decimal(10,2),
 										in idMateriaA int,
-                                        in idRecetaA int,
-                                        in idUnidadMedidaA int
+                                        in idRecetaA int				
                                             )
 BEGIN
 	update recetamateria set idRecetaMateria=idRecetaMateriaA,
 						cantidad=cantidadA,
 						idMateria=idMateriaA,
-                        idReceta=idRecetaA,
-                        idUnidadMedida=idUnidadMedidaA
+                        idReceta=idRecetaA
 				where idRecetaMateria=idRecetaMateriaA;
 END$$
 DELIMITER ;
@@ -561,8 +557,9 @@ USE `caticao`$$
 CREATE PROCEDURE `mostrar_consumoenergia` ()
 BEGIN
 select ce.idConsumoEnergia, m.nombre, ce.potenciaHP,ce.potenciawatts,ce.potenciaKw,ce.horasTrabajoBatch,
-ce.consumoKwh,ce.tarifaKwh,ce.pagoPorBatch
-	from ConsumoEnergia ce  inner join  maquina m on m.idMaquina= ce.idMaquina;
+ce.consumoKwh,tc.descripcion,ce.tarifaKwh,ce.pagoPorBatch
+	from ConsumoEnergia ce  inner join  maquina m on m.idMaquina= ce.idMaquina
+							inner join  tipocostos tc on tc.idTipoCostos= ce.idTipoCostos;
 END$$
 DELIMITER ;
 
@@ -571,11 +568,11 @@ DROP procedure IF EXISTS `insertar_consumoenergia`;
 DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `insertar_consumoenergia` (in tarifaKwhI decimal(10,2),
-											 in idMaquinaI int)
+											 in idMaquinaI int,in idTipoCostosI int)
                                         
 BEGIN
-	insert into consumoenergia (potenciaHP,potenciawatts,potenciaKw,horasTrabajoBatch,consumoKwh,tarifaKwh,pagoPorBatch,idMaquina)
-			values (1,potenciaHP*745,potenciawatts/1000,0.40,potenciaKw*horasTrabajoBatch,tarifaKwhI,consumoKwh*tarifaKwhI,idMaquinaI);
+	insert into consumoenergia (potenciaHP,potenciawatts,potenciaKw,horasTrabajoBatch,consumoKwh,idTipoCostos,tarifaKwh,pagoPorBatch,idMaquina)
+			values (1,potenciaHP*745,potenciawatts/1000,0.40,potenciaKw*horasTrabajoBatch,idTipoCostosI,tarifaKwhI,consumoKwh*tarifaKwhI,idMaquinaI);
 END$$
 
 DELIMITER ;
@@ -598,20 +595,17 @@ DROP procedure IF EXISTS `actualizar_consumoenergia`;
 DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `actualizar_consumoenergia` (in idConsumoEnergiaA int,
-                                        in tarifaKwhA decimal(10,2))
+											  in tarifaKwhA decimal(10,2),
+                                              in idTipoCostosI int)
 BEGIN
 	update consumoenergia set idConsumoEnergia=idConsumoEnergiaA,
 						tarifaKwh=tarifaKwhA,
+                        idTipoCostos=idTipoCostosI,
                         pagoPorBatch=consumoKwh*tarifaKwhA
 				where idConsumoEnergia=idConsumoEnergiaA;
 END$$
-
 DELIMITER ;
 
-
-update consumoenergia set idConsumoEnergia=1,
-						tarifaKwh=1
-				where idConsumoEnergia=1;
 
 DROP procedure IF EXISTS `eliminar_consumoenergia`;
 
@@ -651,46 +645,50 @@ USE `caticao`$$
 CREATE PROCEDURE `mostrar_depreciacion` ()
 BEGIN
 select d.idDepreciacion, m.nombre,d.importe,d.vidautil,d.depreciacionAnual,d.depreciacionMensual,d.depreciacionHora,
-	   d.tiempoDeUso,d.depreciacionPorBatch
-	from depreciacion d  inner join  maquina m on m.idMaquina= d.idMaquina;
+	   d.tiempoDeUso,tc.descripcion,d.depreciacionPorBatch
+	from depreciacion d  inner join  maquina m on m.idMaquina= d.idMaquina
+						 inner join  tipocostos tc on tc.idTipoCostos= d.idTipoCostos;
 END$$
 DELIMITER ;
 
 
 DROP procedure IF EXISTS `insertar_depreciacion`;
+
 DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `insertar_depreciacion` (   in importeI decimal(10,2),
 											 in vidaUtilI int,
-                                             in idMaquinaI int)
+                                             in idMaquinaI int,
+                                             in idTipoCostosI int)
                                         
 BEGIN
 	insert into depreciacion (importe,vidaUtil,depreciacionAnual,depreciacionMensual,depreciacionHora,
-                                tiempoDeUso,depreciacionPorBatch,idMaquina)
+                                tiempoDeUso,idTipoCostos,depreciacionPorBatch,idMaquina)
 			values (importeI,vidaUtilI,importeI/vidaUtilI,depreciacionAnual/12,depreciacionMensual/(25*24),
-                    0.4,depreciacionHora*tiempoDeUso,idMaquinaI);
+                    0.4,idTipoCostosI,depreciacionHora*tiempoDeUso,idMaquinaI);
 END$$
-
 DELIMITER ;
 
 
 DROP procedure IF EXISTS `obtener_depreciacion`;
+
 DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `obtener_depreciacion` (in idDepreciacionO int)
 BEGIN
 	select * from depreciacion where idDepreciacion=idDepreciacionO;
 END$$
-
 DELIMITER ;
 
 
 DROP procedure IF EXISTS `actualizar_depreciacion`;
+
 DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `actualizar_depreciacion` (in idDepreciacionA int,
                                         in importeA decimal(10,2),
-                                        in vidaUtilA int)
+                                        in vidaUtilA int,
+                                        in idTipoCostosA int)
 BEGIN
 	update depreciacion set idDepreciacion=idDepreciacionA,
 						importe=importeA,
@@ -698,10 +696,10 @@ BEGIN
                         depreciacionAnual=importeA/vidaUtilA,
                         depreciacionMensual=depreciacionAnual/12,
                         depreciacionHora=depreciacionMensual/(25*24),
+                        idTipoCostos=idTipoCostosA,
                         depreciacionPorBatch=depreciacionHora*tiempoDeUso
 				where idDepreciacion=idDepreciacionA;
 END$$
-
 DELIMITER ;
 
 
@@ -714,7 +712,6 @@ BEGIN
 	delete from depreciacion 
     where idDepreciacion=idDepreciacionE;
 END$$
-
 DELIMITER ;
 
 
@@ -1201,4 +1198,3 @@ from recetamateria rm inner join receta r on rm.idreceta=r.idreceta;
 END$$
 DELIMITER ;
 use caticao;
-

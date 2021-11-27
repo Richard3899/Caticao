@@ -10,6 +10,10 @@ $consulta1="CALL mostrar_combomaquinaenergia";
 $resultado1= mysqli_query($db1, $consulta1);
 $idMaquina = '';
 
+$db3=conexion();
+$consulta3="CALL mostrar_combotipocostos";
+$resultado3= mysqli_query($db3, $consulta3);
+$idTipoCostos = '';
 
 ?>
 
@@ -58,7 +62,7 @@ $idMaquina = '';
                         <form  method="POST" action="ci_consumoenergia_save.php" enctype="multipart/form-data" id="id_form">
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="maquina">Maquina</label>
                             <select id='id_idMaquina' name="idMaquina" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
@@ -69,9 +73,21 @@ $idMaquina = '';
                               <?php endwhile; ?>
                         
                             </select>
-
                             </div>
-                            <div class="form-group col-md-6">
+
+                            <div class="form-group col-md-4">
+                            <label for="categoria">Tipo de Costo</label>
+                            <select id='id_idCategoria' name="idTipoCostos" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($tipocostos=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idTipoCostos == $tipocostos['idTipoCostos'] ? 'selected' : '';?> 
+                                value="<?php echo $tipocostos['idTipoCostos'];?>">
+                                <?php echo $tipocostos['Descripcion'];?> </option>
+                              <?php endwhile; ?>
+                            </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
                             <label for="tarifa">Tarifa Electrocentro</label>
                             <input type="number" step="any" class="form-control" id="id_tarifa" value="" name="tarifa" placeholder="Tarifa" required>
                             </div>
@@ -95,11 +111,12 @@ $idMaquina = '';
                                         <tr>
                                             <th>N°</th>
                                             <th>Maquina</th>
-                                            <th>Potencia HP</th>
-                                            <th>Potencia Watts</th>
-                                            <th>Potencia en Kw</th>
+                                            <th>Pot. HP</th>
+                                            <th>Pot. Watts</th>
+                                            <th>Pot. en Kw</th>
                                             <th>HT por Batch</th>
                                             <th>Consumo Kwh</th>
+                                            <th>Tipo de Costo</th>
                                             <th>Tarifa Kwh</th>
                                             <th>Pago por Batch</th>
                                             <th>Editar</th>
@@ -149,7 +166,9 @@ $idMaquina = '';
                                              <td>
                                             <?php echo $row[8] ?>
                                              </td>
-
+                                             <td>
+                                            <?php echo $row[9] ?>
+                                             </td>
                                              <td>
                                                 
                                              <a class="btn btn-warning" href="ci_consumoenergia_edit.php?idConsumoEnergia=<?php echo $row[0] ?>" >
@@ -203,6 +222,10 @@ $idMaquina = '';
 
                                              </td>
                                              
+                                             <td>
+                                                
+                                                
+                                             </td>
                                              <td>
                                                 
                                                 

@@ -39,7 +39,7 @@ $idProducto = '';
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Agregar receta</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Receta</h1>
 
                     <?php
                     incluirTemplate('nav_calcularcostos');
@@ -77,7 +77,7 @@ $idProducto = '';
 
 
                             <div class="form-group col-md-6">
-                            <label for="descripción"> Descripción </label>
+                            <label for="descripción"> Descripción de la receta </label>
                             <input type="text" class="form-control" id="iddescripcion" value="" name="descripcion" placeholder="Descripción">
                             </div>
 

@@ -103,6 +103,7 @@ $idTipoCostos = '';
                         </div>
 
                         <button type="submit" class="btn btn-primary" name="save_manodeobra">Crear</button>
+                        <a class="btn btn-success float-right" href="cd_manodeobraproceso_registro.php" role="button">Agregar Mano de obra en su proceso</a>
                         </form>
                         
                         <br>

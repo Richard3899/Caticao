@@ -103,6 +103,7 @@ $idTipoCostos = '';
                         </div>
 
                         <button type="submit" class="btn btn-primary" name="save_gastosadmin">Crear</button>
+                        <a class="btn btn-success float-right" href="ci_gastosadminproceso_registro.php" role="button">Agregar Gastos en su proceso</a>
                         </form>
                         
                         <br>

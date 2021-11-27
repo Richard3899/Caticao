@@ -85,13 +85,8 @@ $idTipoCostos = '';
                                 value="<?php echo $tipocostos['idTipoCostos'];?>">
                                 <?php echo $tipocostos['Descripcion'];?> </option>
                               <?php endwhile; ?>
-                        
                             </select>
-
                             </div>
-
-                            
-                            
 
                         </div>
 
@@ -108,6 +103,7 @@ $idTipoCostos = '';
                         </div>
 
                         <button type="submit" class="btn btn-primary" name="save_agregarcostomateria">Crear</button>
+                        <a class="btn btn-success float-right" href="cd_materiaproceso_registro.php" role="button">Agregar Materia en su proceso</a>
                         </form>
 
                         <br>

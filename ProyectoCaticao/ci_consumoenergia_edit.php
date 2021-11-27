@@ -9,6 +9,10 @@
                         $resultado1= mysqli_query($db1, $consulta1);
                         $idMaquina = '';
 
+                        $db3=conexion();
+                        $consulta3="CALL mostrar_combotipocostos";
+                        $resultado3= mysqli_query($db3, $consulta3);
+                        $idTipoCostos = '';
 
                         if  (isset($_GET['idConsumoEnergia'])) {
 
@@ -24,6 +28,8 @@
                             $row = mysqli_fetch_array($result);
                             $tarifa = $row['tarifaKwh'];
                             $idMaquina = $row['idMaquina'];
+                            $idTipoCostos = $row['idTipoCostos'];
+
                         }
 
     
@@ -33,9 +39,10 @@
                             $conexion=conexion();
 	                        $idConsumoEnergia = $_GET['idConsumoEnergia'];
                             $tarifa = $_POST['tarifa'];
+                            $idTipoCostos = $_POST['idTipoCostos'];
                        
 
-	                        $sql="CALL actualizar_consumoenergia('$idConsumoEnergia','$tarifa')";
+	                        $sql="CALL actualizar_consumoenergia('$idConsumoEnergia','$tarifa','$idTipoCostos')";
 									
                             $result = mysqli_query($conexion, $sql);
 
@@ -87,7 +94,7 @@
                         <form action="ci_consumoenergia_edit.php?idConsumoEnergia=<?php echo $_GET['idConsumoEnergia']; ?>" method="POST">
                        
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="maquina">Maquina</label>
                             <select id='id_idMaquina' name="idMaquina" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
@@ -99,9 +106,19 @@
                             </select>
                             </div>
 
-                            
+                            <div class="form-group col-md-4">
+                            <label for="categoria">Tipo de Costo</label>
+                            <select id='id_idCategoria' name="idTipoCostos" class='form-control' required>
+                                <option selected disabled value="">Seleccione</option>
+                                <?php while ($tipocostos=mysqli_fetch_assoc($resultado3)):?>
+                                <option <?php echo $idTipoCostos == $tipocostos['idTipoCostos'] ? 'selected' : '';?> 
+                                value="<?php echo $tipocostos['idTipoCostos'];?>">
+                                <?php echo $tipocostos['Descripcion'];?> </option>
+                              <?php endwhile; ?>
+                            </select>
+                            </div>
                          
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                             <label for="tarifa">Tarifa Electrocentro</label>
                             <input type="number" step="any" class="form-control" id="id_tarifa" value="<?php echo $tarifa;?>" name="tarifa" placeholder="Tarifa" required>
                             </div>

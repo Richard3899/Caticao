@@ -14,10 +14,6 @@
                         $resultado2= mysqli_query($db2, $consulta2);
                         $idReceta = '';
 
-                        $db3=conexion();
-                        $consulta3="CALL mostrar_combounidadmedida";
-                        $resultado3= mysqli_query($db3, $consulta3);
-                        $idUnidadMedida = '';
 
                         if  (isset($_GET['idRecetaMateria'])) {
 
@@ -34,7 +30,6 @@
                             $cantidad = $row['cantidad'];
                             $idMateria = $row['idMateria'];
                             $idReceta = $row['idReceta'];
-                            $idUnidadMedida = $row['idUnidadMedida'];
      
                         }
 
@@ -46,11 +41,9 @@
                             $cantidad = $_POST['cantidad'];
                             $idMateria = $_POST['idMateria'];
                             $idReceta = $_POST['idReceta'];
-                            $idUnidadMedida = $_POST['idUnidadMedida'];
 
 	                        $sql="CALL actualizar_recetainsumos('$idRecetaMateria','$cantidad','$idMateria',
-									'$idReceta',
-									'$idUnidadMedida')";
+									'$idReceta')";
 									
 	                        mysqli_query($conexion,$sql);
                             
@@ -92,7 +85,7 @@
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar insumos de la receta </h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar Receta Materia </h1>
 
                     
                         <form action="costos_agregarrecetainsumos_edit.php?idRecetaMateria=<?php echo $_GET['idRecetaMateria']; ?>" method="POST">
@@ -131,20 +124,6 @@
 
 
                         <div class="form-row">
-
-                        <div class="form-group col-md-6">
-                            <label for="descripcion_Unidad">Unidad de Medida</label>
-                            <select id='id_idUnidadMedida' name="idUnidadMedida" class='form-control' required>
-                            <option selected disabled value="">Seleccione</option>
-                                <?php while ($unidad=mysqli_fetch_assoc($resultado3)):?>
-                                <option <?php echo $idUnidadMedida == $unidad['idUnidadMedida'] ? 'selected' : '';?> 
-                                value= "<?php echo $unidad['idUnidadMedida'];?>">
-                                <?php echo $unidad ['descripcion'];?> </option>
-                             <?php endwhile; ?>
-                        
-                            </select>
-                           
-                            </div>
 
                             <div class="form-group col-md-6">
                             <label for="precio">Cantidad</label>

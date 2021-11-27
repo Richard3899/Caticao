@@ -9,8 +9,9 @@ if (isset($_POST['save_depreciacion'])) {
     $importe= $_POST['importe'];
     $vidautil= $_POST['vidautil'];
     $idMaquina= $_POST['idMaquina'];
+    $idTipoCostos= $_POST['idTipoCostos'];
 
-	  $sql="CALL insertar_depreciacion('$importe','$vidautil','$idMaquina')";
+	  $sql="CALL insertar_depreciacion('$importe','$vidautil','$idMaquina','$idTipoCostos')";
 
     $result = mysqli_query($conexion, $sql);
 
