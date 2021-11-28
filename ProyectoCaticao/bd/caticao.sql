@@ -252,12 +252,11 @@ idReceta int references Receta (idReceta)
 );
 
 create table GastosAdminReceta(
-idConsumoEnergiaReceta int auto_increment primary key,
+idGastosAdminReceta int auto_increment primary key,
 cantidad decimal(10,2),
 idGastosAdmin int references GastosAdmin (idGastosAdmin),
 idReceta int references Receta (idReceta)
 );
-
 
 
 alter table Usuario add foreign key (idPersona) references Persona(idPersona);

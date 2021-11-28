@@ -1391,7 +1391,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL actualizar_manodeobrareceta('5','2', '1');
 
 DROP procedure IF EXISTS `eliminar_consumoenergiareceta`;
 
@@ -1512,6 +1511,107 @@ select SUM(TRUNCATE(d.depreciacionPorBatch,2)) as Costo
 					              inner join depreciacion d on d.idDepreciacion=dr.idDepreciacion;
 END$$
 DELIMITER ;
+
+
+
+-- Procedimientos almacenados de Combo Box de Gastos Administrativos--------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_combogastosadmin`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combogastosadmin` ()
+BEGIN
+select DISTINCT idGastosAdmin,descripcion
+	from gastosadmin ;
+
+END$$
+DELIMITER ;
+
+
+-- Procedimientos almacenados de Gastos Administrativos y Receta ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_gastosadminreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_gastosadminreceta` ()
+BEGIN
+select gar.idGastosAdminReceta,r.descripcion,ga.descripcion,ga.precioUnitario,
+TRUNCATE(gar.cantidad,2) as cantidad,TRUNCATE(gar.cantidad*ga.precioUnitario,2) as Costo
+	from gastosadminreceta gar inner join gastosadmin ga on ga.idGastosAdmin=gar.idGastosAdmin
+                                  inner join receta r  on r.idReceta=gar.idReceta;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `insertar_gastosadminreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_gastosadminreceta` (in idGastosAdminI int,
+                                                  in idRecetaI int,in cantidadI decimal(10,2))
+BEGIN
+	insert into gastosadminreceta (idGastosAdmin,
+                            idReceta,cantidad )
+			values (idGastosAdminI,idRecetaI,cantidadI);
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_gastosadminreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_gastosadminreceta` (in idGastosAdminRecetaO int)
+BEGIN
+	select * from gastosadminreceta where idGastosAdminReceta=idGastosAdminRecetaO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_gastosadminreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_gastosadminreceta` (in idGastosAdminRecetaA int,
+												 in idGastosAdminA int,
+												 in idRecetaA int,
+                                                 in cantidadA decimal(10,2))
+BEGIN
+	update gastosadminreceta set idGastosAdminReceta=idGastosAdminRecetaA,
+									idGastosAdmin=idGastosAdminA,
+									idReceta=idRecetaA,
+                                    cantidad=cantidadA
+				where idGastosAdminReceta=idGastosAdminRecetaA;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `eliminar_gastosadminreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_gastosadminreceta` (in idGastosAdminRecetaE int)
+BEGIN
+	delete from gastosadminreceta
+    where idGastosAdminReceta=idGastosAdminRecetaE;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `mostrar_recetagastosadmintotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetagastosadmintotal` ()
+BEGIN
+select SUM(TRUNCATE(gar.cantidad*ga.precioUnitario,2)) as Costo
+    from gastosadminreceta gar inner join receta r on r.idReceta=gar.idReceta
+					              inner join gastosadmin ga on ga.idGastosAdmin=gar.idGastosAdmin;
+END$$
+DELIMITER ;
+
+
+
 
 
 
