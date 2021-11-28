@@ -1335,7 +1335,7 @@ DELIMITER ;
 
 
 
--- Procedimientos almacenados de Costo de Mano de obra y proceso ---------------------------------------------------------------------------------
+-- Procedimientos almacenados de Consumo de Energia y Receta ---------------------------------------------------------------------------------
 
 DROP procedure IF EXISTS `mostrar_consumoenergiareceta`;
 
@@ -1418,10 +1418,100 @@ DELIMITER ;
 
 
 
+-- Procedimientos almacenados de Combo Box de Depreciación--------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_combodepreciacion`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_combodepreciacion` ()
+BEGIN
+select DISTINCT ce.idDepreciacion,CONCAT('Depreciación de  ',m.nombre) as nombre
+	from depreciacion ce inner join maquina m on m.idMaquina= ce.idMaquina;
+
+END$$
+DELIMITER ;
 
 
 
+-- Procedimientos almacenados de Depreciacion y Receta ---------------------------------------------------------------------------------
 
+DROP procedure IF EXISTS `mostrar_depreciacionreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_depreciacionreceta` ()
+BEGIN
+select dr.idDepreciacionReceta,r.descripcion, CONCAT('Depreciación de ',m.nombre) as nombre,d.depreciacionPorBatch
+	from depreciacionreceta dr inner join depreciacion d on d.idDepreciacion=dr.idDepreciacion
+                                  inner join receta r  on r.idReceta=dr.idReceta
+                                  inner join maquina m on m.idMaquina= d.idMaquina;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `insertar_depreciacionreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_depreciacionreceta` (in idDepreciacionI int,
+                                                  in idRecetaI int)
+BEGIN
+	insert into depreciacionreceta (idDepreciacion,
+                            idReceta )
+			values (idDepreciacionI,idRecetaI);
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_depreciacionreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_depreciacionreceta` (in idDepreciacionRecetaO int)
+BEGIN
+	select * from depreciacionreceta where idDepreciacionReceta=idDepreciacionRecetaO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_depreciacionreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_depreciacionreceta` (in idDepreciacionRecetaA int,
+										in idDepreciacionA int,
+                                        in idRecetaA int)
+BEGIN
+	update depreciacionreceta set idDepreciacionReceta=idDepreciacionRecetaA,
+									idDepreciacion=idDepreciacionA,
+									idReceta=idRecetaA
+				where idDepreciacionReceta=idDepreciacionRecetaA;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `eliminar_depreciacionreceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_depreciacionreceta` (in idDepreciacionRecetaE int)
+BEGIN
+	delete from depreciacionreceta
+    where idDepreciacionReceta=idDepreciacionRecetaE;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `mostrar_recetadepreciaciontotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetadepreciaciontotal` ()
+BEGIN
+select SUM(TRUNCATE(d.depreciacionPorBatch,2)) as Costo
+    from depreciacionreceta dr inner join receta r on r.idReceta=dr.idReceta
+					              inner join depreciacion d on d.idDepreciacion=dr.idDepreciacion;
+END$$
+DELIMITER ;
 
 
 

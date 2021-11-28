@@ -13,9 +13,9 @@ $idReceta = '';
 
 
 $db2=conexion();
-$consulta2="CALL mostrar_comboconsumoenergia";
+$consulta2="CALL mostrar_combodepreciacion";
 $resultado2= mysqli_query($db2, $consulta2);
-$idConsumoEnergia = '';
+$idDepreciacion = '';
 
 
 ?>
@@ -45,7 +45,7 @@ $idConsumoEnergia = '';
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Receta y Consumo de Energía</h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Receta y Depreciación</h1>
 
                     <?php
                     incluirTemplate('nav_costosindirectos');
@@ -63,7 +63,7 @@ $idConsumoEnergia = '';
 
 
                         
-                        <form  method="POST" action="ci_consumoenergiareceta_save.php" enctype="multipart/form-data">
+                        <form  method="POST" action="ci_depreciacionreceta_save.php" enctype="multipart/form-data">
 
                         <div class="form-row">
                             
@@ -81,13 +81,13 @@ $idConsumoEnergia = '';
 
 
                             <div class="form-group col-md-6">
-                            <label for="descripcion_Mano de obra">Consumo de Energía</label>
-                            <select id='id_idConsumoEnergia' name="idConsumoEnergia" class='form-control' required>
+                            <label for="descripcion_Mano de obra">Maquina</label>
+                            <select id='id_idDepreciacion' name="idDepreciacion" class='form-control' required>
                             <option selected disabled value="">Seleccione</option>
-                                <?php while ($consumoenergia=mysqli_fetch_assoc($resultado2)):?>
-                                <option <?php echo $idConsumoEnergia == $consumoenergia['idConsumoEnergia'] ? 'selected' : '';?> 
-                                value= "<?php echo $consumoenergia['idConsumoEnergia'];?>">
-                                <?php echo $consumoenergia ['nombre'];?> </option>
+                                <?php while ($depreciacion=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idDepreciacion == $depreciacion['idDepreciacion'] ? 'selected' : '';?> 
+                                value= "<?php echo $depreciacion['idDepreciacion'];?>">
+                                <?php echo $depreciacion ['nombre'];?> </option>
                              <?php endwhile; ?>
                             </select>
                             </div>
@@ -96,17 +96,16 @@ $idConsumoEnergia = '';
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary" name="save_consumoenergiareceta">Crear</button>
+                        <button type="submit" class="btn btn-primary" name="save_depreciacionreceta">Crear</button>
                         </form>
 
                         <br>
 
 
-    
                         <div class="card mb-2">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tabla de Consumo de Energía y Receta
+                                Tabla de Depreciación y Receta
                             </div>
                             <div class="card-body">
                                 <table id="tabla" class="table table-hover  table-bordered" style="width:100%">
@@ -128,7 +127,7 @@ $idConsumoEnergia = '';
 
                                         $conexion=conexion();
 
-                                        $sql="CALL mostrar_consumoenergiareceta";
+                                        $sql="CALL mostrar_depreciacionreceta";
                                         $result=mysqli_query($conexion,$sql);
 
                                         while($row = mysqli_fetch_array($result)){ ?>
@@ -149,14 +148,14 @@ $idConsumoEnergia = '';
             
                                              <td>
                                                 
-                                             <a class="btn btn-warning" href="ci_consumoenergiareceta_edit.php?idConsumoEnergiaReceta=<?php echo $row[0] ?>" >
+                                             <a class="btn btn-warning" href="ci_depreciacionreceta_edit.php?idDepreciacionReceta=<?php echo $row[0] ?>" >
                                              <i class="bi bi-pencil-square"></i>
                                              </a>
                                                 
                                              </td>
 
                                              <td>
-                                             <a class="btn btn-danger" href="ci_consumoenergiareceta_delete.php?idConsumoEnergiaReceta=<?php echo $row[0]?>" >
+                                             <a class="btn btn-danger" href="ci_depreciacionreceta_delete.php?idDepreciacionReceta=<?php echo $row[0]?>" >
                                              <i class="bi bi-x-square"></i>
                                              </a>
                                              </td>
@@ -169,7 +168,7 @@ $idConsumoEnergia = '';
 
                                         $conexion=conexion();
 
-                                        $sql="CALL mostrar_recetaconsumoenergiatotal";
+                                        $sql="CALL mostrar_recetadepreciaciontotal";
                                         $result=mysqli_query($conexion,$sql);
 
                                         while($row = mysqli_fetch_array($result)){ ?>

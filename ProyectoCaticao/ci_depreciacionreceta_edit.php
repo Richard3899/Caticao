@@ -9,44 +9,44 @@
 
 
                         $db2=conexion();
-                        $consulta2="CALL mostrar_comboconsumoenergia";
+                        $consulta2="CALL mostrar_combodepreciacion";
                         $resultado2= mysqli_query($db2, $consulta2);
-                        $idConsumoEnergia = '';
+                        $idDepreciacion = '';
 
-                        if  (isset($_GET['idConsumoEnergiaReceta'])) {
+                        if  (isset($_GET['idDepreciacionReceta'])) {
 
                         $conexion=conexion();
                     
-                        $id=$_GET['idConsumoEnergiaReceta'];
+                        $id=$_GET['idDepreciacionReceta'];
 
-                        $sql="CALL obtener_consumoenergiareceta($id)";
+                        $sql="CALL obtener_depreciacionreceta($id)";
                     
                         $result=mysqli_query($conexion,$sql);
                     
                         if (mysqli_num_rows($result) == 1) {
                             $row = mysqli_fetch_array($result);
-                            $idConsumoEnergia = $row['idConsumoEnergia'];
+                            $idDepreciacion = $row['idDepreciacion'];
                             $idReceta = $row['idReceta'];
                         }
 
     
                         }
 
-                        if (isset($_POST['update_consumoenergiareceta'])) {
+                        if (isset($_POST['update_depreciacionreceta'])) {
                             $conexion=conexion();
-	                        $idConsumoEnergiaReceta = $_GET['idConsumoEnergiaReceta'];
-                            $idConsumoEnergia = $_POST['idConsumoEnergia'];
+	                        $idDepreciacionReceta = $_GET['idDepreciacionReceta'];
+                            $idDepreciacion = $_POST['idDepreciacion'];
                             $idReceta = $_POST['idReceta'];
 
-	                        $sql="CALL actualizar_consumoeneregiareceta('$idConsumoEnergiaReceta','$idConsumoEnergia',
+	                        $sql="CALL actualizar_depreciacionreceta('$idDepreciacionReceta','$idDepreciacion',
 									'$idReceta')";
 									
 	                        mysqli_query($conexion,$sql);
                             
 
-                            $_SESSION['message'] = 'Actualización exitosa del consumo de nergia en su receta';
+                            $_SESSION['message'] = 'Actualización exitosa de la depreciacion en su receta';
                             $_SESSION['message_type'] = 'warning';
-                            header('Location: ci_consumoenergiareceta_registro.php');
+                            header('Location: ci_depreciacionreceta_registro.php');
                         }
                     
 
@@ -81,10 +81,10 @@
                 <div class="container">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar Consumo de energía con su receta </h1>
+                    <h1 class="h3 mb-4 text-gray-800 text-center">Actualizar Depreciación con su receta </h1>
 
                         
-                        <form action="ci_consumoenergiareceta_edit.php?idConsumoEnergiaReceta=<?php echo $_GET['idConsumoEnergiaReceta']; ?>" method="POST">
+                        <form action="ci_depreciacionreceta_edit.php?idDepreciacionReceta=<?php echo $_GET['idDepreciacionReceta']; ?>" method="POST">
                         
 
                         <div class="form-row">
@@ -103,13 +103,13 @@
 
 
                             <div class="form-group col-md-6">
-                            <label for="descripcion_Mano de obra">Consumo de Energía</label>
-                            <select id='id_idConsumoEnergia' name="idConsumoEnergia" class='form-control' required>
+                            <label for="descripcion_Mano de obra">Maquina</label>
+                            <select id='id_idDepreciacion' name="idDepreciacion" class='form-control' required>
                             <option selected disabled value="">Seleccione</option>
-                                <?php while ($consumoenergia=mysqli_fetch_assoc($resultado2)):?>
-                                <option <?php echo $idConsumoEnergia == $consumoenergia['idConsumoEnergia'] ? 'selected' : '';?> 
-                                value= "<?php echo $consumoenergia['idConsumoEnergia'];?>">
-                                <?php echo $consumoenergia ['nombre'];?> </option>
+                                <?php while ($depreciacion=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idDepreciacion == $depreciacion['idDepreciacion'] ? 'selected' : '';?> 
+                                value= "<?php echo $depreciacion['idDepreciacion'];?>">
+                                <?php echo $depreciacion ['nombre'];?> </option>
                              <?php endwhile; ?>
                             </select>
                             </div>
@@ -118,7 +118,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary" name="update_consumoenergiareceta">Actualizar</button>
+                        <button type="submit" class="btn btn-primary" name="update_depreciacionreceta">Actualizar</button>
                         </form>
 
                   
