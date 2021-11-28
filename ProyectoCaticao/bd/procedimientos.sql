@@ -1319,6 +1319,105 @@ END$$
 DELIMITER ;
 
 
+-- Procedimientos almacenados de Combo Box de Consumo de energia--------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_comboconsumoenergia`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_comboconsumoenergia` ()
+BEGIN
+select DISTINCT ce.idConsumoEnergia,CONCAT('Consumo de energia de ',m.nombre) as nombre
+	from consumoenergia ce inner join maquina m on m.idMaquina= ce.idMaquina;
+
+END$$
+DELIMITER ;
+
+
+
+-- Procedimientos almacenados de Costo de Mano de obra y proceso ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_consumoenergiareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_consumoenergiareceta` ()
+BEGIN
+select cer.idConsumoEnergiaReceta,r.descripcion, CONCAT('Consumo de energia de ',m.nombre) as nombre,ce.pagoPorBatch
+	from consumoenergiareceta cer inner join consumoenergia ce on ce.idConsumoEnergia=cer.idConsumoEnergia
+                                  inner join receta r  on r.idReceta=cer.idReceta
+                                  inner join maquina m on m.idMaquina= ce.idMaquina;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `insertar_consumoenergiareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_consumoenergiareceta` (in idConsumoEnergiaI int,
+                                                  in idRecetaI int
+                                                                  )
+BEGIN
+	insert into consumoenergiareceta (idConsumoEnergia,
+                            idReceta )
+			values (idConsumoEnergiaI,idRecetaI);
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `obtener_consumoenergiareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_consumoenergiareceta` (in idConsumoEnergiaRecetaO int)
+BEGIN
+	select * from consumoenergiareceta where idConsumoEnergiaReceta=idConsumoEnergiaRecetaO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_consumoeneregiareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_consumoeneregiareceta` (in idConsumoEnergiaRecetaA int,
+										in idConsumoEnergiaA int,
+                                        in idRecetaA int)
+BEGIN
+	update consumoenergiareceta set idConsumoEnergiaReceta=idConsumoEnergiaRecetaA,
+									idConsumoEnergia=idConsumoEnergiaA,
+									idReceta=idRecetaA
+				where idConsumoEnergiaReceta=idConsumoEnergiaRecetaA;
+END$$
+DELIMITER ;
+
+CALL actualizar_manodeobrareceta('5','2', '1');
+
+DROP procedure IF EXISTS `eliminar_consumoenergiareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_consumoenergiareceta` (in idConsumoEnergiaRecetaE int)
+BEGIN
+	delete from consumoenergiareceta
+    where idConsumoEnergiaReceta=idConsumoEnergiaRecetaE;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `mostrar_recetaconsumoenergiatotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetaconsumoenergiatotal` ()
+BEGIN
+select SUM(TRUNCATE(ce.pagoPorBatch,2)) as Costo
+    from consumoenergiareceta cer inner join receta r on r.idReceta=cer.idReceta
+					              inner join consumoenergia ce on ce.idConsumoEnergia=cer.idConsumoEnergia;
+END$$
+DELIMITER ;
+
+
+
 
 
 
