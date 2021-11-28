@@ -898,7 +898,7 @@ END$$
 DELIMITER ;
 
 
-
+use caticao;
 
 
 -- Procedimientos almacenados de Mano de Obra  -----------------------------------------------------------------------------------------
@@ -1160,7 +1160,7 @@ DELIMITER ;
 
 
 
--- Procedimientos almacenados de Costo de Materia prima ---------------------------------------------------------------------------------
+-- Procedimientos almacenados de Costo de Mano de obra y proceso ---------------------------------------------------------------------------------
 
 DROP procedure IF EXISTS `mostrar_manodeobraproceso`;
 
@@ -1230,6 +1230,102 @@ BEGIN
     where idManodeObraProceso=idManodeObraProcesoE;
 END$$
 DELIMITER ;
+
+
+
+-- Procedimientos almacenados de Costo de Mano de obra y proceso ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_manodeobrareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_manodeobrareceta` ()
+BEGIN
+select mor.idManodeObraReceta,r.descripcion,
+            mo.descripcion,mo.precioUnitario, TRUNCATE(mor.cantidad,2) as cantidad,
+            TRUNCATE(mor.cantidad*mo.precioUnitario,2) as Costo
+	from manodeobrareceta mor inner join manodeobra mo on mo.idManodeObra=mor.idManodeObra
+                               inner join receta r  on r.idReceta=mor.idReceta;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `insertar_manodeobrareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `insertar_manodeobrareceta` (in idManodeObraI int,
+                                        in idRecetaI int,
+                                       in cantidadI decimal(10,2))
+BEGIN
+	insert into manodeobrareceta (idManodeObra,
+                            idReceta,
+                            cantidad)
+			values (idManodeObraI,idRecetaI,cantidadI);
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `obtener_manodeobrareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `obtener_manodeobrareceta` (in idManodeObraRecetaO int)
+BEGIN
+	select * from manodeobrareceta where idManodeObraReceta=idManodeObraRecetaO;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `actualizar_manodeobrareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `actualizar_manodeobrareceta` (in idManodeObraRecetaA int,
+										in idManodeObraA int,
+                                        in idRecetaA int,
+                                        in cantidadA decimal(10,2))
+BEGIN
+	update manodeobrareceta set idManodeObraReceta=idManodeObraRecetaA,
+						idManodeObra=idManodeObraA,
+                        idReceta=idRecetaA,
+                        cantidad=cantidadA
+				where idManodeObraReceta=idManodeObraRecetaA;
+END$$
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `eliminar_manodeobrareceta`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `eliminar_manodeobrareceta` (in idManodeObraRecetaE int)
+BEGIN
+	delete from manodeobrareceta
+    where idManodeObraReceta=idManodeObraRecetaE;
+END$$
+DELIMITER ;
+
+DROP procedure IF EXISTS `mostrar_recetamanodeobratotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetamanodeobratotal` ()
+BEGIN
+select SUM(TRUNCATE(mor.cantidad*mo.precioUnitario,2)) as Costo
+           
+	from manodeobrareceta mor inner join receta r on r.idReceta=mor.idReceta
+					      inner join manodeobra mo on mo.idManodeObra=mor.idManodeObra;
+				
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
 
 
 

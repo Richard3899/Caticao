@@ -5,7 +5,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link " href="ci_recetaconsumoenergia_registro.php">Receta  y Consumo</a>
+    <a class="nav-link " href="ci_consumoenergiareceta_registro.php">Receta  y Consumo</a>
   </li>
 
   <li class="nav-item">
@@ -13,7 +13,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link " href="ci_recetadepreciacion_registro.php">Depreciación y Receta</a>
+    <a class="nav-link " href="ci_depreciacionreceta_registro.php">Depreciación y Receta</a>
   </li>
 
   <li class="nav-item">
@@ -21,7 +21,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="ci_recetagastosadmin_registro.php">Receta y Gastos</a>
+    <a class="nav-link" href="ci_gastosadminreceta_registro.php">Receta y Gastos</a>
   </li>
 
 </ul>

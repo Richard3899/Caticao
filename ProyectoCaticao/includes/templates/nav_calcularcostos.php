@@ -13,11 +13,11 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="cd_manodeobra_registro.php">Mano de Obra</a>
+    <a class="nav-link" href="cd_manodeobra_registro.php">Costo de Mano de Obra</a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="cd_recetamanodeobra_registro.php">Receta Mano de Obra</a>
+    <a class="nav-link" href="cd_manodeobrareceta_registro.php">Receta Mano de Obra</a>
   </li>
  
   

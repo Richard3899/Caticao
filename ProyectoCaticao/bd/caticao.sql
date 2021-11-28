@@ -232,27 +232,27 @@ idProceso int references Proceso(idProceso),
 idGastosAdmin int references GastosAdmin (idGastosAdmin)
 );
 
-create table RecetaManodeObra(
-idRecetaManodeObra int auto_increment primary key,
+create table ManodeObraReceta(
+idManodeObraReceta int auto_increment primary key,
 cantidad decimal(10,2),
 idManodeObra int references ManodeObra (idManodeObra),
 idReceta int references Receta (idReceta)
 );
 
-create table RecetaConsumoEnergia(
-idRecetaConsumoEnergia int auto_increment primary key,
+create table ConsumoEnergiaReceta(
+idConsumoEnergiaReceta int auto_increment primary key,
 idConsumoEnergia int references ConsumoEnergia (idConsumoEnergia),
 idReceta int references Receta (idReceta)
 );
 
-create table RecetaDepreciacion(
-idRecetaDepreciacion int auto_increment primary key,
+create table DepreciacionReceta(
+idDepreciacionReceta int auto_increment primary key,
 idDepreciacion int references Depreciacion (idDepreciacion),
 idReceta int references Receta (idReceta)
 );
 
-create table RecetaGastosAdmin(
-idRecetaConsumoEnergia int auto_increment primary key,
+create table GastosAdminReceta(
+idConsumoEnergiaReceta int auto_increment primary key,
 cantidad decimal(10,2),
 idGastosAdmin int references GastosAdmin (idGastosAdmin),
 idReceta int references Receta (idReceta)
@@ -286,17 +286,17 @@ alter table MateriaCostos add foreign key (idMateria) references Materia (idMate
 alter table RecetaMateria add foreign key (idMateria) references Materia(idMateria);
 alter table RecetaMateria add foreign key (idReceta) references Receta(idReceta);
 
-alter table RecetaManodeObra add foreign key (idManodeObra) references ManodeObra(idManodeObra);
-alter table RecetaManodeObra add foreign key (idReceta) references Receta(idReceta);
+alter table ManodeObraReceta add foreign key (idManodeObra) references ManodeObra(idManodeObra);
+alter table ManodeObraReceta add foreign key (idReceta) references Receta(idReceta);
 
-alter table RecetaConsumoEnergia add foreign key (idReceta) references Receta(idReceta);
-alter table RecetaConsumoEnergia add foreign key (idConsumoEnergia) references ConsumoEnergia(idConsumoEnergia);
+alter table ConsumoEnergiaReceta add foreign key (idReceta) references Receta(idReceta);
+alter table ConsumoEnergiaReceta add foreign key (idConsumoEnergia) references ConsumoEnergia(idConsumoEnergia);
 
-alter table RecetaDepreciacion add foreign key (idReceta) references Receta(idReceta);
-alter table RecetaDepreciacion add foreign key (idDepreciacion) references Depreciacion(idDepreciacion);
+alter table DepreciacionReceta add foreign key (idReceta) references Receta(idReceta);
+alter table DepreciacionReceta add foreign key (idDepreciacion) references Depreciacion(idDepreciacion);
 
-alter table RecetaGastosAdmin add foreign key (idReceta) references Receta(idReceta);
-alter table RecetaGastosAdmin add foreign key (idGastosAdmin) references GastosAdmin(idGastosAdmin);
+alter table GastosAdminReceta add foreign key (idReceta) references Receta(idReceta);
+alter table GastosAdminReceta add foreign key (idGastosAdmin) references GastosAdmin(idGastosAdmin);
 
 alter table Receta add foreign key (idProducto) references Producto(idProducto);
 alter table Lote add foreign key (idReceta) references Receta(idReceta);
