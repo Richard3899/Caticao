@@ -165,7 +165,6 @@ descripcion varchar(80)
 create table Proceso(
 idProceso int auto_increment primary key,
 descripcion varchar(45),
-idUnidadMedida int references UnidadMedida(idUnidadMedida),
 idMaquina int references Maquina (idMaquina)
 );
 
@@ -186,13 +185,14 @@ create table ConsumoEnergia(
 idConsumoEnergia int auto_increment primary key,
 potenciaHP decimal(10,2),
 potenciawatts decimal(10,2),
-potenciaKw decimal(10,2), 
+potenciaKw decimal(10,2),
 horasTrabajoBatch decimal(10,2),
 consumoKwh decimal(10,2),
 tarifaKwh decimal(10,2),
 pagoPorBatch decimal(10,2),
 idMaquina int references Maquina (idMaquina),
-idTipoCostos int references TipoCostos (idTipoCostos)
+idTipoCostos int references TipoCostos (idTipoCostos),
+idUnidadMedida int references UnidadMedida(idUnidadMedida)
 );
 
 create table GastosAdmin(
@@ -277,7 +277,6 @@ alter table Materia add foreign key (idTipoMateria) references TipoMateria(idTip
 alter table Materia add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 alter table UnidadMedida add foreign key (idTipoMedida) references TipoMedida(idTipoMedida);
 alter table Persona add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
-alter table Proceso add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 
 alter table MateriaCostos add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table MateriaCostos add foreign key (idMateria) references Materia (idMateria);
@@ -305,6 +304,7 @@ alter table Depreciacion add foreign key (idTipoCostos) references TipoCostos(id
 alter table Proceso add foreign key (idMaquina) references Maquina(idMaquina);
 alter table ConsumoEnergia add foreign key (idMaquina) references Maquina(idMaquina);
 alter table ConsumoEnergia add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
+alter table ConsumoEnergia add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
 
 alter table GastosAdmin add foreign key (idTipoCostos) references TipoCostos(idTipoCostos);
 alter table GastosAdmin add foreign key (idUnidadMedida) references UnidadMedida(idUnidadMedida);
@@ -354,8 +354,8 @@ insert into MateriaCostos values(1,'3.9',1,1);
 insert into MovimientoMateria values (1,15,1,1);
 
 insert into Maquina values(1,'Seleccionadora','Sirve para la selección del cacao');
-insert into Proceso values(1,'Selección de granos',1,1),(2,'Tostado',1,1),(3,'Descascarillado',1,1),(4,'Molienda',1,1),(5,'Refinado',1,1)
-						 ,(6,'Prensado',1,1),(7,'Refinado - Formulado',1,1),(8,'Temperado',1,1),(9,'Moldeado',1,1),(10,'Enfriado',1,1),(11,'Empaquetado y Etiquetado',1,1);
+insert into Proceso values(1,'Selección de granos',1),(2,'Tostado',1),(3,'Descascarillado',1),(4,'Molienda',1),(5,'Refinado',1)
+						 ,(6,'Prensado',1),(7,'Refinado - Formulado',1),(8,'Temperado',1),(9,'Moldeado',1),(10,'Enfriado',1),(11,'Empaquetado y Etiquetado',1);
 
 insert into Producto values (1,'Chocolate CATICAO de leche 38% con Pecanas','chocolate en barra',20,'7.5',1,1),
 (2,'Chocolate CATICAO Dark 99% y stevia con Arándanos','chocolate en barra',30,'8.5',1,1), (3,'Chocolate CATICAO semidulce 70% con Nibs de Cacao','chocolate en barra',40,'6.5',1,1),
@@ -373,5 +373,3 @@ insert into GastosAdmin values (1,'Jefe de Planta' , 1800 ,4,2);
 insert into ManodeObra values (1,'Selección' , 1800 ,4,2);
 insert into MateriaProceso values (1,'Prueba',1 ,1);
 insert into GastosAdminProceso values (1,'Prueba',1 ,1);
-
-use caticao;

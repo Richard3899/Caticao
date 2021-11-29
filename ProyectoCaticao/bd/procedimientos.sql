@@ -556,10 +556,11 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `mostrar_consumoenergia` ()
 BEGIN
-select ce.idConsumoEnergia, m.nombre, ce.potenciaHP,ce.potenciawatts,ce.potenciaKw,ce.horasTrabajoBatch,
+select ce.idConsumoEnergia, m.nombre, um.descripcion, ce.potenciaHP,ce.potenciawatts,ce.potenciaKw,ce.horasTrabajoBatch,
 ce.consumoKwh,tc.descripcion,ce.tarifaKwh,ce.pagoPorBatch
 	from ConsumoEnergia ce  inner join  maquina m on m.idMaquina= ce.idMaquina
-							inner join  tipocostos tc on tc.idTipoCostos= ce.idTipoCostos;
+							inner join  tipocostos tc on tc.idTipoCostos= ce.idTipoCostos
+                            inner join UnidadMedida um on um.idUnidadMedida=ce.idUnidadMedida;
 END$$
 DELIMITER ;
 
@@ -568,11 +569,11 @@ DROP procedure IF EXISTS `insertar_consumoenergia`;
 DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `insertar_consumoenergia` (in tarifaKwhI decimal(10,2),
-											 in idMaquinaI int,in idTipoCostosI int)
+											 in idMaquinaI int,in idTipoCostosI int,in idUnidadMedidaI int )
                                         
 BEGIN
-	insert into consumoenergia (potenciaHP,potenciawatts,potenciaKw,horasTrabajoBatch,consumoKwh,idTipoCostos,tarifaKwh,pagoPorBatch,idMaquina)
-			values (1,potenciaHP*745,potenciawatts/1000,0.40,potenciaKw*horasTrabajoBatch,idTipoCostosI,tarifaKwhI,consumoKwh*tarifaKwhI,idMaquinaI);
+	insert into consumoenergia (potenciaHP,potenciawatts,potenciaKw,horasTrabajoBatch,consumoKwh,idTipoCostos,tarifaKwh,pagoPorBatch,idMaquina,idUnidadMedida)
+			values (1,potenciaHP*745,potenciawatts/1000,0.40,potenciaKw*horasTrabajoBatch,idTipoCostosI,tarifaKwhI,consumoKwh*tarifaKwhI,idMaquinaI,idUnidadMedidaI);
 END$$
 
 DELIMITER ;
@@ -596,12 +597,13 @@ DELIMITER $$
 USE `caticao`$$
 CREATE PROCEDURE `actualizar_consumoenergia` (in idConsumoEnergiaA int,
 											  in tarifaKwhA decimal(10,2),
-                                              in idTipoCostosI int)
+                                              in idTipoCostosA int, in idUnidadMedidaA int)
 BEGIN
 	update consumoenergia set idConsumoEnergia=idConsumoEnergiaA,
 						tarifaKwh=tarifaKwhA,
-                        idTipoCostos=idTipoCostosI,
-                        pagoPorBatch=consumoKwh*tarifaKwhA
+                        idTipoCostos=idTipoCostosA,
+                        pagoPorBatch=consumoKwh*tarifaKwhA,
+                        idUnidadMedida= idUnidadMedidaA
 				where idConsumoEnergia=idConsumoEnergiaA;
 END$$
 DELIMITER ;
@@ -616,7 +618,6 @@ BEGIN
 	delete from consumoenergia 
     where idConsumoEnergia=idConsumoEnergiaE;
 END$$
-
 DELIMITER ;
 
 
@@ -627,7 +628,6 @@ USE `caticao`$$
 CREATE PROCEDURE `mostrar_consumoenergiatotal` ()
 BEGIN
 select SUM(TRUNCATE(pagoPorBatch,2)) as Costo
-           
 	from consumoenergia;
                          
 END$$
@@ -1611,14 +1611,65 @@ END$$
 DELIMITER ;
 
 
+-- Procedimientos almacenados de Totales ---------------------------------------------------------------------------------
+
+DROP procedure IF EXISTS `mostrar_recetamateriatotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetamateriatotal` ()
+BEGIN
+select  rm.idRecetaMateria,r.descripcion,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,um.descripcion,
+        tc.descripcion,p.descripcion,mc.precioUnitario,
+        CONCAT(TRUNCATE(rm.cantidad,2) , ' - ' , um.descripcion ) as Requerimiento ,
+        TRUNCATE(rm.cantidad*mc.precioUnitario,2) as Costo
+           
+from recetamateria rm inner join receta r on rm.idReceta=r.idReceta
+					      inner join materia m on m.idMateria=rm.idMateria
+                          inner join materiaproceso mp on mp.idMateria= m.idMateria
+                          inner join proceso p on p.idProceso=mp.idProceso
+                          inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
+                          inner join marca mr on mr.idMarca = m.idMarca
+                          left join materiacostos mc on mc.idMateria = m.idMateria
+                          inner join tipocostos tc on tc.idTipoCostos=mc.idTipoCostos;
+END$$
+DELIMITER ;
 
 
+DROP procedure IF EXISTS `mostrar_recetaserviciostotal`;
+
+DELIMITER $$
+USE `caticao`$$
+CREATE PROCEDURE `mostrar_recetaserviciostotal` ()
+BEGIN
+select  rm.idRecetaMateria,r.descripcion,CONCAT(m.nombre , ' - ' , mr.descripcion) as nombre,um.descripcion,
+        tc.descripcion,p.descripcion,mc.precioUnitario,
+        CONCAT(TRUNCATE(rm.cantidad,2) , ' - ' , um.descripcion ) as Requerimiento ,
+        TRUNCATE(rm.cantidad*mc.precioUnitario,2) as Costo
+           
+from recetamateria rm inner join receta r on rm.idReceta=r.idReceta
+					      inner join materia m on m.idMateria=rm.idMateria
+                          inner join materiaproceso mp on mp.idMateria= m.idMateria
+                          inner join proceso p on p.idProceso=mp.idProceso
+                          inner join unidadmedida um  on um.idUnidadMedida=m.idUnidadMedida
+                          inner join marca mr on mr.idMarca = m.idMarca
+                          left join materiacostos mc on mc.idMateria = m.idMateria
+                          inner join tipocostos tc on tc.idTipoCostos=mc.idTipoCostos;
+END$$
+DELIMITER ;
 
 
-
-
-
-
+select cer.idConsumoEnergiaReceta,r.descripcion,m.nombre,um.descripcion,tc.descripcion,p.descripcion,  ce.pagoPorBatch
+	from consumoenergiareceta cer inner join consumoenergia ce on ce.idConsumoEnergia=cer.idConsumoEnergia
+								  right join receta r  on r.idReceta=cer.idReceta
+								  inner join unidadmedida um on um.idUnidadMedida=ce.idUnidadMedida
+                                  inner join maquina m on m.idMaquina= ce.idMaquina
+                                  inner join proceso p on p.idMaquina= m.idMaquina
+                                  inner join tipocostos tc on tc.idTipoCostos=ce.idTipoCostos;
+                                  
+                                  
+                                  
+                                  
 
 
 

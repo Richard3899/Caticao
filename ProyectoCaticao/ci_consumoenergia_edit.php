@@ -9,6 +9,11 @@
                         $resultado1= mysqli_query($db1, $consulta1);
                         $idMaquina = '';
 
+                        $db2=conexion();
+                        $consulta2="CALL mostrar_combounidadmedida";
+                        $resultado2= mysqli_query($db2, $consulta2);
+                        $idUnidadMedida = '';
+
                         $db3=conexion();
                         $consulta3="CALL mostrar_combotipocostos";
                         $resultado3= mysqli_query($db3, $consulta3);
@@ -29,6 +34,7 @@
                             $tarifa = $row['tarifaKwh'];
                             $idMaquina = $row['idMaquina'];
                             $idTipoCostos = $row['idTipoCostos'];
+                            $idUnidadMedida = $row['idUnidadMedida'];
 
                         }
 
@@ -40,9 +46,11 @@
 	                        $idConsumoEnergia = $_GET['idConsumoEnergia'];
                             $tarifa = $_POST['tarifa'];
                             $idTipoCostos = $_POST['idTipoCostos'];
+                            $idUnidadMedida = $_POST['idUnidadMedida'];
                        
 
-	                        $sql="CALL actualizar_consumoenergia('$idConsumoEnergia','$tarifa','$idTipoCostos')";
+	                        $sql="CALL actualizar_consumoenergia('$idConsumoEnergia','$tarifa',
+                                                                 '$idTipoCostos','$idUnidadMedida')";
 									
                             $result = mysqli_query($conexion, $sql);
 
@@ -94,7 +102,7 @@
                         <form action="ci_consumoenergia_edit.php?idConsumoEnergia=<?php echo $_GET['idConsumoEnergia']; ?>" method="POST">
                        
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                             <label for="maquina">Maquina</label>
                             <select id='id_idMaquina' name="idMaquina" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
@@ -103,10 +111,29 @@
                                 value="<?php echo $maquina['idMaquina'];?>">
                                 <?php echo $maquina['nombre'];?> </option>
                               <?php endwhile; ?>
+                        
                             </select>
                             </div>
 
-                            <div class="form-group col-md-4">
+
+                            <div class="form-group col-md-6">
+                            <label for="descripcion_Unidad">Unidad de Medida</label>
+                            <select id='id_idUnidadMedida' name="idUnidadMedida" class='form-control' required>
+                            <option selected disabled value="">Seleccione</option>
+                                <?php while ($unidad=mysqli_fetch_assoc($resultado2)):?>
+                                <option <?php echo $idUnidadMedida == $unidad['idUnidadMedida'] ? 'selected' : '';?> 
+                                value= "<?php echo $unidad['idUnidadMedida'];?>">
+                                <?php echo $unidad ['descripcion'];?> </option>
+                             <?php endwhile; ?>
+                            </select>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
                             <label for="categoria">Tipo de Costo</label>
                             <select id='id_idCategoria' name="idTipoCostos" class='form-control' required>
                                 <option selected disabled value="">Seleccione</option>
@@ -117,11 +144,12 @@
                               <?php endwhile; ?>
                             </select>
                             </div>
-                         
-                            <div class="form-group col-md-4">
+
+                            <div class="form-group col-md-6">
                             <label for="tarifa">Tarifa Electrocentro</label>
                             <input type="number" step="any" class="form-control" id="id_tarifa" value="<?php echo $tarifa;?>" name="tarifa" placeholder="Tarifa" required>
                             </div>
+                            
 
                         </div>
 
