@@ -72,9 +72,9 @@
                                         <label class="sr-only" for="contraseña">Contraseña</label>
                                         <input type="password" name="contraseña" placeholder="Password..." class="form-password form-control" id="contraseña" required="true">
                                     </div>
-                                 
 
-                                    <input type="submit" value="ingresar" name="btningresar ">
+
+                                    <input type="submit" value="ingresar" name="btningresar">
                                
                                 </form>
                             </div>

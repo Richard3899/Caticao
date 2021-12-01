@@ -2,15 +2,17 @@
 include("includes/config/db.php");
 $usuario =$_POST["usuario"];
 $contraseña=$_POST["contraseña"];
+
 if(isset($_POST["btningresar"]))
 {
-   $query=mysqli_query($conn,"select * From login where usuario='$usuario' and contraseña='$contraseña'");
+   $query=mysqli_query($conn,"select * From usuario where usuario='$usuario' and contraseña='$contraseña'");
    $nr =mysqli_num_rows($query);
+
    if($nr==1){
-       print "<script> window.location.replace('index.php')</script>";
+       echo "<script>; window.location.replace ('index.php')</script>";
    
    }else{
-    echo "<script> alert('usuario no existe'); window.location.replace('login1.php')</script>";
+    echo "<script> alert('usuario no existe'); window.location.replace ('login1.php')</script>";
    }
 }
 
