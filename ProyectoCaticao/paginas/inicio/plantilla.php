@@ -2,7 +2,6 @@
 <?php
 require '../../includes/funciones.php';
 incluirTemplate('head');
-
 ?>
 
 <body id="page-top">
